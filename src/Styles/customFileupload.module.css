@@ -1,0 +1,20 @@
+.btn{
+    width: fit-content;
+    height: fit-content;
+    border: none;
+}
+.closeBtn{
+    width: 10px;
+    height: 10px;
+    color: red;
+    cursor: pointer;
+}
+.DragText{
+    color: #8E92A4;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    border: 1px solid #d3d6e0;
+    width: 110%;
+    height: 40px;
+    border-radius: 4px;
+}

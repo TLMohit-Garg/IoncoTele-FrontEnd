@@ -1,0 +1,223 @@
+.mainSection {
+  width: 70%;
+}
+
+.employeeDetailsDialog,
+.profileMainWrapper {
+  border-radius: 10px;
+  width: 70%;
+  margin-left: auto;
+  margin-right: 0px;
+  border-radius: inherit;
+}
+
+.modalContent {
+}
+.arrow {
+}
+.closeIcon {
+  margin: 15px;
+  cursor: pointer;
+}
+.modalContent .textDoctor {
+  font-size: 34px;
+  font-weight: bold;
+  color: #10a0bd;
+  cursor: pointer;
+}
+.divider {
+  width: 100%;
+}
+.leftContainer {
+  /* border: 1px solid blue; */
+}
+.modalContent .userProfileSection {
+  width: 100%;
+  height: auto;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.modalContent .imageContainer {
+  height: fit-content;
+}
+.userProfileSection .imageDoctor {
+  height: 550px;
+  padding: 1px;
+  width: 90%;
+  cursor: pointer;
+  margin-top: 30px;
+}
+.modalContent .userProfileSection .infoContainer {
+  height: fit-content;
+  margin-top: -45%;
+}
+.userProfileSection .infoContainer {
+  background-color: #10a0bd;
+  border-radius: 7px;
+  height: 30%;
+  padding: 10px;
+}
+.userProfileSection .secondContainer {
+  margin-bottom: 150px;
+}
+.userProfileSection .infoContainer .doctorName {
+  font-size: 34px;
+  font-weight: bold;
+  color: white;
+  margin-top: 10px;
+}
+.userProfileSection .infoContainer .doctorSpeciality {
+  font-size: 22px;
+  font-weight: normal;
+  color: white;
+}
+.userProfileSection .infoContainer .doctorDescription {
+  font-size: 18px;
+  font-weight: medium;
+  color: white;
+  text-align: center;
+  margin: 20px;
+  letter-spacing: 0.15em;
+  text-align-last: center;
+  line-height: 1.5;
+}
+.userProfileSection .infoContainer .consultationDone {
+  font-size: 20px;
+  font-weight: bolder;
+  /* color: #001439; */
+  color: #ffff;
+  text-align: center;
+  display: flex;
+  justify-items: baseline;
+}
+.consultationText {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* padding-right: 34px; */
+}
+.userProfileSection .infoContainer .consultationCharges {
+  font-size: 20px;
+  font-weight: bolder;
+  color: #ffff;
+  text-align: center;
+  display: flex;
+  justify-items: baseline;
+  margin-top: 18px;
+}
+.rightContainer {
+  background-color: #10a0bd;
+  border-radius: 1px;
+  padding: 42px 22px 42px 22px;
+}
+.rightContainer .bookingContainer {
+  width: 80%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #ffff;
+  /* background-color: #10a0bd; */
+  display: flex;
+  justify-content: center;
+}
+.rightContainer .bookingContainer .text {
+  font-size: 32px;
+  font-weight: bolder;
+  color: #10a0bd;
+  display: flex;
+  text-align: center;
+  justify-items: baseline;
+  margin-top: 18px;
+}
+.userProfileSection .formdivider {
+  width: 100%;
+  color: #10a0bd;
+}
+
+.modalContent .errorMsg {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.modalContent .fieldContainer {
+  color: black;
+  border: 1px solid none;
+  width: 300px;
+  height: 50px;
+}
+.modalContent .fieldContainer:hover {
+  color: black;
+  border: 1px solid none;
+}
+.modalContent .fullNameContainer {
+  padding: 12px;
+  margin-top: 22px;
+}
+.modalContent .fullName {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #8e92a4;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 12px 0px 8px 0px;
+}
+.modalContent .fullNameTypo {
+  margin-bottom: -20px;
+  margin-left: 12px;
+  padding-top: 12px;
+}
+.modalContent .emailContainer {
+  padding: 12px;
+  margin-top: 22px;
+}
+.modalContent .selectField {
+  color: black;
+  border: 1px solid none;
+  width: 300px;
+}
+.modalContent .nationalityContainer .datefieldContainer {
+  width: 110%;
+}
+.modalContent .nationalityContainer {
+  padding: 12px;
+  margin-top: 22px;
+  /* padding-top: 30px; */
+}
+.customSelect {
+  color: black;
+}
+.modalContent .timezoneContainer {
+  padding: 12px;
+  margin-top: 22px;
+}
+.modalContent .inputHeading {
+  color: #10a0bd;
+  font-size: 12px;
+  font-weight: 600;
+  /* margin-bottom: -100px; */
+  margin-top: -40px;
+}
+.modalContent .uploadFile {
+  width: 90%;
+}
+.modalContent .textArea {
+  width: 90%;
+  border: 1px solid #8e92a4;
+}
+
+.modalContent .submitButtonContainer {
+  /* border: 1px solid red; */
+}
+.modalContent .buttons {
+  margin: 22px 0px 12px 0px;
+  padding: 12px 80px 12px 80px;
+  background-color: #10a0bd;
+  color: #ffff;
+  height: 65%;
+}
+.modalContent .buttons:hover {
+  margin: 22px 0px 12px 0px;
+  padding: 12px 80px 12px 80px;
+  background-color: #10a0bd;
+  color: #ffff;
+  height: 65%;
+}

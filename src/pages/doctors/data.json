@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "title": "Dr. John Smith",
+    "speciality":"Heart Surgeon",
+    "description": "A highly skilled heart surgeon with over 20 years of experience in cardiology.",
+    "imageUrl": "src/assets/Individual-doctor.jpg",
+    "buttonText": "Share"
+  },
+  {
+    "id": 2,
+    "title": "Dr. Emily Johnson",
+    "speciality":"Heart Surgeon",
+    "description": "An expert in gynecology, specializing in women's reproductive health and prenatal care.",
+    "imageUrl": "src/assets/doc2.png",
+    "buttonText": "Share"
+  },
+  {
+    "id": 3,
+    "title": "Dr. Michael Brown",
+    "speciality":"Heart Surgeon",
+    "description": "Renowned neurologist focused on treating complex neurological disorders.",
+    "imageUrl": "src/assets/doc3.png",
+    "buttonText": "Share"
+  },
+  {
+    "id": 4,
+    "title": "Dr. Sarah Davis",
+    "speciality":"Heart Surgeon",
+    "description": "Leading pediatrician with a passion for child healthcare and development.",
+    "imageUrl": "src/assets/doc4.png",
+    "buttonText": "Share"
+  },
+  {
+    "id": 5,
+    "title": "Dr. David Wilson",
+    "speciality":"Heart Surgeon",
+    "description": "Experienced orthopedic surgeon specializing in joint replacement surgeries.",
+    "imageUrl": "src/assets/doc5.png",
+    "buttonText": "Share"
+  },
+  {
+    "id": 6,
+    "title": "Dr. Olivia Martinez",
+    "speciality":"Heart Surgeon",
+    "description": "Expert in dermatology, focusing on skin care and cosmetic treatments.",
+    "imageUrl": "src/assets/doc6.png",
+    "buttonText": "Share"
+  },
+  {
+    "id": 7,
+    "title": "Dr. James Lee",
+    "speciality":"Heart Surgeon",
+    "description": "A respected oncologist dedicated to cancer treatment and research.",
+    "imageUrl": "src/assets/doc7.png",
+    "buttonText": "Share"
+  },
+  {
+    "id": 8,
+    "title": "Dr. Isabella Harris",
+    "speciality":"Heart Surgeon",
+    "description": "Specializes in cardiology, with a focus on heart disease prevention and treatment.",
+    "imageUrl": "src/assets/doc8.png",
+    "buttonText": "Share"
+  },
+  {
+    "id": 9,
+    "title": "Dr. William Clark",
+    "speciality":"Heart Surgeon",
+    "description": "An experienced urologist with expertise in treating urinary and reproductive disorders.",
+    "imageUrl": "src/assets/doc9.png",
+    "buttonText": "Share"
+  },
+  {
+    "id": 10,
+    "title": "Dr. Sophia Lewis",
+    "speciality":"Heart Surgeon",
+    "description": "Highly skilled in endocrinology, focusing on hormonal and metabolic disorders.",
+    "imageUrl": "src/assets/doc10.png",
+    "buttonText": "Share"
+  },
+  {
+    "id": 11,
+    "title": "Dr. Alexander Walker",
+    "speciality":"Heart Surgeon",
+    "description": "A leading gastroenterologist specializing in digestive system disorders.",
+    "imageUrl": "src/assets/doc11.png",
+    "buttonText": "Share"
+  },
+  {
+    "id": 12,
+    "title": "Dr. Charlotte King",
+    "speciality":"Heart Surgeon",
+    "description": "Expert in ophthalmology, specializing in eye surgeries and vision correction.",
+    "imageUrl": "src/assets/doc12.png",
+    "buttonText": "Share"
+  }
+]

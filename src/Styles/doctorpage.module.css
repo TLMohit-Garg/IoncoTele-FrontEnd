@@ -1,0 +1,28 @@
+.ourDoctor {
+  font-size: 62px;
+  font-weight: bolder;
+  color: #10a0bd;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  margin-top: 20px;
+}
+.textLine {
+  font-size: 22px;
+  font-weight: normal;
+  color: #8e92a4;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  margin-top: 20px;
+  margin-bottom: 90px !important;
+  letter-spacing: 0.15em;
+}
+.explore {
+  font-size: 22px;
+  font-weight: bold;
+  color: #10a0bd;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.exploreIcon {
+  font-size: 22px;
+  font-weight: bold;
+  color: #10a0bd;
+  cursor: pointer;
+}

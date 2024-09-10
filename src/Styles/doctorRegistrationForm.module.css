@@ -1,0 +1,83 @@
+.checkboxContainer {
+}
+.checkboxContainer .checkboxText {
+  font-size: 10px;
+}
+.parentGrid {
+  margin-top: 22px;
+  margin-bottom: 22px;
+}
+
+.parentGrid .consultationImg {
+  width: 100%;
+}
+.parentGrid .parentContainer .registrationformHeading {
+  font-size: 42px;
+  font-weight: bolder;
+  color: #10a0bd;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+.parentContainer .errorMsg {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.parentContainer {
+  padding: 1px;
+}
+.parentContainer .fieldContainer {
+  width: 120%;
+}
+.parentContainer .selectField div:nth-child(2) {
+  width: 125%;
+  font-size: 14px;
+  color: #8e92a4;
+}
+.parentContainer .selectField span {
+  font-size: 14px;
+}
+
+.inputPhn {
+}
+.errorBorder {
+}
+.parentContainer .submitBtn {
+  font-size: 14px;
+  background-color: #10a0bd;
+  text-transform: initial;
+  padding: 10px 30px;
+  color: white;
+}
+.parentContainer .submitBtn:hover {
+  font-size: 14px;
+  background-color: #10a0bd;
+  text-transform: initial;
+  padding: 10px 30px;
+  border: 1px solid #10a0bd;
+}
+
+.parentContainer .phoneContainer .inputPhn {
+  height: 40px;
+  font-size: 14px;
+  border-radius: 5px;
+  width: 71%;
+}
+.parentContainer .phoneContainer .containerPhn div:nth-child(3) {
+  border-radius: 5px 0px 0px 5px;
+}
+.parentContainer
+  .phoneContainer
+  .containerPhn
+  > div:nth-child(3)
+  > div:first-child {
+  border-radius: 5px 0px 0px 5px;
+}
+.parentContainer .phoneContainer .errorMsg {
+  color: #d32f2f !important;
+  font-size: 13px;
+  margin: 13px 0px !important;
+}
+.parentContainer .phoneContainer .errorBorder {
+  border: 1px solid #d32f2f;
+}

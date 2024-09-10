@@ -1,0 +1,11 @@
+
+.cards {
+  border: var(--border);
+  border-radius: 10px !important;
+  margin: 10px 10px 10px 10px;
+  cursor: pointer;
+}
+.root{
+  background-color: rgba(224, 178, 178, 0.774);
+  margin: 20px;
+}

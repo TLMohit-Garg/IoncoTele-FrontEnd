@@ -1,0 +1,125 @@
+{
+  "nationality": [
+    {
+      "id": 0,
+      "name": "Indian",
+      "type": "INDIAN",
+      "status": ""
+    },
+    {
+      "id": 1,
+      "name": "USA",
+      "type": "USA",
+      "status": ""
+    },
+    {
+      "id": 2,
+      "name": "Australia",
+      "type": "AUSTRALIA",
+      "status": ""
+    },
+    {
+      "id": 3,
+      "name": "Canada",
+      "type": "CANADA",
+      "status": ""
+    },
+    {
+      "id": 4,
+      "name": "UK",
+      "type": "UK",
+      "status": ""
+    },
+    {
+      "id": 5,
+      "name": "Other",
+      "type": "OTHER",
+      "status": ""
+    }
+  ],
+
+  "timezone":[
+    {
+      "id":0,
+      "name": "Indian Standard Time(IST)",
+      "type":"IST",
+      "abbrevation":"IST",
+      "offset":"+05:30"
+    }
+  ],
+    "cancertype":[
+      {
+        "id": 1,
+        "name": "Lung Cancer",
+        "type": "LUNG_CANCER",
+        "status": ""
+      },
+      {
+        "id": 2,
+        "name": "Breast Cancer",
+        "type": "BREAST_CANCER",
+        "status": ""
+      },
+      {
+        "id": 3,
+        "name": "Prostate Cancer",
+        "type": "PROSTATE_CANCER",
+        "status": ""
+      },
+      {
+        "id": 4,
+        "name": "Colorectal Cancer",
+        "type": "COLORECTAL_CANCER",
+        "status": ""
+      },
+      {
+        "id": 5,
+        "name": "Melanoma",
+        "type": "MELANOMA",
+        "status": ""
+      },
+      {
+        "id": 6,
+        "name": "Leukemia",
+        "type": "LEUKEMIA",
+        "status": ""
+      },
+      {
+        "id": 7,
+        "name": "Pancreatic Cancer",
+        "type": "PANCREATIC_CANCER",
+        "status": ""
+      },
+      {
+        "id": 8,
+        "name": "Liver Cancer",
+        "type": "LIVER_CANCER",
+        "status": ""
+      },
+      {
+        "id": 9,
+        "name": "Ovarian Cancer",
+        "type": "OVARIAN_CANCER",
+        "status": ""
+      },
+      {
+        "id": 10,
+        "name": "Thyroid Cancer",
+        "type": "THYROID_CANCER",
+        "status": ""
+      },
+      {
+        "id": 11,
+        "name": "Bladder Cancer",
+        "type": "BLADDER_CANCER",
+        "status": ""
+      },
+      {
+        "id": 12,
+        "name": "Esophageal Cancer",
+        "type": "ESOPHAGEAL_CANCER",
+        "status": ""
+      }
+    
+  ]
+}

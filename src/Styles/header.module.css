@@ -1,0 +1,119 @@
+.parentGrid {
+  /* background-color: rgb(179, 179, 199); */
+  width: 100%;
+  padding-top: 12px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: white;
+}
+.logo {
+  width: 85px;
+  height: 85px;
+}
+.stethoscope {
+  width: 25px;
+  height: 30px;
+}
+.imageStack {
+  width: fit-content;
+}
+.logoText {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  padding-left: 5px;
+  font-size: 22px;
+  font-weight: bold;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.logoTextspan {
+  font-weight: bold;
+  font-size: 22px;
+}
+.innerlogoText {
+  color: #10a0bd;
+  font-size: 22px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.parentGrid .adminButton {
+  background-color: rgb(193, 212, 211);
+  border: none;
+}
+.PhoneIcon {
+  background: #10a0bd;
+  color: white;
+  border-radius: 50px;
+  padding: 1;
+  /* font-size:12% !important; */
+  /* height: 50px !important; */
+  /* width:70px !important; */
+}
+
+.phoneText {
+  color: #001439;
+  font-size: 22px;
+  font-family: Inter, sans-serif;
+  padding-top: 12px;
+  font-weight: lighter;
+}
+.phoneTextSec {
+  color: #001439;
+  font-size: 22px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  padding-bottom: 12px;
+}
+.divider {
+  width: 100%;
+  padding: 5px;
+}
+.doctorLoginParentsection {
+  border: 1px;
+  padding: 15px;
+  /* width: 10px; */
+}
+
+.doctorHeader {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #001439;
+  font-size: 16px;
+  font-weight: 600;
+  margin: 5px 0px 5px 0px;
+}
+.email {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #8e92a4;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 12px 0px 8px 0px;
+}
+.password {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #8e92a4;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 12px 0px 5px 0px;
+}
+.forgetPassword {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #10a0bd;
+  font-size: 10px;
+  font-weight: 400;
+}
+.loginBtn {
+  margin: 35px 0px 5px 0px !important;
+}
+.textField {
+}
+.textFieldParent .inputLabelProp {
+  font-size: 12px;
+}
+
+.KeyboardArrowDownIcon {
+  cursor: pointer;
+}
+.avatarImage {
+  cursor: pointer;
+}

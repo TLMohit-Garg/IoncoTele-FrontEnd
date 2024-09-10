@@ -1,0 +1,176 @@
+.completeBannerSectionGroup {
+}
+.teliConsultationWith {
+  height: auto;
+  font-size: 40px;
+  font-weight: bold;
+  font-family: Inter, sans-serif;
+  font-stretch: expanded;
+  text-align-last: center;
+  overflow-wrap: break-word;
+  text-align: center;
+  line-height: 1.5;
+}
+/* .completeBannerSectionGroup .teliConsultationWith .headerText {
+  font-size: 40px;
+  font-weight: bold;
+  font-family: Inter, sans-serif;
+  font-stretch: expanded;
+} */
+
+.bannerHeadingChild {
+  width: 477.1px;
+  height: 15px;
+}
+.bannerParatext {
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  display: inline-block;
+  font-size: 20px;
+  font-family: Inter, sans-serif;
+  color: #8e92a4;
+  text-align-last: center;
+  text-align: center;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
+
+.headerGrid {
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Inter, sans-serif;
+  font-stretch: expanded;
+  text-align-last: left;
+  overflow-wrap: break-word;
+  text-align: left;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+.paraGrid {
+  font-size: 17px;
+  font-weight: 450;
+  font-family: Inter, sans-serif;
+  font-stretch: expanded;
+  text-align-last: left;
+  overflow-wrap: break-word;
+  text-align: left;
+  line-height: 1.5;
+  color: #8e92a4;
+  display: inline-block;
+  letter-spacing: 0.6px;
+  padding-top: 15px;
+  letter-spacing: 3px;
+}
+.rightsideGrid {
+}
+
+.completeBannerSectionGroup .textConsultation {
+  font-size: 21px;
+  color: #001439;
+  padding-left: 34px;
+  font-weight: medium;
+  text-align-last: left;
+  /* border: 1px solid red; */
+}
+
+.completeBannerSectionGroup .textconsultPara {
+  color: #8e92a4;
+  font-size: 22px;
+  padding: 12px 0px 12px 13px;
+}
+.completeBannerSectionGroup .totalConsult {
+  color: 000000;
+  font-size: 22px;
+  padding-left: 7px;
+  margin-top: 8px;
+  font-weight: bold;
+}
+.completeBannerSectionGroup .totalConsultPercentage {
+  color: #8e92a4;
+  font-size: 22px;
+  padding-right: 17px;
+  margin-top: 8px;
+}
+.completeBannerSectionGroup .drName {
+  color: #001439;
+  font-size: 17px;
+  font-weight: 500;
+}
+.completeBannerSectionGroup .founderName {
+  color: #8e92a4;
+  font-size: 17px;
+  font-weight: 500;
+}
+.docImage {
+  height: 55px;
+  width: 50px;
+  border-radius: 25px;
+}
+.completeBannerSectionGroup .consultImageFirst {
+  border-radius: 25px;
+}
+
+.feedbackSection .patientFeedback {
+  color: #10a0bd;
+  font-size: 22px;
+  font-weight: bold;
+}
+.feedbackSection .positiveFeedback {
+  color: #001439;
+  font-size: 28px;
+  font-weight: bolder;
+}
+
+.feedbackSection.paraFeedback {
+  color: #a8a8aa;
+  font-family: Inter, sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  text-align: justify;
+  text-align-last: center;
+  line-height: 1.5;
+}
+.WorldmapSection {
+  position: relative;
+}
+.WorldmapSection .imageWorldmap {
+  height: 480%;
+  width: 80%;
+  margin-top: 42px;
+}
+.WorldmapSection .docImageOverMap1 {
+  height: 80px;
+  width: 80px;
+  border-radius: 45px;
+  border: 5px solid white;
+  position: absolute;
+  right: 400px;
+  top: 200px;
+}
+.WorldmapSection .docImageOverMap2 {
+  height: 80px;
+  width: 80px;
+  border-radius: 45px;
+  border: 5px solid white;
+  position: absolute;
+  right: 900px;
+  top: 280px;
+}
+.WorldmapSection .docImageOverMap3 {
+  height: 80px;
+  width: 80px;
+  border-radius: 45px;
+  border: 5px solid white;
+  position: absolute;
+  left: 400px;
+  top: 190px;
+}
+.WorldmapSection .docImageOverMap4 {
+  height: 80px;
+  width: 80px;
+  border-radius: 45px;
+  border: 5px solid white;
+  position: absolute;
+  left: 880px;
+  top: 60%;
+}

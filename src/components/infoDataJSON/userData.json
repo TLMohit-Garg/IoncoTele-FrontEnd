@@ -1,0 +1,65 @@
+{"gender": [
+    {
+      "id": 0,
+      "name": "Male",
+      "type": "MALE",
+      "status": ""
+    },
+    {
+      "id": 1,
+      "name": "Female",
+      "type": "FEMALE",
+      "status": ""
+    },
+    {
+      "id": 2,
+      "name": "Other",
+      "type": "OTHER",
+      "status": ""
+    },
+    {
+      "id": 3,
+      "name": "Unknown",
+      "type": "UNKNOWN",
+      "status": ""
+    }
+  ],
+  "nationality": [
+    {
+      "id": 0,
+      "name": "Indian",
+      "type": "INDIAN",
+      "status": ""
+    },
+    {
+      "id": 1,
+      "name": "USA",
+      "type": "USA",
+      "status": ""
+    },
+    {
+      "id": 2,
+      "name": "Australia",
+      "type": "AUSTRALIA",
+      "status": ""
+    },
+    {
+      "id": 3,
+      "name": "Canada",
+      "type": "CANADA",
+      "status": ""
+    },
+    {
+      "id": 4,
+      "name": "UK",
+      "type": "UK",
+      "status": ""
+    },
+    {
+      "id": 5,
+      "name": "Other",
+      "type": "OTHER",
+      "status": ""
+    }
+  ]
+}
