@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import ioncoLogo from "../../../assets/IoncoSolutionsLogo.png";
 import IconLabelButtons from "../../CustomButton/Button";
 import stethoscope from "../../../assets/SythethoScope.jpg";
@@ -15,9 +15,12 @@ import Avatar from "@mui/material/Avatar";
 import avatarImage from "../../../assets/doc2.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { MenuItem, Menu } from "@mui/material";
+import { useSelector, useDispatch } from 'react-redux';
+import { selectIsAuthenticated } from '../../../store/authSlice';
+import { logout } from "../../../store/authSlice";
 
 function Header() {
-  const [token, setToken] = React.useState(false);
+  // const [token] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -34,7 +37,8 @@ function Header() {
     setMenu(null);
   };
 
-  const handleMenuClick = (event: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleMenuClick = (event:any) => {
     setMenu(event?.currentTarget);
   };
   // Patient popover
@@ -54,6 +58,16 @@ function Header() {
     setShowpopover(null);
   };
 
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+  console.log("Token before logout:", localStorage.getItem('token'));
+  dispatch(logout());
+  localStorage.removeItem('token');  // Clear the token from localStorage
+  console.log("Token after logout:", localStorage.getItem('token')); 
+  menuhandleClose();
+};
   return (
     <>
       <Grid
@@ -179,7 +193,7 @@ function Header() {
             </Link>
           </Grid>
           {/* create an account */}
-          {token ? (
+          {isAuthenticated ? (
             <Grid
               container
               item
@@ -260,7 +274,7 @@ function Header() {
         <MenuItem>My Profile</MenuItem>
         <MenuItem>My appointments</MenuItem>
         <MenuItem>Settings</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>
   );

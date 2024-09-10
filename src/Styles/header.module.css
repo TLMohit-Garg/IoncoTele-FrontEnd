@@ -39,8 +39,15 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 .parentGrid .adminButton {
-  background-color: rgb(193, 212, 211);
+  background-color: #10a0bd;
   border: none;
+  color: white;
+}
+.parentGrid .adminButton:hover {
+  background-color: white;
+  border: none;
+  color: #10a0bd;
+  /* font-weight: bold; */
 }
 .PhoneIcon {
   background: #10a0bd;

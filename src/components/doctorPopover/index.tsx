@@ -9,6 +9,8 @@ import { Toast } from "../ToastMessage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { doctorSigninSchema } from "../../utils/validation";
+import { useDispatch } from "react-redux";
+import { login } from "../../store/authSlice";
 import styles from "../../Styles/header.module.css";
 
 const DoctorPopover: React.FC<DoctorPopoverProps> = ({
@@ -21,22 +23,31 @@ const DoctorPopover: React.FC<DoctorPopoverProps> = ({
     handleSubmit,
     formState: { errors },
     reset,
-  }: any = useForm({
+  }: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  any = useForm({
     resolver: yupResolver(doctorSigninSchema),
   });
-  const handleSignIn = async(data: any) => {
+  const dispatch = useDispatch();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleSignIn = async (data: any) => {
     console.log(JSON.stringify(data));
     try {
-     const response = await axios.post("/api/doctorSignin",data);
-     console.log('Response received:', response)
+      const response = await axios.post("/api/doctorSignin", data);
+      console.log("Response received:", response);
 
-     if(response.status === 200){
-      console.log("Sign in succesfully");
-      Toast("success","SignIn successFully");
-      reset();
-     }else{
-      Toast("error", "Sign-in failed!");
-     }
+      if (response.status === 200 && response.data.token) {
+        const token = response.data.token;
+        console.log("Sign in succesfully", token);
+
+        // Store the token in Redux and localStorage
+        dispatch(login({ token })); // Storing token in Redux
+        localStorage.setItem("token", token); // Store  token in localStorage
+        reset();
+        Toast("success", "SignIn successFully");
+        handleClose();
+      } else {
+        Toast("error", "Sign-in failed!");
+      }
     } catch (error) {
       console.error("Error during signin:", error);
       Toast("error", "An error occurred during sign-in!");
@@ -65,18 +76,18 @@ const DoctorPopover: React.FC<DoctorPopoverProps> = ({
           <Divider className={styles.divider} />
           <Grid className={styles.email}>Telephone number or email</Grid>
           <Grid container justifyContent={"center"}>
-          <Controller
+            <Controller
               name="email"
               control={control}
               defaultValue=""
               render={({ field }) => (
-            <TextField
-            {...field}
-              id="outlined-basic"
-              label=""
-              variant="outlined"
-              fullWidth
-              className={styles.textField}
+                <TextField
+                  {...field}
+                  id="outlined-basic"
+                  label=""
+                  variant="outlined"
+                  fullWidth
+                  className={styles.textField}
                   InputLabelProps={{
                     classes: {
                       root: styles.inputLabelProp, // Apply Custom styles to the Input Label
@@ -84,13 +95,13 @@ const DoctorPopover: React.FC<DoctorPopoverProps> = ({
                   }}
                   error={!!errors.email} // Show error state if validation fails
                   helperText={errors.email?.message} // Show error message
-            />
+                />
               )}
-              />
+            />
           </Grid>
           <Grid className={styles.password}>Password</Grid>
           <Grid container justifyContent={"center"}>
-          <Controller
+            <Controller
               name="password"
               control={control}
               defaultValue=""
@@ -127,7 +138,7 @@ const DoctorPopover: React.FC<DoctorPopoverProps> = ({
             </Link>
           </Grid>
         </Grid>
-        <ToastContainer/>
+        <ToastContainer />
       </form>
     </Popover>
   );
