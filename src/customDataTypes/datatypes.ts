@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-wrapper-object-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ButtonProps = {
   name?: string | any;
   className?: any;
@@ -95,3 +97,13 @@ export type CardComponentProps = {
     email?: string;
   }>;
 };
+
+export type patientProfileTypes ={
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  age?: string;
+  phone?: string;
+  gender?: string;
+  nationality?: string;
+}

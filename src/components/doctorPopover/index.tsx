@@ -10,7 +10,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { doctorSigninSchema } from "../../utils/validation";
 import { useDispatch } from "react-redux";
-import { login } from "../../store/authSlice";
+import { login } from "../../store/authDoctorSlice";
+import { setUserId } from '../../store/userSlice';
 import styles from "../../Styles/header.module.css";
 
 const DoctorPopover: React.FC<DoctorPopoverProps> = ({
@@ -28,23 +29,59 @@ const DoctorPopover: React.FC<DoctorPopoverProps> = ({
     resolver: yupResolver(doctorSigninSchema),
   });
   const dispatch = useDispatch();
+
+  // Function to decode the JWT token manually
+const decodeJWT = (token: string) => {
+  try {
+    const base64Url = token.split(".")[1]; // Get the payload part of the token
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+        .join("")
+    );
+    return JSON.parse(jsonPayload); // Parse the payload as a JSON object
+  } catch (error) {
+    console.error("Invalid token format:", error);
+    return null;
+  }
+};
+
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSignIn = async (data: any) => {
     console.log(JSON.stringify(data));
     try {
       const response = await axios.post("/api/doctorSignin", data);
       console.log("Response received:", response);
-
+  
       if (response.status === 200 && response.data.token) {
         const token = response.data.token;
-        console.log("Sign in succesfully", token);
-
-        // Store the token in Redux and localStorage
-        dispatch(login({ token })); // Storing token in Redux
-        localStorage.setItem("token", token); // Store  token in localStorage
-        reset();
-        Toast("success", "SignIn successFully");
-        handleClose();
+        console.log("Sign in successfully", token);
+  
+        // Decode the JWT token manually to extract the userId
+        const decodedToken = decodeJWT(token);
+        console.log('Decoded Token:', decodedToken);
+        if (decodedToken && decodedToken.userId) {
+          const userId = decodedToken.userId;
+          console.log("Decoded userId:", userId);
+  
+          // Store the token in Redux and localStorage
+          dispatch(login({ token })); // Storing token in Redux
+          dispatch(setUserId(userId)); // Storing userId in Redux
+  
+          localStorage.setItem("doctortoken", token);
+          localStorage.setItem("doctoruserId", userId); // Store userId in localStorage
+  
+          // Reset form and handle other success actions
+          reset(); // Assuming reset is coming from React Hook Form
+          Toast("success", "SignIn successfully");
+          handleClose(); // Close any modal or UI element if needed
+        } else {
+          console.error("Error decoding userId from token.");
+          Toast("error", "Sign-in failed!");
+        }
       } else {
         Toast("error", "Sign-in failed!");
       }

@@ -15,9 +15,10 @@ import DoctorSignup from "./components/doctorRegistrationForm/index.tsx";
 import Doctors from "./pages/doctors/index.tsx";
 import Testing from "./pages/testing/index.tsx";
 import Admin from "./pages/admin/index.tsx";
-import DashboardLayoutBasic from "./pages/testing/index.tsx";
+// import DashboardLayoutBasic from "./pages/testing/index.tsx";
 import { store } from "./store/store.ts";
 import { Provider } from "react-redux";
+import Profile from "./pages/profile/index.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
       <Route path="/doctors" element={<Doctors />} />
       <Route path="/testing" element={<Testing />} />
       <Route path="/admin" element={<Admin />} />
+      <Route path="/profile" element={<Profile />} />
     </Route>
   )
 );

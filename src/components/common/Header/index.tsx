@@ -4,7 +4,6 @@ import ioncoLogo from "../../../assets/IoncoSolutionsLogo.png";
 import IconLabelButtons from "../../CustomButton/Button";
 import stethoscope from "../../../assets/SythethoScope.jpg";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-// import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import PersonIcon from "@mui/icons-material/Person";
 import Divider from "@mui/material/Divider";
 import styles from "../../../Styles/header.module.css";
@@ -16,8 +15,10 @@ import avatarImage from "../../../assets/doc2.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { MenuItem, Menu } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
-import { selectIsAuthenticated } from '../../../store/authSlice';
-import { logout } from "../../../store/authSlice";
+import { selectIsDoctorAuthenticated, logout as doctorLogout } from '../../../store/authDoctorSlice';
+import { selectIsPatientAuthenticated, logout as patientLogout } from '../../../store/authPatientSlice';
+// import { logout } from "../../../store/authDoctorSlice";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
   // const [token] = React.useState(true);
@@ -58,16 +59,27 @@ function Header() {
     setShowpopover(null);
   };
 
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const isDoctorAuthenticated = useSelector(selectIsDoctorAuthenticated);
+  const isPatientAuthenticated = useSelector(selectIsPatientAuthenticated);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-  console.log("Token before logout:", localStorage.getItem('token'));
-  dispatch(logout());
-  localStorage.removeItem('token');  // Clear the token from localStorage
-  console.log("Token after logout:", localStorage.getItem('token')); 
+   console.log("Token before logout:", localStorage.getItem('doctortoken'));
+  if (isDoctorAuthenticated) {
+    dispatch(doctorLogout());
+    localStorage.removeItem('doctortoken'); // Clear the token from localStorage
+  } else if (isPatientAuthenticated) {
+    dispatch(patientLogout());
+    localStorage.removeItem('patienttoken'); // Clear the token from localStorage
+  }
+  console.log("Token after logout:", localStorage.getItem('patienttoken')); 
   menuhandleClose();
 };
+
+const handleProfile =() => {
+  navigate("/profile")
+}
   return (
     <>
       <Grid
@@ -193,7 +205,7 @@ function Header() {
             </Link>
           </Grid>
           {/* create an account */}
-          {isAuthenticated ? (
+          {isDoctorAuthenticated || isPatientAuthenticated ? (
             <Grid
               container
               item
@@ -271,7 +283,7 @@ function Header() {
           horizontal: "right",
         }}
       >
-        <MenuItem>My Profile</MenuItem>
+        <MenuItem onClick={handleProfile}>My Profile</MenuItem>
         <MenuItem>My appointments</MenuItem>
         <MenuItem>Settings</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>

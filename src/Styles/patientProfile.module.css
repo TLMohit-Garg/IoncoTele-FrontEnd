@@ -1,0 +1,38 @@
+.profileimageGrid {
+  height: fit-content;
+}
+.profileimage {
+  height: fit-content;
+  margin: 0px 0px 20px 15px;
+  border-radius: 8px;
+}
+.profileName {
+}
+.profileinfo {
+  height: 300px;
+}
+.parentGrid .userName {
+  font-size: 24px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #093b5b;
+}
+.parentGrid .contact {
+  font-size: 24px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #093b5b;
+}
+.parentGrid .email{
+    font-size: 18px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: medium;
+  color: #10a0bd;
+  margin-bottom: 5px;
+}
+.parentGrid .emailValue{
+    font-size: 18px;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-weight: light;
+    color: #093b5b;
+}

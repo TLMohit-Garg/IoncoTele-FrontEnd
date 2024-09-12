@@ -6,8 +6,8 @@ const initialState = {
   isAuthenticated: false,
 };
 
-const authSlice = createSlice({
-  name: 'auth',
+const authPatientSlice = createSlice({
+  name: 'authPatient',
   initialState,
   reducers: {
     login: (state, action) => {
@@ -21,9 +21,9 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout } = authPatientSlice.actions;
 
-export const selectIsAuthenticated = (state:any) => state.auth.isAuthenticated;
+export const selectIsPatientAuthenticated = (state:any) => state.authPatient.isAuthenticated;
 export const selectToken = (state: { auth: { token: any; }; }) => state.auth.token;
 
-export default authSlice.reducer;
+export default authPatientSlice.reducer;

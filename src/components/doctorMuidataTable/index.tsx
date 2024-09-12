@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import MUIDataTable, { MUIDataTableOptions } from "mui-datatables";
 import axios from "axios";
@@ -64,7 +66,7 @@ function DoctoctorMuidatatable() {
               paddingLeft: "22px",
             }}
           >
-            {value || "Unknown" || "FEMALE"}
+            {/* {value || "Unknown" || "FEMALE"} */}
           </p>
         ),
 

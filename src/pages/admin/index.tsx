@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import EnhancedTable from "../../components/customTable";
+// import EnhancedTable from "../../components/customTable";
 import { Button, Grid } from "@mui/material";
 // import BasicTable from "../../components/customTablePatient";
 import axios from "axios";
-import DataTable from "../../components/testingTabel";
+// import DataTable from "../../components/testingTabel";
 import {
   Accordion,
   AccordionSummary,
@@ -116,6 +116,7 @@ export default function Admin() {
     },
   ];
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [rows, setRows] = React.useState<any>([]);
   React.useEffect(() => {
     const fetchData = async () => {
