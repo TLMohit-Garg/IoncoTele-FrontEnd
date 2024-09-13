@@ -832,6 +832,18 @@ const DoctorDetailsModal = ({
                       <Grid
                         container
                         item
+                        className={styles.timezoneContainer}
+                        xs={12}
+                        sm={12}
+                        md={12}
+                        lg={12}
+                        xl={12}
+                      >
+                        Payment gateway
+                      </Grid>
+                      <Grid
+                        container
+                        item
                         className={styles.submitButtonContainer}
                         xs={12}
                         sm={12}

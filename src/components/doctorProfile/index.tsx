@@ -8,7 +8,7 @@ import { patientProfileTypes } from "../../customDataTypes/datatypes";
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserId } from '../../store/userSlice';
 import { RootState } from '../../store/store';
-
+ 
 function DoctorProfile() {
   const dispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.user.userId);
