@@ -1,29 +1,29 @@
-
-
 import React, { useState, FormEvent } from 'react';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
-import { Elements, CardElement, useStripe, useElements, CardElementOptions } from '@stripe/react-stripe-js';
+import { Elements, CardElement, useStripe, useElements, CardElementProps  } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import styles from "../../Styles/testingStripe.module.css"
+import { Grid } from '@mui/material';
 
 
 // Load your Stripe publishable key
 const stripePromise = loadStripe('pk_test_51PyXQuRpCokjQ3Hx01o9Lo3Wke6XgBla6JjgpOFAlalN3D4iuEndRJw8m2ifuXEC46IZ2hWtGveO44rmxKHfNQlJ00mF0DJqd0'); // Replace with your Publishable Key
 
-const cardElementOptions: CardElementOptions = {
+const cardElementOptions: CardElementProps['options'] = {
   style: {
     base: {
       fontSize: '18px', // Increase font size
-      color: '#333', // Text color
+      color: 'black', // Text color
       '::placeholder': {
-        color: '#aaa', // Placeholder text color
+        color: 'green', // Placeholder text color
       },
+      padding: '10px 12px',
     },
     complete: {
-      color: '#000', // Text color when field is complete
+      color: 'blue', // Text color when field is complete
     },
     invalid: {
-      color: '#fa755a', // Text color for invalid inputs
+      color: 'violet', // Text color for invalid inputs
       iconColor: '#fa755a', // Icon color for invalid inputs
     },
   },
@@ -66,7 +66,7 @@ const CheckoutForm: React.FC = () => {
 
   const handlePayment = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/payment-booking-consultation', {
+      const response = await axios.post('http://localhost:3000/api/paymentBookingConsultation', {
         amount: amount * 100, // Convert to cents
         currency: 'usd',
       });
@@ -78,20 +78,20 @@ const CheckoutForm: React.FC = () => {
   };
 
   return (
-    <div className={styles.formcontainer}>
+    <Grid className={styles.formcontainer}>
       <h2>Checkout</h2>
       <form onSubmit={handleSubmit}>
-        <div className="card-element">
+        <Grid className="cardElement" style={{width:"200%", height:"100%"}}>
           <CardElement options={cardElementOptions} />
-        </div>
-        <button type="button" onClick={handlePayment}>
+        </Grid >
+        <button type="button" onClick={handlePayment} style={{ background: "red", margin: "10px" }}>
           Initiate Payment
         </button>
-        <button type="submit" disabled={!stripe || !clientSecret}>
+        <button type="submit" disabled={!stripe || !clientSecret} style={{ margin: "10px" }}>
           Pay Now
         </button>
       </form>
-    </div>
+    </Grid >
   );
 };
 
