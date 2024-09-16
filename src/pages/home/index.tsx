@@ -9,6 +9,7 @@ import OnlineSection from "../../components/onlineChat";
 import Feedback from "../../components/feedback";
 import WorldMap from "../../components/worldMap";
 import TestingStripe from "../../components/testingStripe";
+import BookingForm from "../../components/testingStripe2";
 
 export default function Home() {
   return (
@@ -82,6 +83,7 @@ export default function Home() {
       sx={{border:"1px solid red"}}>
 
 <TestingStripe/>
+<BookingForm/>
       </Grid>
       <Grid
         className={styles.completeBannerSectionGroup}
