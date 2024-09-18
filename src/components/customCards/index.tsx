@@ -7,8 +7,8 @@ import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 import styles from "../../Styles/cards.module.css";
-import DoctorDetailsModal from "../doctorDetailModal";
-import { DialogProps } from "@mui/material";
+// import DoctorDetailsModal from "../doctorDetailModal";
+// import { DialogProps } from "@mui/material";
 
 type CustomCardProps = {
   image: string;
@@ -27,23 +27,24 @@ export default function CustomCard({
   onButtonClick,
   speciality,
 }: CustomCardProps) {
-  const [modalOpen, setmodalOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
+  // const [modalOpen, setmodalOpen] = React.useState(false);
+  // const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
 
-  const handelClose = () => {
-    setmodalOpen(false);
-  };
+  // const handelClose = () => {
+  //   setmodalOpen(false);
+  // };
 
-  const handleClickOpen = (scrollType: any) => {
-    setmodalOpen(true);
-    setScroll(scrollType);
-  };
+  // const handleClickOpen = (scrollType: any) => {
+  //   setmodalOpen(true);
+  //   setScroll(scrollType);
+  // };
   return (
     <>
       <Card
         sx={{ maxWidth: 345 }}
         className={styles.root}
-        onClick={handleClickOpen}
+        // onClick={handleClickOpen}
+        onClick={onButtonClick}
       >
         <CardActionArea>
           <CardMedia
@@ -69,13 +70,13 @@ export default function CustomCard({
         </CardActions>
       </Card>
 
-      {modalOpen && (
+      {/* {modalOpen && (
         <DoctorDetailsModal
           open={modalOpen}
           onClose={handelClose}
           scroll={scroll}
         />
-      )}
+      )} */}
     </>
   );
 }

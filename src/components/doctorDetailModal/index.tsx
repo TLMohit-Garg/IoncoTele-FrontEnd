@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 // import styles from "src/Styles/EmployeDetailsModel.module.css";
 import {
@@ -43,12 +43,13 @@ const DoctorDetailsModal = ({
   open,
   onClose,
   employeeDetails,
+  doctor
 }: any) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   //   const { userInfo }: any = useAppSelector(
   //     (state: RootState) => state.userSlice
   //   );
-
+  console.log("Doctor prop:", doctor); 
   const [selectedFile, setSelectedFile] = useState<any>();
   console.log("selectedFile", selectedFile);
 
@@ -59,10 +60,17 @@ const DoctorDetailsModal = ({
     reset,
   }: any = useForm({ resolver: yupResolver(consultationBookingSchema) });
 
+  const [doctorDetails, setDoctorDetails] = useState<any>(doctor);
   const [employee, setEmployee] = useState<any>(employeeDetails);
   const isActive = employee?.status === "ACTIVE";
 
-  useEffect(() => {
+  React.useEffect(() => {
+    if (doctor) {
+      console.log("Doctor data:", doctor);
+      setDoctorDetails(doctor); // Use doctor data
+    }
+  }, [doctor]);
+  React.useEffect(() => {
     if (employeeDetails) {
       setEmployee(employeeDetails);
     }
@@ -254,7 +262,7 @@ const DoctorDetailsModal = ({
                     justifyContent={"center"}
                   >
                     <Typography className={styles.doctorName}>
-                      Dr. David Wilson
+                    {doctorDetails?.name}
                     </Typography>
                   </Grid>
                   <Grid

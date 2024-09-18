@@ -1,12 +1,23 @@
-import { Grid } from "@mui/material";
 import React from "react";
+import { Grid } from "@mui/material";
 import data from "./data.json";
 import CustomCard from "../../components/customCards";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import DoctorDetailsModal from "../../components/doctorDetailModal";
 import styles from "../../Styles/doctorpage.module.css";
 
 export default function Doctors() {
-  const handleShareClick = () => {};
+  const [selectedDoctor, setSelectedDoctor] = React.useState(null);  // To store the selected doctor
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const handleCardClick = (doctor: any) => {
+    setSelectedDoctor(doctor);  // Set the selected doctor
+    setModalOpen(true);  // Open the modal
+  };
+
+  // Handle modal close
+  const handleModalClose = () => {
+    setModalOpen(false);  // Close the modal
+  };
   return (
     <>
       <Grid
@@ -36,14 +47,15 @@ export default function Doctors() {
         Team of our Dedicated Doctor's
       </Grid>
       <Grid container item justifyContent={"space-around"}>
-        {data?.map((data) => (
+        {data?.map((doctor) => (
           <CustomCard
-            image={data.imageUrl}
-            title={data.title}
-            speciality={data.speciality}
-            description={data.description}
+            key={doctor.id}
+            image={doctor.imageUrl}
+            title={doctor.title}
+            speciality={doctor.speciality}
+            description={doctor.description}
             buttonText="Explore More"
-            onButtonClick={handleShareClick}
+            onButtonClick={() => handleCardClick(doctor)}
           />
         ))}
       </Grid>
@@ -76,6 +88,14 @@ export default function Doctors() {
       >
         <ArrowDropDownIcon />
       </Grid>
+
+      {modalOpen && selectedDoctor && (
+        <DoctorDetailsModal
+          open={modalOpen}
+          onClose={handleModalClose}
+          doctor={selectedDoctor}  // Pass selected doctor to modal
+        />
+      )}
     </>
   );
 }
