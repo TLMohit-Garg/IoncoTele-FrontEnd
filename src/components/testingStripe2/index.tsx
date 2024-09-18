@@ -5,11 +5,13 @@ const BookingForm = ({ patientEmail, doctorPrice }:any) => {
   const [currency, setCurrency] = React.useState('gbp');
   const [error, setError] = React.useState('');
 
+  const increasedPrice = doctorPrice * 1.25;
+
   const handleCheckout = async () => {
     try {
       const response = await axios.post('http://localhost:3000/api/stripe/createCheckoutSession', {
         patientEmail: patientEmail,  // Replace with real patientID
-        doctorPrice: Math.round(doctorPrice * 10), // Price based on doctor's card
+        doctorPrice: increasedPrice, // Price based on doctor's card
         preferredCurrency: currency,  // Selected currency
       });
 

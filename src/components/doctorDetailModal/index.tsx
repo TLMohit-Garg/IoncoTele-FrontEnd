@@ -169,6 +169,7 @@ const DoctorDetailsModal = ({
               <Grid
                 item
                 container
+                xs={6}
                 md={6}
                 sm={6}
                 lg={6}
@@ -184,9 +185,10 @@ const DoctorDetailsModal = ({
                 container
                 item
                 md={6}
-                sm={8}
+                sm={6}
                 xs={6}
                 xl={6}
+                lg={6}
                 justifyContent={"end"}
                 className={styles.closeIcon}
               >

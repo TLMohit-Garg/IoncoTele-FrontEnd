@@ -83,7 +83,7 @@ export default function Home() {
       sx={{border:"1px solid red"}}>
 
 <TestingStripe/>
-<BookingForm patientEmail={"patientDemo@gmail.com"} doctorPrice={8}/>
+<BookingForm patientEmail={"patientDemo@gmail.com"} doctorPrice={200}/>
       </Grid>
       <Grid
         className={styles.completeBannerSectionGroup}
