@@ -133,3 +133,53 @@ export const consultationBookingSchema = Yup.object().shape({
     .max(850, "additionalNotesmust be less than 50 characters long"),
   prefferDate: Yup.string().required("Please select the preffered date"),
 });
+
+export const bankinDetailsSchema = Yup.object().shape({
+  accountName: Yup.string()
+    .required("Please enter the your account holder name")
+    .min(2, "Account name must be at least 2 characters long")
+    .max(50, "Account name must be less than 50 characters long")
+    .matches(/^[A-Za-z\s]+$/, "Account name can only contain letters and spaces"),
+    bankName: Yup.string()
+    .required("Please enter the your bank name")
+    .min(2, "Bank name must be at least 2 characters long")
+    .max(50, "Bank name must be less than 50 characters long")
+    .matches(/^[A-Za-z\s]+$/, "Bank name can only contain letters and spaces"),
+    bankAddress: Yup.string()
+    .required("Please enter the your bank address")
+    .min(2, "Bank Address must be at least 2 characters long")
+    .max(500, "Bank Address must be less than 500 characters long"),
+    // .matches(/^[A-Za-z\s]+$/, "First name can only contain letters and spaces"),
+    bankAccountNumber: Yup.string()
+    .required("Please enter the your bank account number")
+    .min(2, "Account Number must be at least 2 characters long")
+    .max(50, "Account Number must be less than 50 characters long"),
+    branchCodeIFSC: Yup.string()
+    .required("Please enter the your branch IFSC code / Routing number")
+    .min(2, "IFSC must be at least 2 characters long")
+    .max(50, "IFSC must be less than 50 characters long"),
+    bankAccountNumberIBAN: Yup.string()
+    .required("Please enter the your bank account IBAN number")
+    .min(2, "bankAccountNumberIBAN must be at least 2 characters long")
+    .max(50, "bankAccountNumberIBAN must be less than 50 characters long"),
+    fullName: Yup.string()
+    .required("Please enter the your full name")
+    .min(2, "full name must be at least 2 characters long")
+    .max(50, "full name must be less than 50 characters long")
+    .matches(/^[A-Za-z\s]+$/, "Full name can only contain letters and spaces"),
+    speciality: Yup.string()
+    .required("Please describe your speciality")
+    .min(2, "speciality must be at least 2 characters long")
+    .max(50, "speciality must be less than 50 characters long"),
+    description: Yup.string()
+    .min(2, "description name must be at least 2 characters long")
+    .max(500, "description must be less than 500 characters long")
+    .matches(/^[A-Za-z\s]+$/, "description can only contain letters and spaces"),
+    experience: Yup.string()
+    .required("Please mention your years of experience")
+    .min(2, "experience name must be at least 1 characters long")
+    .max(50, "experience must be less than 50 characters long"),
+    consultationCharges: Yup.string()
+    .required("Define your Consultation charges here $")
+
+})

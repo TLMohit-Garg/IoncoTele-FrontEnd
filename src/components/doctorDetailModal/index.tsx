@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
-// import styles from "src/Styles/EmployeDetailsModel.module.css";
 import {
   Divider,
   Typography,
@@ -42,7 +41,6 @@ const DoctorDetailsModal = ({
   onClick,
   open,
   onClose,
-  employeeDetails,
   doctor
 }: any) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -61,8 +59,6 @@ const DoctorDetailsModal = ({
   }: any = useForm({ resolver: yupResolver(consultationBookingSchema) });
 
   const [doctorDetails, setDoctorDetails] = useState<any>(doctor);
-  const [employee, setEmployee] = useState<any>(employeeDetails);
-  const isActive = employee?.status === "ACTIVE";
 
   React.useEffect(() => {
     if (doctor) {
@@ -70,13 +66,8 @@ const DoctorDetailsModal = ({
       setDoctorDetails(doctor); // Use doctor data
     }
   }, [doctor]);
-  React.useEffect(() => {
-    if (employeeDetails) {
-      setEmployee(employeeDetails);
-    }
-  }, [employeeDetails]);
+  
 
-  const employeeType = employee?.employeeType;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
   // const uploadFile = async (evt: any) => {

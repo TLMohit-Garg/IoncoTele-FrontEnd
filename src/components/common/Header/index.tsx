@@ -80,6 +80,9 @@ function Header() {
 const handleProfile =() => {
   navigate("/profile")
 }
+const bankingDetails = () => {
+  navigate("/doctorBankingDetails")
+}
   return (
     <>
       <Grid
@@ -285,6 +288,7 @@ const handleProfile =() => {
       >
         <MenuItem onClick={handleProfile}>My Profile</MenuItem>
         <MenuItem>My appointments</MenuItem>
+        <MenuItem onClick={bankingDetails}>Banking details</MenuItem>
         <MenuItem>Settings</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
