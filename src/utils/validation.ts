@@ -151,9 +151,9 @@ export const bankinDetailsSchema = Yup.object().shape({
     .max(500, "Bank Address must be less than 500 characters long"),
     // .matches(/^[A-Za-z\s]+$/, "First name can only contain letters and spaces"),
     bankAccountNumber: Yup.string()
-    .required("Please enter the your bank account number")
-    .min(2, "Account Number must be at least 2 characters long")
-    .max(50, "Account Number must be less than 50 characters long"),
+    // .required("Please enter the your bank account number")
+    .min(2, "Account Number must be at least 2 characters long"),
+    // .max(50, "Account Number must be less than 50 characters long"),
     branchCodeIFSC: Yup.string()
     .required("Please enter the your branch IFSC code / Routing number")
     .min(2, "IFSC must be at least 2 characters long")

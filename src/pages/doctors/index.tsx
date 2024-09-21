@@ -9,7 +9,10 @@ import styles from "../../Styles/doctorpage.module.css";
 export default function Doctors() {
   const [selectedDoctor, setSelectedDoctor] = React.useState(null);  // To store the selected doctor
   const [modalOpen, setModalOpen] = React.useState(false);
+
+  console.log("doc-data",data);
   const handleCardClick = (doctor: any) => {
+    console.log("doctor-data", doctor);
     setSelectedDoctor(doctor);  // Set the selected doctor
     setModalOpen(true);  // Open the modal
   };

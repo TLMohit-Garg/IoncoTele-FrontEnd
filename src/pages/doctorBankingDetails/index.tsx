@@ -28,7 +28,7 @@ function DoctorBankingDetails() {
       if (response.status === 201) {
         console.log(response.data, "doctorBankingDetail successfully");
         Toast("success", "you'r Banking details submitted successfully !");
-        reset(); // Reset the form fields
+        reset(); 
       } else {
         Toast("error", "Banking details Submission failed !");
       }

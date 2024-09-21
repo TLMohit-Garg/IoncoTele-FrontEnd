@@ -14,7 +14,7 @@ type CustomCardProps = {
   title: string;
   description: string;
   buttonText: string;
-  onButtonClick: () => void;
+  onButtonClick?: any;
   speciality?: string;
 };
 

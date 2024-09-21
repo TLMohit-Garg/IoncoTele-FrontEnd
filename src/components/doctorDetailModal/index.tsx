@@ -62,7 +62,7 @@ const DoctorDetailsModal = ({
 
   React.useEffect(() => {
     if (doctor) {
-      console.log("Doctor data:", doctor);
+      console.log("Doctor data in modal:", doctor);
       setDoctorDetails(doctor); // Use doctor data
     }
   }, [doctor]);
@@ -229,7 +229,7 @@ const DoctorDetailsModal = ({
                   justifyContent={"center"}
                   className={styles.imageContainer}
                 >
-                  <img src={doctorimage} className={styles.imageDoctor} />
+                  <img src={doctorDetails?.imageUrl || "default-image.png"} className={styles.imageDoctor} />
                 </Grid>
                 <Grid
                   container
@@ -253,7 +253,7 @@ const DoctorDetailsModal = ({
                     justifyContent={"center"}
                   >
                     <Typography className={styles.doctorName}>
-                    {doctorDetails?.name}
+                    {doctorDetails?.title || "Doctor name is not Available"}
                     </Typography>
                   </Grid>
                   <Grid
@@ -268,7 +268,7 @@ const DoctorDetailsModal = ({
                     mb={5}
                   >
                     <Typography className={styles.doctorSpeciality}>
-                      HEART SURGEON
+                      {doctorDetails?.speciality || "Doctor speciality not Available"}
                     </Typography>
                   </Grid>
                   <Grid
@@ -282,11 +282,7 @@ const DoctorDetailsModal = ({
                     justifyContent={"center"}
                   >
                     <Typography className={styles.doctorDescription}>
-                      Experienced orthopedic surgeon specializing in joint
-                      replacement surgeries. Experienced orthopedic surgeon
-                      specializing in joint replacement surgeries. Experienced
-                      orthopedic surgeon specializing in joint replacement
-                      surgeries.
+                      {doctorDetails?.description || "Doctor description not Available"}
                     </Typography>
                   </Grid>
                 </Grid>
