@@ -98,7 +98,7 @@ export type CardComponentProps = {
   }>;
 };
 
-export type patientProfileTypes ={
+export type patientProfileTypes = {
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -106,4 +106,19 @@ export type patientProfileTypes ={
   phone?: string;
   gender?: string;
   nationality?: string;
-}
+};
+
+export type bankingDetailsTypes = {
+  _id?: string;
+  accountName?: string;
+  bankName?: string;
+  bankAddress?: string;
+  bankAccountNumber?: string;
+  branchCodeIFSC?: string;
+  bankAccountNumberIBAN?: string;
+  fullName?: string;
+  speciality?: string;
+  description?: string;
+  experience?: string;
+  consultationCharges?: string;
+};

@@ -36,3 +36,17 @@
     font-weight: light;
     color: #093b5b;
 }
+.parentGrid .IconLabelButtons{
+  background-color: #10a0bd;
+  font-size: 18px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: medium;
+  padding: 2px 45px 2px 45px;
+}
+.parentGrid .IconLabelButtons:hover{
+  background-color: #10a0bd;
+  font-size: 18px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: medium;
+  padding: 2px 45px 2px 45px;
+}

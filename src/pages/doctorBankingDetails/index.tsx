@@ -22,9 +22,15 @@ function DoctorBankingDetails() {
   });
 
   const handleBankingDetail = async (data: any) => {
-    // console.log(JSON.stringify(data));
     try {
-      const response = await axios.post("/api/doctorBankingDetail", data);
+      const token = localStorage.getItem("doctortoken");
+      const response = await axios.post("/api/doctorBankingDetail", data,{
+        headers: {
+          // Authorization: `Bearer ${localStorage.getItem("token")}`
+          Authorization: `Bearer ${token}`,
+        }
+      });
+     
       if (response.status === 201) {
         console.log(response.data, "doctorBankingDetail successfully");
         Toast("success", "you'r Banking details submitted successfully !");
