@@ -80,9 +80,10 @@ export default function Home() {
       sm={7}
       xs={7}
       mt={3}
-      sx={{border:"1px solid red"}}>
+      sx={{}}
+      ml={5}>
 
-<TestingStripe/>
+{/* <TestingStripe/> */}
 <BookingForm patientEmail={"patientDemo@gmail.com"} doctorPrice={200}/>
       </Grid>
       <Grid

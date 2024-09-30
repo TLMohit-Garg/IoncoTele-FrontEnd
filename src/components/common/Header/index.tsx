@@ -198,7 +198,8 @@ const bankingDetails = () => {
             alignItems="center"
             className={styles.PhoneSectionheader}
           >
-            <Link to="/admin">
+            {/* <Link to="/admin"> */}
+            <Link to="/adminSignIn">
               <IconLabelButtons
                 name="Admin Panel"
                 className={styles.adminButton}

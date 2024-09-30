@@ -20,6 +20,8 @@ import { store } from "./store/store.ts";
 import { Provider } from "react-redux";
 import Profile from "./pages/profile/index.tsx";
 import DoctorBankingDetails from "./pages/doctorBankingDetails/index.tsx";
+import SignIn from "./pages/adminSignIn/index.tsx";
+// import CredentialsSignInPage from "./pages/adminSignIn/index.tsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +35,7 @@ const router = createBrowserRouter(
       <Route path="/admin" element={<Admin />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/doctorBankingDetails" element={<DoctorBankingDetails />} />
+      <Route path="/adminSignIn" element={<SignIn />} />
     </Route>
   )
 );
