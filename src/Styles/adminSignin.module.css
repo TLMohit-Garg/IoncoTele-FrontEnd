@@ -1,0 +1,24 @@
+.Paper {
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.Paper .LockiconColor {
+  color: #10A0BD;
+}
+.Paper .para {
+  font-size: 14px;
+  margin: 10px 0px 10px 0px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.divider {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.Paper .signIn{
+    background:#10A0BD;
+    color:white;
+}
+.Paper .signIn:hover{
+    background:#10A0BD;
+    color:white;
+}
