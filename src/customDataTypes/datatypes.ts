@@ -63,12 +63,14 @@ export type DoctorPopoverProps = {
   open: boolean;
   anchorEl: HTMLButtonElement | null;
   handleClose: () => void;
+  onSignIn: () => void;
 };
 
 export type PatientPopoverProps = {
   open: boolean;
   anchorEl: HTMLButtonElement | null;
   handleClose: () => void;
+  onSignIn: () => void;
 };
 
 export type CheckBoxprops = {

@@ -17,23 +17,30 @@ import { MenuItem, Menu } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsDoctorAuthenticated, logout as doctorLogout } from '../../../store/authDoctorSlice';
 import { selectIsPatientAuthenticated, logout as patientLogout } from '../../../store/authPatientSlice';
-// import { logout } from "../../../store/authDoctorSlice";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
-  // const [token] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
-  const [showpopover, setShowpopover] =
-    React.useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [showpopover, setShowpopover] = React.useState<HTMLButtonElement | null>(null);
+  const [menu, setMenu] = React.useState<null | HTMLElement>(null);
+  const menuOpen = Boolean(menu);
+  const [isDoctorSignedIn, setIsDoctorSignedIn] = React.useState(!!localStorage.getItem('doctortoken')); 
+  const [isPatientSignedIn, setIsPatientSignedIn] = React.useState(!!localStorage.getItem('patienttoken')); 
+
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  
+  const handleDoctorSignIn = () => {
+    setIsDoctorSignedIn(true); // Update state when doctor signs in
+    setIsPatientSignedIn(false);
+  };
 
-  const [menu, setMenu] = React.useState<null | HTMLElement>(null);
-  const menuOpen = Boolean(menu);
-
+  const handlePatientSignIn = () => {
+    setIsPatientSignedIn(true); // Update state when patient signs in
+    setIsDoctorSignedIn(false);
+  }
   const menuhandleClose = () => {
     setMenu(null);
   };
@@ -42,6 +49,7 @@ function Header() {
   const handleMenuClick = (event:any) => {
     setMenu(event?.currentTarget);
   };
+
   // Patient popover
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -59,6 +67,7 @@ function Header() {
     setShowpopover(null);
   };
 
+
   const isDoctorAuthenticated = useSelector(selectIsDoctorAuthenticated);
   const isPatientAuthenticated = useSelector(selectIsPatientAuthenticated);
   const dispatch = useDispatch();
@@ -69,9 +78,11 @@ function Header() {
   if (isDoctorAuthenticated) {
     dispatch(doctorLogout());
     localStorage.removeItem('doctortoken'); // Clear the token from localStorage
+    setIsDoctorSignedIn(false);  // Reset doctor sign-in state after logout
   } else if (isPatientAuthenticated) {
     dispatch(patientLogout());
     localStorage.removeItem('patienttoken'); // Clear the token from localStorage
+    setIsPatientSignedIn(false);  // Reset doctor sign-in state after logout
   }
   console.log("Token after logout:", localStorage.getItem('patienttoken')); 
   menuhandleClose();
@@ -83,6 +94,51 @@ const handleProfile =() => {
 const bankingDetails = () => {
   navigate("/doctorBankingDetails")
 }
+const appointments = () => {
+  navigate("/myAppointments")
+}
+
+React.useEffect(() => {
+  // Check if doctor token exists in localStorage and is valid
+  const doctorToken = localStorage.getItem('doctortoken');
+  if (doctorToken) {
+    // Assuming you have a way to check token validity, like decoding it to check expiration
+    const isValid = checkTokenValidity(doctorToken);
+    setIsDoctorSignedIn(isValid); // Update the state based on token validity
+  }
+
+  // Check if patient token exists in localStorage and is valid
+  const patientToken = localStorage.getItem('patienttoken');
+  if (patientToken) {
+    const isValid = checkTokenValidity(patientToken);
+    setIsPatientSignedIn(isValid);
+  }
+}, []);
+
+const base64UrlDecode = (str: string) => {
+  // Replace characters to make it Base64 compatible
+  const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+  // Decode base64 string
+  const decodedData = atob(base64);
+  return JSON.parse(decodeURIComponent(escape(decodedData)));
+};
+const checkTokenValidity = (token: string) => {
+  try {
+    // Split the JWT token (header, payload, signature)
+    const tokenParts = token.split('.');
+    if (tokenParts.length !== 3) {
+      return false; // Invalid token structure
+    }
+
+    const payload = tokenParts[1]; // The payload is the second part of the token
+    const decodedPayload = base64UrlDecode(payload); // Decode the payload
+
+    const currentTime = Date.now() / 1000; // Current time in seconds
+    return decodedPayload.exp > currentTime; // Return true if token is not expired
+  } catch (error) {
+    return false; // Invalid or expired token
+  }
+};
   return (
     <>
       <Grid
@@ -137,6 +193,8 @@ const bankingDetails = () => {
             justifyContent="flex-end"
             alignItems="center"
           >
+            {/* {!isPatientSignedIn && !isDoctorAuthenticated && ( */}
+            {!isPatientSignedIn && (
             <IconLabelButtons
               onClick={handleloginPopover}
               name="I'm a Doctor"
@@ -151,7 +209,7 @@ const bankingDetails = () => {
               endIcon={<ArrowDropDownIcon />}
               variant="outlined"
               aria-describedby={idLogin}
-            />
+            />)}
           </Grid>
           <Grid
             container
@@ -164,6 +222,8 @@ const bankingDetails = () => {
             justifyContent="flex-end"
             alignItems="center"
           >
+            {/* {!isDoctorSignedIn && !isPatientAuthenticated && ( */}
+            {!isDoctorSignedIn && (
             <IconLabelButtons
               onClick={handleClick}
               name="I'm a Patient"
@@ -172,7 +232,7 @@ const bankingDetails = () => {
               variant="outlined"
               endIcon={<ArrowDropDownIcon />}
               aria-describedby={id}
-            />
+            />)}
           </Grid>
         </Grid>
         <Grid
@@ -258,11 +318,13 @@ const bankingDetails = () => {
         open={open}
         handleClose={handleClose}
         anchorEl={anchorEl}
+        onSignIn={handlePatientSignIn}
       />
       <DoctorPopover
         open={openPopover}
         anchorEl={showpopover}
         handleClose={closePopover}
+        onSignIn={handleDoctorSignIn}
       />
 
       {/* Profile Menu  */}
@@ -288,7 +350,7 @@ const bankingDetails = () => {
         }}
       >
         <MenuItem onClick={handleProfile}>My Profile</MenuItem>
-        <MenuItem>My appointments</MenuItem>
+        <MenuItem onClick={appointments}>My appointments</MenuItem>
         <MenuItem onClick={bankingDetails}>Banking details</MenuItem>
         <MenuItem>Settings</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>

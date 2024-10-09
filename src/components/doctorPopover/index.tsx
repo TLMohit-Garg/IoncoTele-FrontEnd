@@ -7,17 +7,18 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Toast } from "../ToastMessage";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { doctorSigninSchema } from "../../utils/validation";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/authDoctorSlice";
 import { setUserId } from '../../store/userSlice';
 import styles from "../../Styles/header.module.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const DoctorPopover: React.FC<DoctorPopoverProps> = ({
   open,
   anchorEl,
   handleClose,
+  onSignIn
 }: DoctorPopoverProps) => {
   const {
     control,
@@ -77,6 +78,7 @@ const decodeJWT = (token: string) => {
           // Reset form and handle other success actions
           reset(); // Assuming reset is coming from React Hook Form
           Toast("success", "SignIn successfully");
+          onSignIn();
           handleClose(); // Close any modal or UI element if needed
         } else {
           console.error("Error decoding userId from token.");

@@ -18,6 +18,7 @@ const PatientPopover: React.FC<PatientPopoverProps> = ({
   open,
   anchorEl,
   handleClose,
+  onSignIn
 }: PatientPopoverProps) => {
   const {
     control,
@@ -74,6 +75,7 @@ const decodeJWT = (token: string) => {
           // Reset form and handle other success actions
           reset(); // Assuming reset is coming from React Hook Form
           Toast("success", "SignIn successfully");
+          onSignIn();
           handleClose(); // Close any modal or UI element if needed
         } else {
           console.error("Error decoding userId from token.");
