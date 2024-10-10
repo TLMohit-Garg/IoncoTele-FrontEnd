@@ -1,0 +1,17 @@
+.Button {
+  display: flex;
+  gap: 1.5rem;
+}
+.Button > button {
+  flex: 1;
+}
+.Button .cancelBtn:hover {
+  background-color: #e9300f;
+  color: white;
+}
+.Button .meetingButton {
+  background: #10a0bd;
+}
+.Button .meetingButton:hover {
+  background: #10a0bd;
+}

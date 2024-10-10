@@ -39,6 +39,7 @@ export const createDoctorsSchema = Yup.object().shape({
       return age >= 18 && age <= 120;
     }),
   phone: Yup.string().required("Please enter the Mobile Number"),
+  charges: Yup.string().required("Please mention your charges"),
 });
 
 export const signinSchema = Yup.object().shape({

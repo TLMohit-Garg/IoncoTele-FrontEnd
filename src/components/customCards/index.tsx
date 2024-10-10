@@ -16,6 +16,7 @@ type CustomCardProps = {
   buttonText: string;
   onButtonClick?: any;
   speciality?: string;
+  hourlyCharges?: string;
 };
 
 export default function CustomCard({
@@ -25,6 +26,7 @@ export default function CustomCard({
   buttonText,
   onButtonClick,
   speciality,
+  hourlyCharges,
 }: CustomCardProps) {
   // const [modalOpen, setmodalOpen] = React.useState(false);
   // const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
@@ -56,7 +58,7 @@ export default function CustomCard({
             <Typography gutterBottom variant="h5" component="div">
               {title}
             </Typography>
-            <Typography gutterBottom>{speciality}</Typography>
+            <Typography gutterBottom >{speciality}{hourlyCharges}</Typography>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               {description}
             </Typography>

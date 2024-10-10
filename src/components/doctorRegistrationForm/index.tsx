@@ -460,7 +460,40 @@ const DoctorSignup: React.FC = () => {
               {/* <Typography>Attach File</Typography> */}
             </Grid>
           </Grid>
+
           {/* Sixth Row start */}
+          <Grid
+            container
+            item
+            xs={12}
+            md={12}
+            sm={12}
+            lg={12}
+            xl={12}
+            mt={3}
+            justifyContent={"space-between"}
+          >
+            <Grid container item xs={12} md={5} sm={12} lg={5} xl={5}>
+              <CustomTextField
+                error={Boolean(errors.charges)}
+                errorCondition={
+                  errors.charges && (
+                    <Typography className={styles.errorMsg}>
+                      {errors.charges.message}
+                    </Typography>
+                  )
+                }
+                control={control}
+                name="charges"
+                fullWidth={true}
+                className={styles.fieldContainer}
+                placeholder="Hourly Charges"
+              />
+            </Grid>
+            
+          </Grid>
+
+          {/* Seventh Row start */}
           <Grid
             container
             item

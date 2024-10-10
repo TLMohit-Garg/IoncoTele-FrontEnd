@@ -5,7 +5,8 @@
     "speciality":"Heart Surgeon",
     "description": "A highly skilled heart surgeon with over 20 years of experience in cardiology.",
     "imageUrl": "src/assets/Individual-doctor.jpg",
-    "buttonText": "Share"
+    "buttonText": "Share",
+    "charges":"$200"
   },
   {
     "id": 2,
@@ -13,7 +14,9 @@
     "speciality":"Heart Surgeon",
     "description": "An expert in gynecology, specializing in women's reproductive health and prenatal care.",
     "imageUrl": "src/assets/doc2.png",
-    "buttonText": "Share"
+    "buttonText": "Share",
+    "charges":"$500"
+
   },
   {
     "id": 3,
@@ -21,7 +24,9 @@
     "speciality":"Heart Surgeon",
     "description": "Renowned neurologist focused on treating complex neurological disorders.",
     "imageUrl": "src/assets/doc3.png",
-    "buttonText": "Share"
+    "buttonText": "Share",
+    "charges":"$100"
+
   },
   {
     "id": 4,

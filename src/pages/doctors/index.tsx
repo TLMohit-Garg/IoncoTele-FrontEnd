@@ -58,6 +58,7 @@ export default function Doctors() {
             speciality={doctor.speciality}
             description={doctor.description}
             buttonText="Explore More"
+            hourlyCharges={doctor.charges}
             onButtonClick={() => handleCardClick(doctor)}
           />
         ))}
