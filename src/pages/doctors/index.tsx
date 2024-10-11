@@ -5,10 +5,14 @@ import CustomCard from "../../components/customCards";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DoctorDetailsModal from "../../components/doctorDetailModal";
 import styles from "../../Styles/doctorpage.module.css";
+import axios from "axios";
 
 export default function Doctors() {
   const [selectedDoctor, setSelectedDoctor] = React.useState(null);  // To store the selected doctor
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [data, setData] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [error, setError] = React.useState<string | null>(null);
 
   console.log("doc-data",data);
   const handleCardClick = (doctor: any) => {
@@ -21,6 +25,20 @@ export default function Doctors() {
   const handleModalClose = () => {
     setModalOpen(false);  // Close the modal
   };
+
+  React.useEffect(()=> {
+    const fetchDoctors = async() => {
+    try{
+      const response = await axios.get("/api/doctorSignup");
+      setData(response.data)
+      setLoading(false);
+    }catch(err){
+      setError('Failed to fetch doctors data.'); 
+      setLoading(false);
+    }
+  }
+  fetchDoctors();
+  },[])
   return (
     <>
       <Grid
@@ -50,7 +68,7 @@ export default function Doctors() {
         Team of our Dedicated Doctor's
       </Grid>
       <Grid container item justifyContent={"space-around"}>
-        {data?.map((doctor) => (
+        {/* {data?.map((doctor) => (
           <CustomCard
             key={doctor.id}
             image={doctor.imageUrl}
@@ -60,6 +78,12 @@ export default function Doctors() {
             buttonText="Explore More"
             hourlyCharges={doctor.charges}
             onButtonClick={() => handleCardClick(doctor)}
+          />
+        ))} */}
+        {data.map((doctor) => (
+          <CustomCard
+          hourlyCharges={doctor.charges}
+          onButtonClick={() => handleCardClick(doctor)}
           />
         ))}
       </Grid>

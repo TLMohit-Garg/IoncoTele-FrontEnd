@@ -72,21 +72,6 @@ export default function Home() {
         </Grid>
       </Grid>
       <Grid
-      container
-      item
-      xl={7}
-      lg={7}
-      md={7}
-      sm={7}
-      xs={7}
-      mt={3}
-      sx={{}}
-      ml={5}>
-
-{/* <TestingStripe/> */}
-<BookingForm patientEmail={"patientDemo@gmail.com"} doctorPrice={200}/>
-      </Grid>
-      <Grid
         className={styles.completeBannerSectionGroup}
         container
         item

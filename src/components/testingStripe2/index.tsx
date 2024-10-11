@@ -39,7 +39,16 @@ const BookingForm = ({ patientEmail, doctorPrice }:any) => {
         <option value="jpy">jpy</option>
       </select>
       {/* Your booking consultation form */}
-      <button onClick={handleCheckout} style={{fontSize:"28px", color:"black"}}>Proceed to Payment</button>
+      <button onClick={handleCheckout}  style={{
+          fontSize: '18px',
+          padding: '10px 20px',
+          backgroundColor: '#007bff',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+        }}>Proceed to Payment</button>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };

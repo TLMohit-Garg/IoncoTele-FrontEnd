@@ -36,20 +36,20 @@ import CustomDatePicker from "../customDatePicker";
 // import InputField from "../TextField";
 import Dropzone from "../UploadDropZone";
 import axios from "axios";
+import BookingForm from "../testingStripe2";
+import { Stepper, Step, StepLabel, Button } from "@mui/material";
 
-const DoctorDetailsModal = ({
-  onClick,
-  open,
-  onClose,
-  doctor
-}: any) => {
+const steps = ["Step 1", "Step 2"];
+
+const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   //   const { userInfo }: any = useAppSelector(
   //     (state: RootState) => state.userSlice
   //   );
-  console.log("Doctor prop:", doctor); 
+  console.log("Doctor prop:", doctor);
   const [selectedFile, setSelectedFile] = useState<any>();
   console.log("selectedFile", selectedFile);
+  const [activeStep, setActiveStep] = useState(0);
 
   const {
     control,
@@ -66,7 +66,6 @@ const DoctorDetailsModal = ({
       setDoctorDetails(doctor); // Use doctor data
     }
   }, [doctor]);
-  
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -124,12 +123,29 @@ const DoctorDetailsModal = ({
       if (response.status === 201) {
         Toast("success", "Congratulations! You have booked your consultation.");
         reset();
+        setActiveStep(0); // Reset to the first step after submission
       } else {
         Toast("error", "Booking consultation failed!");
       }
     } catch (error) {
       console.error("Error during signup:", error);
       Toast("error", "An error occurred during signup!");
+    }
+  };
+  // Handle form submission and step transition
+  const handleNext = async (data: any) => {
+    if (activeStep === steps.length - 1) {
+      await handleSignup(data); // If on the last step, submit the form
+    } else {
+      setActiveStep((prev) => prev + 1); // Move to the next step
+    }
+  };
+
+  // Handle back button click
+  const handleBack = () => {
+    if (activeStep > 0) {
+      setActiveStep((prev) => prev - 1); // Move to the previous step
+      reset(); // Reset form on back button press
     }
   };
   return (
@@ -229,7 +245,10 @@ const DoctorDetailsModal = ({
                   justifyContent={"center"}
                   className={styles.imageContainer}
                 >
-                  <img src={doctorDetails?.imageUrl || "default-image.png"} className={styles.imageDoctor} />
+                  <img
+                    src={doctorDetails?.imageUrl || "default-image.png"}
+                    className={styles.imageDoctor}
+                  />
                 </Grid>
                 <Grid
                   container
@@ -253,7 +272,7 @@ const DoctorDetailsModal = ({
                     justifyContent={"center"}
                   >
                     <Typography className={styles.doctorName}>
-                    {doctorDetails?.title || "Doctor name is not Available"}
+                      {doctorDetails?.title || "Doctor name is not Available"}
                     </Typography>
                   </Grid>
                   <Grid
@@ -268,7 +287,8 @@ const DoctorDetailsModal = ({
                     mb={5}
                   >
                     <Typography className={styles.doctorSpeciality}>
-                      {doctorDetails?.speciality || "Doctor speciality not Available"}
+                      {doctorDetails?.speciality ||
+                        "Doctor speciality not Available"}
                     </Typography>
                   </Grid>
                   <Grid
@@ -282,7 +302,8 @@ const DoctorDetailsModal = ({
                     justifyContent={"center"}
                   >
                     <Typography className={styles.doctorDescription}>
-                      {doctorDetails?.description || "Doctor description not Available"}
+                      {doctorDetails?.description ||
+                        "Doctor description not Available"}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -511,209 +532,211 @@ const DoctorDetailsModal = ({
                         Book Consultation Now
                       </Typography>
                       <Divider className={styles.formdivider} />
-                      <Grid className={styles.fullName}>
-                        <Typography className={styles.fullNameTypo}>
-                          Full Name
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        className={styles.fullNameContainer}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                        xl={12}
-                      >
-                        <CustomTextField
-                          error={Boolean(errors.fullName)}
-                          errorCondition={
-                            errors.fullName && (
-                              <Typography className={styles.errorMsg}>
-                                {errors.fullName.message}
-                              </Typography>
-                            )
-                          }
-                          control={control}
-                          name="fullName"
-                          fullWidth={true}
-                          className={styles.fieldContainer}
-                          placeholder="Enter your full name"
-                        />
-                      </Grid>
-                      <Grid className={styles.fullName}>
-                        <Typography className={styles.fullNameTypo}>
-                          Email
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        className={styles.emailContainer}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                        xl={12}
-                      >
-                        <CustomTextField
-                          error={Boolean(errors.email)}
-                          errorCondition={
-                            errors.email && (
-                              <Typography className={styles.errorMsg}>
-                                {errors.email.message}
-                              </Typography>
-                            )
-                          }
-                          control={control}
-                          name="email"
-                          fullWidth={true}
-                          className={styles.fieldContainer}
-                          placeholder="Email Address"
-                        />
-                      </Grid>
-                      <Grid className={styles.fullName}>
-                        <Typography className={styles.fullNameTypo}>
-                          Date & Time
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        className={styles.nationalityContainer}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                        xl={12}
-                      >
-                        <CustomDatePicker
-                          error={Boolean(errors.prefferDate)}
-                          errorCondition={
-                            errors.prefferDate && (
-                              <Typography className={styles.errorMsg}>
-                                {errors.prefferDate.message}
-                              </Typography>
-                            )
-                          }
-                          control={control}
-                          name="prefferDate"
-                          showTimePicker={true}
-                          className={styles.datefieldContainer}
-                        />
-                      </Grid>
-                      <Grid className={styles.fullName}>
-                        <Typography className={styles.fullNameTypo}>
-                          Nationality
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        className={styles.nationalityContainer}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                        xl={12}
-                      >
-                        <CustomSelect
-                          error={Boolean(errors.nationality)}
-                          errorCondition={
-                            errors.nationality && (
-                              <Typography className={styles.errorMsg}>
-                                {errors.nationality.message}
-                              </Typography>
-                            )
-                          }
-                          control={control}
-                          name="nationality"
-                          selectData={perInfoData.nationality}
-                          placeHolder="Select nationality"
-                          selectFieldCss={styles.selectField}
-                          fullWidth={true}
-                          className={styles.customSelect}
-                        />
-                      </Grid>
-                      <Grid className={styles.fullName}>
-                        <Typography className={styles.fullNameTypo}>
-                          Time Zone
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        className={styles.timezoneContainer}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                        xl={12}
-                      >
-                        <CustomSelect
-                          error={Boolean(errors.timezone)}
-                          errorCondition={
-                            errors.timezone && (
-                              <Typography className={styles.errorMsg}>
-                                {errors.timezone.message}
-                              </Typography>
-                            )
-                          }
-                          control={control}
-                          name="timezone"
-                          selectData={perInfoData.timezone}
-                          placeHolder="Select your timezone"
-                          selectFieldCss={styles.selectField}
-                          fullWidth={true}
-                          className={styles.customSelect}
-                        />
-                      </Grid>
-                      <Grid className={styles.fullName}>
-                        <Typography className={styles.fullNameTypo}>
-                          Phone number
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        className={styles.timezoneContainer}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                        xl={12}
-                      >
-                        <PhoneInput
-                          name="phone"
-                          control={control}
-                          error={Boolean(errors?.phone)}
-                          containerClass={styles.containerPhn}
-                          inputClass={`${styles.inputPhn} ${
-                            Boolean(errors?.phone) ? styles.errorBorder : ""
-                          }`}
-                          placeholder="+91-8050656794"
-                          helperText={errors?.phone?.message}
-                        />
-                      </Grid>
+                      {activeStep === 0 && (
+                        <>
+                          <Grid className={styles.fullName}>
+                            <Typography className={styles.fullNameTypo}>
+                              Full Name
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            className={styles.fullNameContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                            <CustomTextField
+                              error={Boolean(errors.fullName)}
+                              errorCondition={
+                                errors.fullName && (
+                                  <Typography className={styles.errorMsg}>
+                                    {errors.fullName.message}
+                                  </Typography>
+                                )
+                              }
+                              control={control}
+                              name="fullName"
+                              fullWidth={true}
+                              className={styles.fieldContainer}
+                              placeholder="Enter your full name"
+                            />
+                          </Grid>
+                          <Grid className={styles.fullName}>
+                            <Typography className={styles.fullNameTypo}>
+                              Email
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            className={styles.emailContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                            <CustomTextField
+                              error={Boolean(errors.email)}
+                              errorCondition={
+                                errors.email && (
+                                  <Typography className={styles.errorMsg}>
+                                    {errors.email.message}
+                                  </Typography>
+                                )
+                              }
+                              control={control}
+                              name="email"
+                              fullWidth={true}
+                              className={styles.fieldContainer}
+                              placeholder="Email Address"
+                            />
+                          </Grid>
+                          <Grid className={styles.fullName}>
+                            <Typography className={styles.fullNameTypo}>
+                              Date & Time
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            className={styles.nationalityContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                            <CustomDatePicker
+                              error={Boolean(errors.prefferDate)}
+                              errorCondition={
+                                errors.prefferDate && (
+                                  <Typography className={styles.errorMsg}>
+                                    {errors.prefferDate.message}
+                                  </Typography>
+                                )
+                              }
+                              control={control}
+                              name="prefferDate"
+                              showTimePicker={true}
+                              className={styles.datefieldContainer}
+                            />
+                          </Grid>
+                          <Grid className={styles.fullName}>
+                            <Typography className={styles.fullNameTypo}>
+                              Nationality
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            className={styles.nationalityContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                            <CustomSelect
+                              error={Boolean(errors.nationality)}
+                              errorCondition={
+                                errors.nationality && (
+                                  <Typography className={styles.errorMsg}>
+                                    {errors.nationality.message}
+                                  </Typography>
+                                )
+                              }
+                              control={control}
+                              name="nationality"
+                              selectData={perInfoData.nationality}
+                              placeHolder="Select nationality"
+                              selectFieldCss={styles.selectField}
+                              fullWidth={true}
+                              className={styles.customSelect}
+                            />
+                          </Grid>
+                          <Grid className={styles.fullName}>
+                            <Typography className={styles.fullNameTypo}>
+                              Time Zone
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            className={styles.timezoneContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                            <CustomSelect
+                              error={Boolean(errors.timezone)}
+                              errorCondition={
+                                errors.timezone && (
+                                  <Typography className={styles.errorMsg}>
+                                    {errors.timezone.message}
+                                  </Typography>
+                                )
+                              }
+                              control={control}
+                              name="timezone"
+                              selectData={perInfoData.timezone}
+                              placeHolder="Select your timezone"
+                              selectFieldCss={styles.selectField}
+                              fullWidth={true}
+                              className={styles.customSelect}
+                            />
+                          </Grid>
+                          <Grid className={styles.fullName}>
+                            <Typography className={styles.fullNameTypo}>
+                              Phone number
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            className={styles.timezoneContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                            <PhoneInput
+                              name="phone"
+                              control={control}
+                              error={Boolean(errors?.phone)}
+                              containerClass={styles.containerPhn}
+                              inputClass={`${styles.inputPhn} ${
+                                Boolean(errors?.phone) ? styles.errorBorder : ""
+                              }`}
+                              placeholder="+91-8050656794"
+                              helperText={errors?.phone?.message}
+                            />
+                          </Grid>
 
-                      <Grid className={styles.fullName}>
-                        <Typography className={styles.fullNameTypo}>
-                          Upload file(Doctor Prescription's etc...)
-                        </Typography>
-                      </Grid>
+                          <Grid className={styles.fullName}>
+                            <Typography className={styles.fullNameTypo}>
+                              Upload file(Doctor Prescription's etc...)
+                            </Typography>
+                          </Grid>
 
-                      <Grid
-                        container
-                        item
-                        className={styles.timezoneContainer}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                        xl={12}
-                      >
-                        {/* <FileUploader
+                          <Grid
+                            container
+                            item
+                            className={styles.timezoneContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                            {/* <FileUploader
                           name="files"
                           acceptedFileTypes={[
                             "image/jpeg",
@@ -725,7 +748,7 @@ const DoctorDetailsModal = ({
                           maxFiles={10}
                           placeholder="Upload file(s)"
                         /> */}
-                        {/* <InputField
+                            {/* <InputField
                           type="file"
                           size="medium"
                           error={errors.documentName !== undefined}
@@ -739,105 +762,127 @@ const DoctorDetailsModal = ({
                           ) => uploadFile(event)}
                           multiple 
                         /> */}
-                        <Controller
-                          control={control}
-                          name="images"
-                          defaultValue=""
-                          render={({ field, fieldState: { error } }) => (
-                            <>
-                              <Dropzone
-                                {...field}
-                                //  onFileDrop={uploadFile}
-                              />
-                              {error && (
-                                <Typography
-                                  color="error"
-                                  className={styles.errorMsg}
-                                  sx={{ fontSize: "12px" }}
-                                >
-                                  Please select the images
-                                </Typography>
+                            <Controller
+                              control={control}
+                              name="images"
+                              defaultValue=""
+                              render={({ field, fieldState: { error } }) => (
+                                <>
+                                  <Dropzone
+                                    {...field}
+                                    //  onFileDrop={uploadFile}
+                                  />
+                                  {error && (
+                                    <Typography
+                                      color="error"
+                                      className={styles.errorMsg}
+                                      sx={{ fontSize: "12px" }}
+                                    >
+                                      Please select the images
+                                    </Typography>
+                                  )}
+                                </>
                               )}
-                            </>
-                          )}
-                        />
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        className={styles.timezoneContainer}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                        xl={12}
-                      >
-                        <Typography className={styles.inputHeading}>
-                          Upload File (
-                          <span style={{ fontWeight: "normal" }}>
-                            Jpeg, Jpg, Png, SVG, Pdf, Webp
-                          </span>
-                          )
-                        </Typography>
-                      </Grid>
-                      <Grid className={styles.fullName}>
-                        <Typography className={styles.fullNameTypo}>
-                          Reason for consultation
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        className={styles.timezoneContainer}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                        xl={12}
-                      >
-                        <Controller
-                          control={control}
-                          name="description"
-                          defaultValue=""
-                          rules={{
-                            required: true,
-                            maxLength: 60,
-                            pattern: /^[a-zA-Z ]*$/,
-                          }}
-                          render={({ field, fieldState: { error } }) => (
-                            <>
-                              <TextareaAutosize
-                                minRows={8}
-                                maxRows={10}
-                                {...field}
-                                className={styles.textArea}
-                              />
+                            />
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            className={styles.timezoneContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                            <Typography className={styles.inputHeading}>
+                              Upload File (
+                              <span style={{ fontWeight: "normal" }}>
+                                Jpeg, Jpg, Png, SVG, Pdf, Webp
+                              </span>
+                              )
+                            </Typography>
+                          </Grid>
+                          <Grid className={styles.fullName}>
+                            <Typography className={styles.fullNameTypo}>
+                              Reason for consultation
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            className={styles.timezoneContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                            <Controller
+                              control={control}
+                              name="description"
+                              defaultValue=""
+                              rules={{
+                                required: true,
+                                maxLength: 60,
+                                pattern: /^[a-zA-Z ]*$/,
+                              }}
+                              render={({ field, fieldState: { error } }) => (
+                                <>
+                                  <TextareaAutosize
+                                    minRows={8}
+                                    maxRows={10}
+                                    {...field}
+                                    className={styles.textArea}
+                                  />
 
-                              {error && (
-                                <Typography
-                                  color="error"
-                                  className={styles.errorMsg}
-                                  sx={{ fontSize: "12px" }}
-                                >
-                                  Please enter a description (max 60 characters)
-                                </Typography>
+                                  {error && (
+                                    <Typography
+                                      color="error"
+                                      className={styles.errorMsg}
+                                      sx={{ fontSize: "12px" }}
+                                    >
+                                      Please enter a description (max 60
+                                      characters)
+                                    </Typography>
+                                  )}
+                                </>
                               )}
-                            </>
-                          )}
-                        />
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        className={styles.timezoneContainer}
-                        xs={12}
-                        sm={12}
-                        md={12}
-                        lg={12}
-                        xl={12}
-                      >
-                        Payment gateway
-                      </Grid>
+                            />
+                          </Grid>
+                        </>
+                      )}
+                      {activeStep === 1 && (
+                        <>
+                          <Grid
+                            container
+                            item
+                            className={styles.timezoneContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                            <p>
+                              <strong>Consultation Fee:</strong> <br />
+                              <strong>Service Charges & Tax (15%):</strong>
+                              <br />
+                              <strong>Total Price:</strong> $
+                            </p>
+
+                            <p style={{ fontStyle: "italic", color: "gray" }}>
+                              The total price includes a 25% service charge and
+                              tax.
+                            </p>
+                            <BookingForm
+                              patientEmail={"patientDemo@gmail.com"}
+                              doctorPrice={200}
+                            />
+                          </Grid>
+                        </>
+                      )}
+
                       <Grid
                         container
                         item
@@ -849,12 +894,33 @@ const DoctorDetailsModal = ({
                         xl={12}
                         justifyContent={"center"}
                       >
-                        <IconLabelButtons
+                        {/* <IconLabelButtons
                           name={"Book Consultation"}
                           type="submit"
                           variant="contained"
                           className={styles.buttons}
-                        />
+                        /> */}
+                        <Button
+                          disabled={activeStep === 0} // Disable back button on first step
+                          onClick={handleBack}
+                          variant="outlined"
+                        >
+                          Back
+                        </Button>
+                        {activeStep < steps.length - 1 && (
+                          <Button
+                            type="button"
+                            variant="contained"
+                            onClick={handleNext}
+                          >
+                            Next
+                          </Button>
+                        )}
+                        {/* <Button type="submit" variant="contained"
+                          onClick={handleNext}
+                        >
+                          {activeStep === steps.length - 1 ? "Submit" : "Next"}
+                        </Button> */}
                       </Grid>
                     </form>
                   </CardContent>

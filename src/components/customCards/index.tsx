@@ -10,10 +10,10 @@ import styles from "../../Styles/cards.module.css";
 // import { DialogProps } from "@mui/material";
 
 type CustomCardProps = {
-  image: string;
-  title: string;
-  description: string;
-  buttonText: string;
+  image?: string;
+  title?: string;
+  description?: string;
+  buttonText?: string;
   onButtonClick?: any;
   speciality?: string;
   hourlyCharges?: string;
