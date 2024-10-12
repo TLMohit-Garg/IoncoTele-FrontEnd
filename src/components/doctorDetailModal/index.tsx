@@ -37,6 +37,8 @@ import CustomDatePicker from "../customDatePicker";
 import Dropzone from "../UploadDropZone";
 import axios from "axios";
 import BookingForm from "../testingStripe2";
+import { useSelector } from "react-redux";
+import { selectPatientEmail } from '../../store/authPatientSlice';
 import { Stepper, Step, StepLabel, Button } from "@mui/material";
 
 const steps = ["Step 1", "Step 2"];
@@ -148,6 +150,8 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
       reset(); // Reset form on back button press
     }
   };
+  const selectedDoctor = useSelector((state:any) => state.doctor.selectedDoctor);
+  const patientEmail = useSelector(selectPatientEmail);
   return (
     <>
       <FullScreenDialog
@@ -409,7 +413,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                       xl={9}
                       className={styles.consultationText}
                     >
-                      13 Per Hour
+                      {doctorDetails?.charges || "Charges not available"}Per Hour
                     </Grid>
                   </Grid>
                   <Grid
@@ -875,10 +879,11 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                               The total price includes a 25% service charge and
                               tax.
                             </p>
+                            {selectedDoctor && (
                             <BookingForm
-                              patientEmail={"patientDemo@gmail.com"}
-                              doctorPrice={200}
-                            />
+                              patientEmail={patientEmail || 'Loading email...'}
+                              doctorPrice={selectedDoctor.charges}
+                            /> )}
                           </Grid>
                         </>
                       )}

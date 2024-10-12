@@ -6,19 +6,34 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DoctorDetailsModal from "../../components/doctorDetailModal";
 import styles from "../../Styles/doctorpage.module.css";
 import axios from "axios";
+import BookingForm from "../../components/testingStripe2";
+import {useDispatch} from "react-redux";
+import {selectDoctor} from "../../store/selectedDoctorSlice";
+
+interface Doctor {
+  id: string;
+  imageUrl: string;
+  title: string;
+  speciality: string;
+  description: string;
+  charges: string;
+}
 
 export default function Doctors() {
-  const [selectedDoctor, setSelectedDoctor] = React.useState(null);  // To store the selected doctor
+  const [selectedDoctor, setSelectedDoctor] = React.useState<Doctor | null>(null);  // To store the selected doctor
   const [modalOpen, setModalOpen] = React.useState(false);
   const [data, setData] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string | null>(null);
 
+  const dispatch = useDispatch();
+
   console.log("doc-data",data);
   const handleCardClick = (doctor: any) => {
     console.log("doctor-data", doctor);
-    setSelectedDoctor(doctor);  // Set the selected doctor
-    setModalOpen(true);  // Open the modal
+    setSelectedDoctor(doctor);        // Set the selected doctor
+    setModalOpen(true);               // Open the modal
+    dispatch(selectDoctor(doctor));   // Dispatch the selected doctor to the store
   };
 
   // Handle modal close
@@ -39,6 +54,8 @@ export default function Doctors() {
   }
   fetchDoctors();
   },[])
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
   return (
     <>
       <Grid
@@ -82,6 +99,7 @@ export default function Doctors() {
         ))} */}
         {data.map((doctor) => (
           <CustomCard
+          key={doctor.id}
           hourlyCharges={doctor.charges}
           onButtonClick={() => handleCardClick(doctor)}
           />
@@ -122,6 +140,13 @@ export default function Doctors() {
           open={modalOpen}
           onClose={handleModalClose}
           doctor={selectedDoctor}  // Pass selected doctor to modal
+        />
+      )}
+
+{selectedDoctor && (
+        <BookingForm
+          // patientEmail="test@example.com" // Replace with real patientEmail
+          doctorPrice={selectedDoctor?.charges} // Pass the dynamically selected doctorPrice
         />
       )}
     </>

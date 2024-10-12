@@ -67,6 +67,7 @@ const decodeJWT = (token: string) => {
   
           // Store the token in Redux and localStorage
           dispatch(login({ token })); // Storing token in Redux
+          dispatch(login({ token: response.data.token, email: response.data.email }));
           dispatch(setUserId(userId)); // Storing userId in Redux
   
           localStorage.setItem("patientToken", token);
