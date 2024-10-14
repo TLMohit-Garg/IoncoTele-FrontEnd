@@ -870,7 +870,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                           >
                             <p>
                               <strong>Consultation Fee:</strong> <br />
-                              <strong>Service Charges & Tax (15%):</strong>
+                              <strong>Service Charges & Tax (30%):</strong>
                               <br />
                               <strong>Total Price:</strong> $
                             </p>
@@ -881,9 +881,11 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                             </p>
                             {selectedDoctor && (
                             <BookingForm
-                              patientEmail={patientEmail || 'Loading email...'}
+                              patientEmail={selectedDoctor.email || 'Loading email...'}
                               doctorPrice={selectedDoctor.charges}
-                            /> )}
+                              doctorName={selectedDoctor.firstName}
+                            /> 
+                            )}
                           </Grid>
                         </>
                       )}

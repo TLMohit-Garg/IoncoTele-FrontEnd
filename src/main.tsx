@@ -22,6 +22,7 @@ import Profile from "./pages/profile/index.tsx";
 import DoctorBankingDetails from "./pages/doctorBankingDetails/index.tsx";
 import Appointments from "./pages/appointment/index.tsx";
 import SignIn from "./pages/adminSignIn/index.tsx";
+import SuccessPage from "./pages/success/index.tsx";
 // import CredentialsSignInPage from "./pages/adminSignIn/index.tsx";
 
 const router = createBrowserRouter(
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
       <Route path="/doctorBankingDetails" element={<DoctorBankingDetails />} />
       <Route path="/myAppointments" element={<Appointments />} />
       <Route path="/adminSignIn" element={<SignIn />} />
+      <Route path="/success" element={<SuccessPage />} />
     </Route>
   )
 );

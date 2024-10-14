@@ -143,12 +143,12 @@ export default function Doctors() {
         />
       )}
 
-{selectedDoctor && (
+      {/* {selectedDoctor && (
         <BookingForm
           // patientEmail="test@example.com" // Replace with real patientEmail
           doctorPrice={selectedDoctor?.charges} // Pass the dynamically selected doctorPrice
         />
-      )}
+      )} */}
     </>
   );
 }
