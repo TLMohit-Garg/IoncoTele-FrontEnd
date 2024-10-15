@@ -48,6 +48,7 @@ const decodeJWT = (token: string) => {
     return null;
   }
 };
+
   const handleSignIn = async (data: any) => {
     console.log(JSON.stringify(data));
 
@@ -66,9 +67,11 @@ const decodeJWT = (token: string) => {
           console.log("Decoded userId:", userId);
   
           // Store the token in Redux and localStorage
-          dispatch(login({ token })); // Storing token in Redux
-          dispatch(login({ token: response.data.token, email: response.data.email }));
+          dispatch(login({ token })); 
+          // dispatch(login({ token: response.data.token, email: response.data.email }));
+          dispatch(login({ token, email: data.email }));
           dispatch(setUserId(userId)); // Storing userId in Redux
+
   
           localStorage.setItem("patientToken", token);
           localStorage.setItem("patientuserId", userId); // Store userId in localStorage

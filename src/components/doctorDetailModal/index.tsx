@@ -38,7 +38,10 @@ import Dropzone from "../UploadDropZone";
 import axios from "axios";
 import BookingForm from "../testingStripe2";
 import { useSelector } from "react-redux";
-import { selectPatientEmail } from '../../store/authPatientSlice';
+import {
+  selectPatientEmail,
+  selectIsPatientAuthenticated,
+} from "../../store/authPatientSlice";
 import { Stepper, Step, StepLabel, Button } from "@mui/material";
 
 const steps = ["Step 1", "Step 2"];
@@ -150,8 +153,20 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
       reset(); // Reset form on back button press
     }
   };
-  const selectedDoctor = useSelector((state:any) => state.doctor.selectedDoctor);
+  const selectedDoctor = useSelector(
+    (state: any) => state.doctor.selectedDoctor
+  );
+
   const patientEmail = useSelector(selectPatientEmail);
+  // const patientEmail = useSelector((state: any) => state.user.email);
+  const isAuthenticated = useSelector(selectIsPatientAuthenticated);
+  console.log("Patient Email:", patientEmail);
+  console.log("Selected Doctor:", selectedDoctor);
+
+  React.useEffect(() => {
+    console.log("Patient Email from Redux:", patientEmail);
+    console.log("Is Patient Authenticated:", isAuthenticated);
+  }, [patientEmail, isAuthenticated]);
   return (
     <>
       <FullScreenDialog
@@ -413,7 +428,8 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                       xl={9}
                       className={styles.consultationText}
                     >
-                      {doctorDetails?.charges || "Charges not available"}Per Hour
+                      {doctorDetails?.charges || "Charges not available"}Per
+                      Hour
                     </Grid>
                   </Grid>
                   <Grid
@@ -880,12 +896,27 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                               tax.
                             </p>
                             {selectedDoctor && (
-                            <BookingForm
-                              patientEmail={selectedDoctor.email || 'Loading email...'}
-                              doctorPrice={selectedDoctor.charges}
-                              doctorName={selectedDoctor.firstName}
-                            /> 
+                              <BookingForm
+                                patientEmail={
+                                  typeof patientEmail === "object"
+                                    ? patientEmail.email
+                                    : patientEmail
+                                }
+                                //  patientEmail={patientEmail.email || "loading"}
+                                doctorPrice={selectedDoctor.charges}
+                                doctorName={selectedDoctor.firstName}
+                              />
                             )}
+                            <div>
+                              <h1>
+                                Patient Email:
+                                {patientEmail || "No email found"}
+                              </h1>
+                              <h2>
+                                Is Authenticated:
+                                {isAuthenticated ? "Yes" : "No"}
+                              </h2>
+                            </div>
                           </Grid>
                         </>
                       )}

@@ -5,7 +5,7 @@ const BookingForm = ({ patientEmail, doctorPrice, doctorName }: any) => {
   const [currency, setCurrency] = React.useState("gbp");
   const [error, setError] = React.useState("");
 
-  const increasedPrice = doctorPrice * 1.30;
+  const increasedPrice = doctorPrice * 1.15;
 
   const handleCheckout = async () => {
     console.log("Initiating checkout with the following details:");
