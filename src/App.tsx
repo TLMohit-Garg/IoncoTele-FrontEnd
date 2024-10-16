@@ -5,24 +5,24 @@ import Header from "./components/common/Header";
 // import styles from "./index.css";
 import Box from "@mui/material/Box";
 import "./App.css";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { login as doctorLogin, logout as doctorLogout} from './store/authDoctorSlice';
 import { login as patientLogin, logout as patientLogout} from './store/authPatientSlice';
 
 
 function App() {
   const dispatch = useDispatch();
+  const doctorToken = useSelector((state:any) => state.authDoctor.token);
+  const patientToken = useSelector((state:any) => state.authPatient.token);
 
   React.useEffect(() => {
     // Check if the token exists in localStorage when the app loads
-    const doctorToken  = localStorage.getItem('doctortoken');
-    
+    // const doctorToken  = localStorage.getItem('doctortoken');
 
     if (doctorToken) {
       // Decode the JWT manually to check the expiration time
       const payloadBase64 = doctorToken.split('.')[1]; 
       const decodedPayload = JSON.parse(atob(payloadBase64)); 
-
       const currentTime = Date.now() / 1000; // Get current time in seconds
 
       if (decodedPayload.exp < currentTime) {
@@ -36,12 +36,12 @@ function App() {
       }
     }
    
-  }, [dispatch]);
+  }, [dispatch, doctorToken]);
 
   React.useEffect(() => {
     // Check if the token exists in localStorage when the app loads
-    const patientToken = localStorage.getItem('patientToken');
-    console.log("patient-token", patientToken);
+    // const patientToken = localStorage.getItem('patientToken');
+    // console.log("patient-token", patientToken);
     
     if (patientToken) {
       // Decode the JWT manually to check the expiration time
@@ -59,7 +59,7 @@ function App() {
         dispatch(patientLogin({ patientToken }));
       }
     }
-  }, [dispatch]);
+  }, [dispatch, patientToken]);
   return (
     <>
       <Header />

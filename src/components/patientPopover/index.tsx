@@ -62,16 +62,17 @@ const decodeJWT = (token: string) => {
         // Decode the JWT token manually to extract the userId
         const decodedToken = decodeJWT(token);
         console.log('Decoded Token:', decodedToken);
+
         if (decodedToken && decodedToken.userId) {
           const userId = decodedToken.userId;
+          const email = data.email;
           console.log("Decoded userId:", userId);
   
           // Store the token in Redux and localStorage
-          dispatch(login({ token })); 
+          // dispatch(login({ token })); 
           // dispatch(login({ token: response.data.token, email: response.data.email }));
-          dispatch(login({ token, email: data.email }));
+          dispatch(login({ token, email, userId  }));
           dispatch(setUserId(userId)); // Storing userId in Redux
-
   
           localStorage.setItem("patientToken", token);
           localStorage.setItem("patientuserId", userId); // Store userId in localStorage

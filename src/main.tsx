@@ -16,13 +16,14 @@ import Doctors from "./pages/doctors/index.tsx";
 import Testing from "./pages/testing/index.tsx";
 import Admin from "./pages/admin/index.tsx";
 // import DashboardLayoutBasic from "./pages/testing/index.tsx";
-import { store } from "./store/store.ts";
+import { store, persistor } from "./store/store.ts";
 import { Provider } from "react-redux";
 import Profile from "./pages/profile/index.tsx";
 import DoctorBankingDetails from "./pages/doctorBankingDetails/index.tsx";
 import Appointments from "./pages/appointment/index.tsx";
 import SignIn from "./pages/adminSignIn/index.tsx";
 import SuccessPage from "./pages/success/index.tsx";
+import { PersistGate } from "redux-persist/integration/react";
 // import CredentialsSignInPage from "./pages/adminSignIn/index.tsx";
 
 const router = createBrowserRouter(
@@ -47,8 +48,9 @@ const router = createBrowserRouter(
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      {/* <App /> */}
-      <RouterProvider router={router} />
+      <PersistGate loading={null} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </StrictMode>
 );

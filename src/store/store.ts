@@ -1,19 +1,41 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 import counterReducer from "./counterSlice";
 import authDoctorReducer from './authDoctorSlice';
 import userReducer from "./userSlice";
 import authPatientReducer from "./authPatientSlice";
 import selectedDoctorReducer from "./selectedDoctorSlice";
 
+// const persistConfig = {
+//   key: 'root',  // Key for storing in localStorage
+//   storage,
+//   whitelist: ['authPatient', 'authDoctor'] // only persist the authPatient and user slices
+// }
+const authPatientConfig = {
+  key: 'authPatient',
+  storage,
+};
+
+const authDoctorConfig = {
+  key: 'authDoctor',
+  storage,
+};
+
+const persistedDoctorReducer = persistReducer(authDoctorConfig, authDoctorReducer);
+const persistedPatientReducer = persistReducer(authPatientConfig, authPatientReducer);
+
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    authDoctor:authDoctorReducer,
-    authPatient:authPatientReducer,
+    authDoctor:persistedDoctorReducer,
+    authPatient:persistedPatientReducer,
     user: userReducer,
     doctor:selectedDoctorReducer,
   },
 });
+ 
+export const persistor = persistStore(store); // Persistor to persist the store
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
