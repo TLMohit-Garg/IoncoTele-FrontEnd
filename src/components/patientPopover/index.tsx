@@ -76,12 +76,12 @@ const decodeJWT = (token: string) => {
   
           localStorage.setItem("patientToken", token);
           localStorage.setItem("patientuserId", userId); // Store userId in localStorage
+          localStorage.setItem("patientEmail", email);
   
-          // Reset form and handle other success actions
-          reset(); // Assuming reset is coming from React Hook Form
+          reset(); 
           Toast("success", "SignIn successfully");
           onSignIn();
-          handleClose(); // Close any modal or UI element if needed
+          handleClose(); 
         } else {
           console.error("Error decoding userId from token.");
           Toast("error", "Sign-in failed!");

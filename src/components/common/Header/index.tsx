@@ -24,9 +24,10 @@ function Header() {
   const [showpopover, setShowpopover] = React.useState<HTMLButtonElement | null>(null);
   const [menu, setMenu] = React.useState<null | HTMLElement>(null);
   const menuOpen = Boolean(menu);
-  const [isDoctorSignedIn, setIsDoctorSignedIn] = React.useState(!!localStorage.getItem('doctortoken')); 
-  const [isPatientSignedIn, setIsPatientSignedIn] = React.useState(!!localStorage.getItem('patienttoken')); 
-
+  const [isDoctorSignedIn, setIsDoctorSignedIn] = React.useState(false); 
+  const [isPatientSignedIn, setIsPatientSignedIn] = React.useState(false); 
+  // const [doctorAuthenticated, setDoctorAuthenticated] = React.useState(false);
+  // const [patientAuthenticated, setPatientAuthenticated] = React.useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -76,20 +77,26 @@ function Header() {
   const handleLogout = () => {
    console.log("Token before logout:", localStorage.getItem('doctortoken'));
   if (isDoctorAuthenticated) {
-    dispatch(doctorLogout());
     localStorage.removeItem('doctortoken'); // Clear the token from localStorage
+    localStorage.removeItem('doctoruserId'); 
+    localStorage.removeItem('doctorEmail'); 
+    dispatch(doctorLogout());
     setIsDoctorSignedIn(false);  // Reset doctor sign-in state after logout
   } else if (isPatientAuthenticated) {
+    localStorage.removeItem('patientToken'); // Clear the token from localStorage
+    localStorage.removeItem('patientuserId'); 
+    localStorage.removeItem('patientEmail');
     dispatch(patientLogout());
-    localStorage.removeItem('patienttoken'); // Clear the token from localStorage
     setIsPatientSignedIn(false);  // Reset doctor sign-in state after logout
   }
-  console.log("Token after logout:", localStorage.getItem('patienttoken')); 
+  console.log("Token after logout:", localStorage.getItem('patientToken')); 
   menuhandleClose();
 };
 
 const handleProfile =() => {
-  navigate("/profile")
+  if (isDoctorSignedIn || isPatientSignedIn) {
+    navigate("/profile");
+  }
 }
 const bankingDetails = () => {
   navigate("/doctorBankingDetails")
@@ -97,24 +104,6 @@ const bankingDetails = () => {
 const appointments = () => {
   navigate("/myAppointments")
 }
-
-React.useEffect(() => {
-  // Check if doctor token exists in localStorage and is valid
-  const doctorToken = localStorage.getItem('doctortoken');
-  if (doctorToken) {
-    // Assuming you have a way to check token validity, like decoding it to check expiration
-    const isValid = checkTokenValidity(doctorToken);
-    setIsDoctorSignedIn(isValid); // Update the state based on token validity
-  }
-
-  // Check if patient token exists in localStorage and is valid
-  const patientToken = localStorage.getItem('patienttoken');
-  if (patientToken) {
-    const isValid = checkTokenValidity(patientToken);
-    setIsPatientSignedIn(isValid);
-  }
-}, []);
-
 const base64UrlDecode = (str: string) => {
   // Replace characters to make it Base64 compatible
   const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
@@ -139,6 +128,27 @@ const checkTokenValidity = (token: string) => {
     return false; // Invalid or expired token
   }
 };
+
+React.useEffect(() => {
+  // Check if doctor token exists in localStorage and is valid
+  const doctorToken = localStorage.getItem('doctortoken');
+  if (doctorToken) {
+    const isValid = checkTokenValidity(doctorToken);
+    setIsDoctorSignedIn(isValid); // Update the state based on token validity
+  }
+  if (isDoctorAuthenticated) {
+    setIsDoctorSignedIn(true);
+  }
+  // Check if patient token exists in localStorage and is valid
+  const patientToken = localStorage.getItem('patientToken');
+  if (patientToken) {
+    const isValid = checkTokenValidity(patientToken);
+    setIsPatientSignedIn(isValid);
+  }
+  if (isPatientAuthenticated) {
+    setIsPatientSignedIn(true);
+  }
+}, [isDoctorAuthenticated, isPatientAuthenticated]); 
   return (
     <>
       <Grid
@@ -193,7 +203,7 @@ const checkTokenValidity = (token: string) => {
             justifyContent="flex-end"
             alignItems="center"
           >
-            {/* {!isPatientSignedIn && !isDoctorAuthenticated && ( */}
+           {/* {!isPatientSignedIn && !isDoctorAuthenticated && ( */}
             {!isPatientSignedIn && (
             <IconLabelButtons
               onClick={handleloginPopover}
@@ -307,7 +317,9 @@ const checkTokenValidity = (token: string) => {
               justifyContent="center"
               alignItems="center"
               className={styles.phoneTextSection}
-            ></Grid>
+            >
+              avatar
+            </Grid>
           )}
         </Grid>
         <Divider className={styles.divider} />
@@ -353,7 +365,9 @@ const checkTokenValidity = (token: string) => {
         <MenuItem onClick={appointments}>My appointments</MenuItem>
         <MenuItem onClick={bankingDetails}>Banking details</MenuItem>
         <MenuItem>Settings</MenuItem>
+        {(isDoctorSignedIn || isPatientSignedIn) && (
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        )}
       </Menu>
     </>
   );

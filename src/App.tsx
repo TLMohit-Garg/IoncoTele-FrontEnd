@@ -12,14 +12,26 @@ import { login as patientLogin, logout as patientLogout} from './store/authPatie
 
 function App() {
   const dispatch = useDispatch();
-  const doctorToken = useSelector((state:any) => state.authDoctor.token);
-  const patientToken = useSelector((state:any) => state.authPatient.token);
+
+  //For Doctor
+  const doctorTokenRedux  = useSelector((state:any) => state.authDoctor.token);
+  const doctorEmailRedux = useSelector((state: any) => state.authDoctor.email);
+  const doctorUserIdRedux = useSelector((state: any) => state.authDoctor.userId);
+
+  //For Patient
+  // const patientToken = useSelector((state:any) => state.authPatient.token);
+  const patientTokenRedux = useSelector((state: any) => state.authPatient.token);
+  const patientEmailRedux = useSelector((state: any) => state.authPatient.email);
+  const patientUserIdRedux = useSelector((state: any) => state.authPatient.userId);
 
   React.useEffect(() => {
     // Check if the token exists in localStorage when the app loads
-    // const doctorToken  = localStorage.getItem('doctortoken');
+    const doctorToken  = localStorage.getItem('doctortoken');
+    const doctorEmail = localStorage.getItem('doctorEmail');
+    const doctorUserId = localStorage.getItem('doctorUserId');
 
-    if (doctorToken) {
+
+    if (doctorToken && doctorUserId) {
       // Decode the JWT manually to check the expiration time
       const payloadBase64 = doctorToken.split('.')[1]; 
       const decodedPayload = JSON.parse(atob(payloadBase64)); 
@@ -27,23 +39,34 @@ function App() {
 
       if (decodedPayload.exp < currentTime) {
         // Token has expired
-        localStorage.removeItem('doctorToken'); // Remove token from localStorage
+        localStorage.removeItem('doctorToken'); 
+        localStorage.removeItem('doctorEmail'); 
+        localStorage.removeItem('doctorUserId'); 
         dispatch(doctorLogout()); // Dispatch logout action
       } else {
-        const userID = decodedPayload.userID;
-        // Token is still valid
-        dispatch(doctorLogin({ doctorToken, userID }));
+        // const userID = decodedPayload.userID;
+        // dispatch(doctorLogin({ doctorToken, userID }));
+        if (!doctorTokenRedux || !doctorUserIdRedux || !doctorEmailRedux) {
+          dispatch(doctorLogin({
+            token: doctorToken,
+            email: doctorEmail,
+            userId: doctorUserId,
+          }));
+        // dispatch(patientLogin({ patientToken }));
+      }
       }
     }
    
-  }, [dispatch, doctorToken]);
+  }, [dispatch, doctorTokenRedux, doctorUserIdRedux, doctorEmailRedux]);
 
   React.useEffect(() => {
     // Check if the token exists in localStorage when the app loads
-    // const patientToken = localStorage.getItem('patientToken');
+    const patientToken = localStorage.getItem('patientToken');
+    const patientEmail = localStorage.getItem('patientEmail');
+    const patientUserId = localStorage.getItem('patientUserId');
     // console.log("patient-token", patientToken);
     
-    if (patientToken) {
+    if (patientToken && patientEmail && patientUserId) {
       // Decode the JWT manually to check the expiration time
       const payloadBase64 = patientToken.split('.')[1]; 
       const decodedPayload = JSON.parse(atob(payloadBase64)); 
@@ -51,15 +74,24 @@ function App() {
       const currentTime = Date.now() / 1000; // Get current time in seconds
 
       if (decodedPayload.exp < currentTime) {
-        // Token has expired
         localStorage.removeItem('patientToken'); // Remove token from localStorage
+        localStorage.removeItem('patientEmail');
+        localStorage.removeItem('patientUserId');
         dispatch(patientLogout()); // Dispatch logout action
       } else {
-        // Token is still valid
-        dispatch(patientLogin({ patientToken }));
+        // Check if Redux already has the data
+        if (!patientTokenRedux || !patientEmailRedux || !patientUserIdRedux) {
+          // Token is still valid, and Redux does not have the values yet
+          dispatch(patientLogin({
+            token: patientToken,
+            email: patientEmail,
+            userId: patientUserId
+          }));
+        // dispatch(patientLogin({ patientToken }));
       }
     }
-  }, [dispatch, patientToken]);
+  }
+  }, [dispatch,  patientTokenRedux, patientEmailRedux, patientUserIdRedux]);
   return (
     <>
       <Header />

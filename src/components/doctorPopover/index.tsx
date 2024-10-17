@@ -66,20 +66,21 @@ const decodeJWT = (token: string) => {
         console.log('Decoded Token:', decodedToken);
         if (decodedToken && decodedToken.userId) {
           const userId = decodedToken.userId;
+          const email = data.email;
           console.log("Decoded userId:", userId);
   
           // Store the token in Redux and localStorage
-          dispatch(login({ token, email: data.email, userId  })); // Storing token in Redux
+          dispatch(login({ token, email, userId  })); // Storing token in Redux
           dispatch(setUserId(userId)); // Storing userId in Redux
   
           localStorage.setItem("doctortoken", token);
           localStorage.setItem("doctoruserId", userId); // Store userId in localStorage
+          localStorage.setItem("doctorEmail", email); 
   
-          // Reset form and handle other success actions
-          reset(); // Assuming reset is coming from React Hook Form
+          reset(); 
           Toast("success", "SignIn successfully");
           onSignIn();
-          handleClose(); // Close any modal or UI element if needed
+          handleClose(); 
         } else {
           console.error("Error decoding userId from token.");
           Toast("error", "Sign-in failed!");
