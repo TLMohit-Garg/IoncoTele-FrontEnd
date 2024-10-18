@@ -16,14 +16,31 @@ import styles from "/src/Styles/appointmentsCard.module.css";
 
 interface AppointmentData {
   prefferDate: string;
+  patientId: string;
+  doctorId: string;
+  videoCallLink?: string;
 }
 
-export default function UserCard() {
+export default function UserCard({ videoLink }: { videoLink: string }) {
   const [appointmentData, setAppointmentData] =
     React.useState<AppointmentData | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
 
+  const getUserId = () => {
+    // useSelector((state:RootState)=> state.user.userId)
+    const userIdFromLocalStorage = localStorage.getItem('userId');
+    return userIdFromLocalStorage;
+  }
+  
+  const handleJoinCall = () => {
+    if (appointmentData?.videoCallLink) {
+      window.location.href = videoLink;
+    } else {
+      console.error("No video link available");
+    }
+  };
+  
   React.useEffect(() => {
     async function fetchData() {
       try {
@@ -217,16 +234,30 @@ export default function UserCard() {
               <Typography level="body-xs" sx={{ fontWeight: "lg" }}>
                 Audio file Notes
               </Typography>
-              <VolumeUpIcon sx={{cursor:"pointer", color:"#10a0bd"}}/>
+              <VolumeUpIcon sx={{ cursor: "pointer", color: "#10a0bd" }} />
             </div>
           </Sheet>
-          <Box sx={{ display: "flex", gap: 1.5, "& > button": { flex: 1 } }} className={styles.Button}>
-            <Button variant="outlined" color="neutral" className={styles.cancelBtn}>
+          <Box
+            sx={{ display: "flex", gap: 1.5, "& > button": { flex: 1 } }}
+            className={styles.Button}
+          >
+            <Button
+              variant="outlined"
+              color="neutral"
+              className={styles.cancelBtn}
+            >
               Cancel Appointment
             </Button>
-            <Button variant="solid"  className={styles.meetingButton}>
+            <Button
+              variant="solid"
+              className={styles.meetingButton}
+              onClick={handleJoinCall}
+              disabled={!appointmentData?.videoCallLink}
+            >
               <VideoCallIcon sx={{ marginRight: "12px" }} />
-              Join Meeting
+              {appointmentData?.videoCallLink
+                ? "Join Meeting"
+                : "Waiting for Link"}
             </Button>
           </Box>
         </CardContent>

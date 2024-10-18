@@ -19,6 +19,7 @@ import Diversity3Icon from "@mui/icons-material/Diversity3";
 // import ReactDataTable from "../../components/reactdatatableComponent";
 import Muidatatable from "../../components/muidataTable";
 import DoctoctorMuidatatable from "../../components/doctorMuidataTable";
+import GenerateVideoCallLink from "../../components/generateVideoCallLink";
 
 export default function Admin() {
   const [activeContent, setActiveContent] = useState<JSX.Element | null>(null);
@@ -64,6 +65,14 @@ export default function Admin() {
         </>
       ),
       content: <Muidatatable />,
+    },
+    {
+      label:(
+        <>
+      GenerateVideoCallLink
+        </>
+      ),
+      content: <GenerateVideoCallLink/>
     },
     {
       label: (
