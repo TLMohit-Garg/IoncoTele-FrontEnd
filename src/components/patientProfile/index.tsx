@@ -5,12 +5,11 @@ import Divider from "@mui/material/Divider";
 import styles from "/src/Styles/patientProfile.module.css";
 import axios from "axios";
 import { patientProfileTypes } from "../../customDataTypes/datatypes";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { setUserId } from '../../store/userSlice';
 import { RootState } from '../../store/store';
 
 function PatientProfile() {
-  const dispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.user.userId);
   const [userData, setuserData] = React.useState<patientProfileTypes>();
   const [loading, setLoading] = React.useState(true);
@@ -26,9 +25,6 @@ function PatientProfile() {
         const response = await axios.get(
           `api/patientSignin/${userId}`
         );
-        // const response = await axios.get(
-        //   `api/patientSignin/${userId}`
-        // );
         console.log(response, "signin patient data");
         setuserData(response.data);
       } catch (error) {
