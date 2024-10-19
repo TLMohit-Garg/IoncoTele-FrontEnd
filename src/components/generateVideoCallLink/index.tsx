@@ -30,8 +30,8 @@ const GenerateVideoCallLink: React.FC = () => {
   };
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12}>
+    <Grid container spacing={3} ml={5}>
+      <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
         <TextField
           label="Patient ID"
           value={patientId}
@@ -39,7 +39,7 @@ const GenerateVideoCallLink: React.FC = () => {
           fullWidth
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
         <TextField
           label="Doctor ID"
           value={doctorId}
@@ -47,16 +47,16 @@ const GenerateVideoCallLink: React.FC = () => {
           fullWidth
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} sm={12} md={10} lg={10} xl={10}>
         <TextField
-          label="Consultation Time"
+          // label="Consultation Time"
           type="datetime-local"
           value={consultationTime}
           onChange={(e) => setConsultationTime(e.target.value)}
           fullWidth
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} >
         <Button variant="contained" color="primary" onClick={handleGenerateLink}>
           Generate Video Call Link
         </Button>
