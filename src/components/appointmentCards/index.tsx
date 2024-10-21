@@ -13,6 +13,11 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import styles from "/src/Styles/appointmentsCard.module.css";
+import {selectIsDoctorAuthenticated,selectDoctorToken, selectDoctorUserId
+} from "../../store/authDoctorSlice";
+import {
+  selectIsPatientAuthenticated,selectPatientToken, selectPatientUserId
+} from "../../store/authPatientSlice";
 
 interface AppointmentData {
   prefferDate: string;
@@ -21,33 +26,57 @@ interface AppointmentData {
   videoCallLink?: string;
 }
 
-export default function UserCard({ videoLink }: { videoLink: string }) {
+export default function UserCard() {
   const [appointmentData, setAppointmentData] =
     React.useState<AppointmentData | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
 
-  const getUserId = () => {
-    // useSelector((state:RootState)=> state.user.userId)
-    const userIdFromLocalStorage = localStorage.getItem('userId');
-    return userIdFromLocalStorage;
-  }
-  
+  const isDoctorAuthenticated = useSelector(selectIsDoctorAuthenticated);
+  const doctorToken = useSelector(selectDoctorToken);
+  const doctorId = useSelector(selectDoctorUserId);
+  const isPatientAuthenticated = useSelector(selectIsPatientAuthenticated);
+  const patientToken = useSelector(selectPatientToken);
+  const patientId = useSelector(selectPatientUserId);
+
+
+  // const getUserId = () => {
+  //   // useSelector((state:RootState)=> state.user.userId)
+  //   const userIdFromLocalStorage = localStorage.getItem("userId");
+  //   return userIdFromLocalStorage;
+  // };
+
   const handleJoinCall = () => {
     if (appointmentData?.videoCallLink) {
-      window.location.href = videoLink;
+      window.location.href = appointmentData.videoCallLink;
     } else {
       console.error("No video link available");
+      alert("No video link available");
     }
   };
-  
+
   React.useEffect(() => {
     async function fetchData() {
       try {
         setLoading(true);
+        let token, userId;
         // const token = useSelector((state:RootState) => state.auth.token); // Fetch JWT from Redux
+        if (isDoctorAuthenticated && doctorToken && doctorId) {
+        userId = doctorId;  // Get doctorId from Redux
+        token = doctorToken;
+      } else if (isPatientAuthenticated && patientToken && patientId) {
+        userId = patientId;  // Get patientId from Redux
+        token = patientToken;
+      } else {
+        throw new Error("User is not authenticated");
+      }
         const response = await axios.get<AppointmentData>(
-          "http://localhost:3000/api/bookingConsultation/67062ce15fd586f36dc7e277"
+          `api/videoCallDetail/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Pass token in headers
+            },
+          }
         );
         setAppointmentData(response.data); // Store appointment details in state
         setLoading(false);
@@ -57,7 +86,7 @@ export default function UserCard({ videoLink }: { videoLink: string }) {
     }
 
     fetchData();
-  }, []);
+  }, [isDoctorAuthenticated, doctorToken, isPatientAuthenticated, patientToken]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -156,11 +185,11 @@ export default function UserCard({ videoLink }: { videoLink: string }) {
               </Typography>
               {appointmentData ? (
                 <Typography sx={{ fontWeight: "lg" }}>
-                  {appointmentData.prefferDate}
+                  {appointmentData?.prefferDate}
                 </Typography>
               ) : (
                 <Typography sx={{ fontWeight: "lg" }}>
-                  12/10/24 12:30 P.M
+                  not found
                 </Typography>
               )}
             </div>

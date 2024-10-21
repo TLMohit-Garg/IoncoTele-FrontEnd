@@ -21,12 +21,10 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { MenuItem, Menu } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectIsDoctorAuthenticated,
-  logout as doctorLogout,
+import {selectIsDoctorAuthenticated,selectDoctorToken, logout as doctorLogout,
 } from "../../../store/authDoctorSlice";
 import {
-  selectIsPatientAuthenticated,
+  selectIsPatientAuthenticated,selectPatientToken,
   logout as patientLogout,
 } from "../../../store/authPatientSlice";
 import { useNavigate } from "react-router-dom";
@@ -84,7 +82,10 @@ function Header() {
   };
 
   const isDoctorAuthenticated = useSelector(selectIsDoctorAuthenticated);
+  const doctorToken = useSelector(selectDoctorToken);
   const isPatientAuthenticated = useSelector(selectIsPatientAuthenticated);
+  const patientToken = useSelector(selectPatientToken);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -147,22 +148,29 @@ function Header() {
     // Check if doctor token exists in localStorage and is valid
     const doctorToken = localStorage.getItem("doctortoken");
     if (doctorToken) {
+      alert("Doctor Token exists in local storage!");
       const isValid = checkTokenValidity(doctorToken);
       setIsDoctorSignedIn(isValid); // Update the state based on token validity
     }
     if (isDoctorAuthenticated) {
       setIsDoctorSignedIn(true);
+      console.log('Doctor is authenticated');
     }
-    // Check if patient token exists in localStorage and is valid
-    const patientToken = localStorage.getItem("patientToken");
-    if (patientToken) {
-      const isValid = checkTokenValidity(patientToken);
-      setIsPatientSignedIn(isValid);
-    }
-    if (isPatientAuthenticated) {
-      setIsPatientSignedIn(true);
-    }
-  }, [isDoctorAuthenticated, isPatientAuthenticated]);
+   
+  }, [isDoctorAuthenticated, doctorToken]);
+
+  React.useEffect(()=> {
+     // Check if patient token exists in localStorage and is valid
+     const patientToken = localStorage.getItem("patientToken");
+     if (patientToken) {
+      alert("Patient Token exists in local storage!");
+       const isValid = checkTokenValidity(patientToken);
+       setIsPatientSignedIn(isValid);
+     }
+     if (isPatientAuthenticated) {
+       setIsPatientSignedIn(true);
+     }
+  },[isPatientAuthenticated, patientToken])
   return (
     <>
       <Grid
@@ -217,7 +225,6 @@ function Header() {
             justifyContent="flex-end"
             alignItems="center"
           >
-            {/* {!isPatientSignedIn && !isDoctorAuthenticated && ( */}
             {!isPatientSignedIn && (
               <IconLabelButtons
                 onClick={handleloginPopover}
@@ -234,7 +241,7 @@ function Header() {
                 variant="outlined"
                 aria-describedby={idLogin}
               />
-            )}
+            )} 
           </Grid>
           <Grid
             container
@@ -247,7 +254,6 @@ function Header() {
             justifyContent="flex-end"
             alignItems="center"
           >
-            {/* {!isDoctorSignedIn && !isPatientAuthenticated && ( */}
             {!isDoctorSignedIn && (
               <IconLabelButtons
                 onClick={handleClick}
@@ -258,7 +264,7 @@ function Header() {
                 endIcon={<ArrowDropDownIcon />}
                 aria-describedby={id}
               />
-            )}
+             )} 
           </Grid>
         </Grid>
         <Grid

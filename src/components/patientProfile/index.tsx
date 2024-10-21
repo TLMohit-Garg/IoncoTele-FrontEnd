@@ -5,13 +5,21 @@ import Divider from "@mui/material/Divider";
 import styles from "/src/Styles/patientProfile.module.css";
 import axios from "axios";
 import { patientProfileTypes } from "../../customDataTypes/datatypes";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setUserId } from '../../store/userSlice';
 import { RootState } from '../../store/store';
+import { selectPatientUserId, selectPatientToken, setUserData, selectPatientUserData } from "../../store/authPatientSlice";
 
 function PatientProfile() {
-  const userId = useSelector((state: RootState) => state.user.userId);
-  const [userData, setuserData] = React.useState<patientProfileTypes>();
+  const userId = useSelector(selectPatientUserId);
+  const token = useSelector(selectPatientToken);
+  const userData = useSelector(selectPatientUserData); // Fetch from Redux
+  const dispatch = useDispatch();
+
+  // const userId = useSelector((state: RootState) => state.user.userId);
+  // const token = useSelector((state: RootState) => state.authPatient.token);
+  // const userId = localStorage.getItem("patientuserId");
+  // const [userData, setuserData] = React.useState<patientProfileTypes>();
   const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
@@ -22,11 +30,15 @@ function PatientProfile() {
         return;
       }
       try {
-        const response = await axios.get(
-          `api/patientSignin/${userId}`
-        );
-        console.log(response, "signin patient data");
-        setuserData(response.data);
+        // const response = await axios.get(
+        //   `api/patientSignup/${userId}`
+        // );
+        // console.log(response, "signedIn patient data");
+        // setuserData(response.data);
+        const response = await axios.get(`/api/patientSignup/${userId}`, {
+          headers: { Authorization: `Bearer ${token}` }, // Send token if needed
+        });
+        dispatch(setUserData(response.data));
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -34,7 +46,7 @@ function PatientProfile() {
       }
     };
     fetchData();
-  }, [userId]);
+  }, [userId, token, dispatch, userData]);
   return (
     <>
       <Grid

@@ -12,12 +12,19 @@ import { RootState } from '../../store/store';
 import IconLabelButtons from "../CustomButton/Button";
 import EditIcon from '@mui/icons-material/Edit';
 import { Toast } from "../ToastMessage";
+import { selectDoctorUserId, selectDoctorToken, setDoctorUserData, selectDoctorUserData } from "../../store/authDoctorSlice";
+
  
 function DoctorProfile() {
+  const userId = useSelector(selectDoctorUserId); 
+  const token = useSelector(selectDoctorToken);
+
   const dispatch = useDispatch();
-  const userId = useSelector((state: RootState) => state.user.userId);
-  const token = useSelector((state: RootState) => state.authDoctor.token);
-  const [userData, setuserData] = React.useState<patientProfileTypes>();
+  const userData = useSelector(selectDoctorUserData); 
+  // const bankingDetail = useSelector(selectDoctorBankingDetail);
+  // const userId = useSelector((state: RootState) => state.user.userId);
+  // const token = useSelector((state: RootState) => state.authDoctor.token);
+  // const [userData, setuserData] = React.useState<patientProfileTypes>();
   const [bankingDetail, setBankingDetail] = React.useState<bankingDetailsTypes>();
   const [loading, setLoading] = React.useState(true);
   const [isEditing, setIsEditing] = React.useState(false);
@@ -37,10 +44,11 @@ function DoctorProfile() {
       }
       try {
         const response = await axios.get(
-          `api/doctorSignin/${userId}`
+          `api/doctorSignup/${userId}`
         );
-        console.log(response, "signin patient data");
-        setuserData(response.data);
+        console.log(response, "signin doctor data");
+        // setuserData(response.data);
+        dispatch(setDoctorUserData(response.data));
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -48,7 +56,7 @@ function DoctorProfile() {
       }
     };
     fetchData();
-  }, [userId]);
+  }, [userId, token, dispatch]);
 
   React.useEffect(() => {
     const fetchBankingData  = async () => {

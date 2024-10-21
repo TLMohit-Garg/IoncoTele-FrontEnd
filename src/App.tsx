@@ -19,13 +19,11 @@ function App() {
   const doctorUserIdRedux = useSelector((state: any) => state.authDoctor.userId);
 
   //For Patient
-  // const patientToken = useSelector((state:any) => state.authPatient.token);
   const patientTokenRedux = useSelector((state: any) => state.authPatient.token);
   const patientEmailRedux = useSelector((state: any) => state.authPatient.email);
   const patientUserIdRedux = useSelector((state: any) => state.authPatient.userId);
 
   React.useEffect(() => {
-    // Check if the token exists in localStorage when the app loads
     const doctorToken  = localStorage.getItem('doctortoken');
     const doctorEmail = localStorage.getItem('doctorEmail');
     const doctorUserId = localStorage.getItem('doctorUserId');
