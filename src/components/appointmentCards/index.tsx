@@ -26,11 +26,12 @@ interface AppointmentData {
   videoCallLink?: string;
 }
 
-export default function UserCard() {
+export default function UserCard({consultationId}:any) {
   const [appointmentData, setAppointmentData] =
     React.useState<AppointmentData | null>(null);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
+  const [videoCallLink, setVideoCallLink] = React.useState("")
 
   const isDoctorAuthenticated = useSelector(selectIsDoctorAuthenticated);
   const doctorToken = useSelector(selectDoctorToken);
@@ -39,16 +40,10 @@ export default function UserCard() {
   const patientToken = useSelector(selectPatientToken);
   const patientId = useSelector(selectPatientUserId);
 
-
-  // const getUserId = () => {
-  //   // useSelector((state:RootState)=> state.user.userId)
-  //   const userIdFromLocalStorage = localStorage.getItem("userId");
-  //   return userIdFromLocalStorage;
-  // };
-
   const handleJoinCall = () => {
-    if (appointmentData?.videoCallLink) {
-      window.location.href = appointmentData.videoCallLink;
+    if (videoCallLink) {
+      // window.location.href = videoCallLink;
+      window.open(videoCallLink, "_blank");
     } else {
       console.error("No video link available");
       alert("No video link available");
@@ -56,37 +51,61 @@ export default function UserCard() {
   };
 
   React.useEffect(() => {
-    async function fetchData() {
+    const fetchVideoCallLink = async () => {
       try {
-        setLoading(true);
-        let token, userId;
-        // const token = useSelector((state:RootState) => state.auth.token); // Fetch JWT from Redux
-        if (isDoctorAuthenticated && doctorToken && doctorId) {
-        userId = doctorId;  // Get doctorId from Redux
-        token = doctorToken;
-      } else if (isPatientAuthenticated && patientToken && patientId) {
-        userId = patientId;  // Get patientId from Redux
-        token = patientToken;
-      } else {
-        throw new Error("User is not authenticated");
-      }
-        const response = await axios.get<AppointmentData>(
-          `api/videoCallDetail/${userId}`,
+      const response = await axios.get(
+          `/api/videoCallDetail/${consultationId}`, // API endpoint
           {
-            headers: {
-              Authorization: `Bearer ${token}`, // Pass token in headers
+            // headers: { Authorization: `Bearer ${token}` }, // Pass token if needed
+            params: {
+              doctorId: isDoctorAuthenticated ? doctorId : undefined ,   // Send doctorId in query params
+              patientId: isPatientAuthenticated ? patientId : undefined,  // Send patientId in query params
             },
           }
         );
-        setAppointmentData(response.data); // Store appointment details in state
-        setLoading(false);
+        setVideoCallLink(response.data.videoCallLink);
       } catch (error) {
+        console.error("Error fetching video call link:", error);
+      }finally {
         setLoading(false);
       }
+    };
+    if (consultationId && (doctorId || patientId)) {
+      fetchVideoCallLink();
     }
+  }, [consultationId, doctorId, patientId, isDoctorAuthenticated, isPatientAuthenticated ]);
+  // React.useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       setLoading(true);
+  //       let token, userId;
+  //       // const token = useSelector((state:RootState) => state.auth.token); // Fetch JWT from Redux
+  //       if (isDoctorAuthenticated && doctorToken && doctorId) {
+  //       userId = doctorId;  // Get doctorId from Redux
+  //       token = doctorToken;
+  //     } else if (isPatientAuthenticated && patientToken && patientId) {
+  //       userId = patientId;  // Get patientId from Redux
+  //       token = patientToken;
+  //     } else {
+  //       throw new Error("User is not authenticated");
+  //     }
+  //       const response = await axios.get<AppointmentData>(
+  //         `api/videoCallDetail/${userId}`,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`, // Pass token in headers
+  //           },
+  //         }
+  //       );
+  //       setAppointmentData(response.data); // Store appointment details in state
+  //       setLoading(false);
+  //     } catch (error) {
+  //       setLoading(false);
+  //     }
+  //   }
 
-    fetchData();
-  }, [isDoctorAuthenticated, doctorToken, isPatientAuthenticated, patientToken]);
+  //   fetchData();
+  // }, [isDoctorAuthenticated, doctorToken, isPatientAuthenticated, patientToken]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -281,10 +300,10 @@ export default function UserCard() {
               variant="solid"
               className={styles.meetingButton}
               onClick={handleJoinCall}
-              disabled={!appointmentData?.videoCallLink}
+              disabled={!videoCallLink}
             >
               <VideoCallIcon sx={{ marginRight: "12px" }} />
-              {appointmentData?.videoCallLink
+              {videoCallLink
                 ? "Join Meeting"
                 : "Waiting for Link"}
             </Button>

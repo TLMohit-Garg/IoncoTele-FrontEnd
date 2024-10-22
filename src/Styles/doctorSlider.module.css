@@ -191,6 +191,9 @@
   padding: 12px;
   margin-top: 22px;
 }
+.modalContent .paymentgatewayContainer{
+  padding: 10px 10px 10px 10px ;
+}
 .modalContent .inputHeading {
   color: #10a0bd;
   font-size: 12px;

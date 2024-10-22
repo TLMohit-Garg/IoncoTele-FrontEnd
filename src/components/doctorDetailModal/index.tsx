@@ -877,19 +877,21 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                           <Grid
                             container
                             item
-                            className={styles.timezoneContainer}
+                            spacing={2}
+                            className={styles.paymentgatewayContainer}
                             xs={12}
                             sm={12}
                             md={12}
                             lg={12}
                             xl={12}
+                            pt={5}
+                            mt={3}
                           >
-                            <p>
-                              <strong>Consultation Fee:</strong> <br />
+                            <Typography variant="body1">
                               <strong>Service Charges & Tax (30%):</strong>
                               <br />
                               <strong>Total Price:</strong> $
-                            </p>
+                            </Typography>
 
                             <p style={{ fontStyle: "italic", color: "gray" }}>
                               The total price includes a 25% service charge and
@@ -907,16 +909,17 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                                 doctorName={selectedDoctor.firstName}
                               />
                             )}
-                            <div>
-                              <h1>
+                            <Grid mt={5}>
+                              <Typography sx={{
+                                fontweight:"bold"
+                              }}>
                                 Patient Email:
                                 {patientEmail || "No email found"}
-                              </h1>
-                              <h2>
-                                Is Authenticated:
+                              </Typography>
+                              {/* <h2>
                                 {isAuthenticated ? "Yes" : "No"}
-                              </h2>
-                            </div>
+                              </h2> */}
+                            </Grid>
                           </Grid>
                         </>
                       )}
