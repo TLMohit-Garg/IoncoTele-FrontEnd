@@ -20,13 +20,13 @@ import {
 } from "../../store/authPatientSlice";
 
 interface AppointmentData {
-  prefferDate: string;
-  patientId: string;
-  doctorId: string;
+  consultationTime: string;
+  patientId: { _id: string; firstName: string };
+  doctorId: { _id: string; firstName: string };
   videoCallLink?: string;
 }
 
-export default function UserCard({consultationId}:any) {
+export default function UserCard() {
   const [appointmentData, setAppointmentData] =
     React.useState<AppointmentData | null>(null);
   const [loading, setLoading] = React.useState(true);
@@ -40,6 +40,10 @@ export default function UserCard({consultationId}:any) {
   const patientToken = useSelector(selectPatientToken);
   const patientId = useSelector(selectPatientUserId);
 
+  const doctorName = appointmentData?.doctorId?.firstName || "Doctor name";
+  const patientName = appointmentData?.patientId?.firstName || "Patient name";
+
+  const displayedName = isDoctorAuthenticated ? patientName : isPatientAuthenticated ? doctorName : "Doctor/Patient";
   const handleJoinCall = () => {
     if (videoCallLink) {
       // window.location.href = videoCallLink;
@@ -54,59 +58,28 @@ export default function UserCard({consultationId}:any) {
     const fetchVideoCallLink = async () => {
       try {
       const response = await axios.get(
-          `/api/videoCallDetail/${consultationId}`, // API endpoint
-          {
-            // headers: { Authorization: `Bearer ${token}` }, // Pass token if needed
-            params: {
-              doctorId: isDoctorAuthenticated ? doctorId : undefined ,   // Send doctorId in query params
-              patientId: isPatientAuthenticated ? patientId : undefined,  // Send patientId in query params
-            },
-          }
+          `/api/videoCallDetail/${doctorId || patientId}`
         );
-        setVideoCallLink(response.data.videoCallLink);
+        // setVideoCallLink(response.data.videoCallLink);
+        // setAppointmentData(response.data);
+        if (response.data && response.data.length > 0) {
+          const consultation = response.data[0]; // Grab the first consultation
+          setVideoCallLink(consultation.videoCallLink);
+          setAppointmentData(consultation);
+          console.log(response.data,"response for");
+        }
       } catch (error) {
         console.error("Error fetching video call link:", error);
       }finally {
         setLoading(false);
       }
     };
-    if (consultationId && (doctorId || patientId)) {
+    // if (consultationId && (doctorId || patientId)) {
+    if (doctorId || patientId) {
       fetchVideoCallLink();
     }
-  }, [consultationId, doctorId, patientId, isDoctorAuthenticated, isPatientAuthenticated ]);
-  // React.useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       setLoading(true);
-  //       let token, userId;
-  //       // const token = useSelector((state:RootState) => state.auth.token); // Fetch JWT from Redux
-  //       if (isDoctorAuthenticated && doctorToken && doctorId) {
-  //       userId = doctorId;  // Get doctorId from Redux
-  //       token = doctorToken;
-  //     } else if (isPatientAuthenticated && patientToken && patientId) {
-  //       userId = patientId;  // Get patientId from Redux
-  //       token = patientToken;
-  //     } else {
-  //       throw new Error("User is not authenticated");
-  //     }
-  //       const response = await axios.get<AppointmentData>(
-  //         `api/videoCallDetail/${userId}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`, // Pass token in headers
-  //           },
-  //         }
-  //       );
-  //       setAppointmentData(response.data); // Store appointment details in state
-  //       setLoading(false);
-  //     } catch (error) {
-  //       setLoading(false);
-  //     }
-  //   }
-
-  //   fetchData();
-  // }, [isDoctorAuthenticated, doctorToken, isPatientAuthenticated, patientToken]);
-
+  // }, [consultationId, doctorId, patientId, isDoctorAuthenticated, isPatientAuthenticated ]);
+  }, [doctorId, patientId, isDoctorAuthenticated, isPatientAuthenticated]);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   return (
@@ -178,7 +151,8 @@ export default function UserCard({consultationId}:any) {
         </AspectRatio>
         <CardContent>
           <Typography sx={{ fontSize: "xl", fontWeight: "lg" }}>
-            Dr. Govinda Morrison
+          {/* {appointmentData?.doctorId?.firstName || "Doctor"} */}
+          {displayedName}
           </Typography>
           <Typography
             level="body-sm"
@@ -204,7 +178,7 @@ export default function UserCard({consultationId}:any) {
               </Typography>
               {appointmentData ? (
                 <Typography sx={{ fontWeight: "lg" }}>
-                  {appointmentData?.prefferDate}
+                  {new Date(appointmentData.consultationTime).toLocaleString()}
                 </Typography>
               ) : (
                 <Typography sx={{ fontWeight: "lg" }}>
