@@ -148,7 +148,7 @@ function Header() {
     // Check if doctor token exists in localStorage and is valid
     const doctorToken = localStorage.getItem("doctortoken");
     if (doctorToken) {
-      alert("Doctor Token exists in local storage!");
+      // alert("Doctor Token exists in local storage!");
       const isValid = checkTokenValidity(doctorToken);
       setIsDoctorSignedIn(isValid); // Update the state based on token validity
     }
@@ -163,7 +163,7 @@ function Header() {
      // Check if patient token exists in localStorage and is valid
      const patientToken = localStorage.getItem("patientToken");
      if (patientToken) {
-      alert("Patient Token exists in local storage!");
+      // alert("Patient Token exists in local storage!");
        const isValid = checkTokenValidity(patientToken);
        setIsPatientSignedIn(isValid);
      }
@@ -340,7 +340,7 @@ function Header() {
               alignItems="center"
               className={styles.phoneTextSection}
             >
-              avatar
+              
             </Grid>
           )}
         </Grid>
