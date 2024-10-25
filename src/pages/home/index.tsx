@@ -95,8 +95,10 @@ export default function Home() {
           sm={7}
           xs={7}
           mt={6}
+          pt={6}
           mb={12}
           justifyContent={"center"}
+          alignItems={"center"}
         >
           <img
             src={docConsult}
