@@ -1,95 +1,95 @@
 [
   {
     "id": 1,
-    "title": "Dr. John Smith",
-    "speciality":"Heart Surgeon",
+    "title": "Dr Munish Gairola",
+    "speciality":"Radiation Oncology",
     "description": "A highly skilled heart surgeon with over 20 years of experience in cardiology.",
-    "imageUrl": "src/assets/Individual-doctor.jpg",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20(Col)%20Ashok%20Kumar.jpg",
     "buttonText": "Share",
     "charges":"$200"
   },
   {
     "id": 2,
-    "title": "Dr. Emily Johnson",
-    "speciality":"Heart Surgeon",
+    "title": "Dr Anusheel Munshi",
+    "speciality":"Radiation Oncology",
     "description": "An expert in gynecology, specializing in women's reproductive health and prenatal care.",
-    "imageUrl": "src/assets/doc2.png",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20Anusheel%20Munshi.jpg",
     "buttonText": "Share",
     "charges":"$500"
 
   },
   {
     "id": 3,
-    "title": "Dr. Michael Brown",
-    "speciality":"Heart Surgeon",
+    "title": "Dr Indu Bansal Aggarwal",
+    "speciality":"Radiation Oncology",
     "description": "Renowned neurologist focused on treating complex neurological disorders.",
-    "imageUrl": "src/assets/doc3.png",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20Indu%20Bansal.jpg",
     "buttonText": "Share",
     "charges":"$100"
 
   },
   {
     "id": 4,
-    "title": "Dr. Sarah Davis",
-    "speciality":"Heart Surgeon",
+    "title": "Dr Ajeet Gandhi",
+    "speciality":"Radiation Oncology",
     "description": "Leading pediatrician with a passion for child healthcare and development.",
-    "imageUrl": "src/assets/doc4.png",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20Ajeet%20Gandhi.jpg",
     "buttonText": "Share"
   },
   {
     "id": 5,
-    "title": "Dr. David Wilson",
-    "speciality":"Heart Surgeon",
+    "title": "Dr Charu Garg",
+    "speciality":"Radiation Oncology",
     "description": "Experienced orthopedic surgeon specializing in joint replacement surgeries.",
-    "imageUrl": "src/assets/doc5.png",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20Charu%20Garg.jpg",
     "buttonText": "Share"
   },
   {
     "id": 6,
-    "title": "Dr. Olivia Martinez",
-    "speciality":"Heart Surgeon",
+    "title": "Dr Rahul Naithani",
+    "speciality":"Hematology & Bone Marrow Transplantion",
     "description": "Expert in dermatology, focusing on skin care and cosmetic treatments.",
-    "imageUrl": "src/assets/doc6.png",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20Rahul%20Nathani.jpg",
     "buttonText": "Share"
   },
   {
     "id": 7,
-    "title": "Dr. James Lee",
-    "speciality":"Heart Surgeon",
+    "title": "Dr Narendra Kumar Bhalla",
+    "speciality":"Radiation Oncology",
     "description": "A respected oncologist dedicated to cancer treatment and research.",
-    "imageUrl": "src/assets/doc7.png",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20Narendra%20Kumar%20Bhalla.jpeg",
     "buttonText": "Share"
   },
   {
     "id": 8,
-    "title": "Dr. Isabella Harris",
-    "speciality":"Heart Surgeon",
+    "title": "Dr Kundan Singh Chufal",
+    "speciality":"Radiation Oncology",
     "description": "Specializes in cardiology, with a focus on heart disease prevention and treatment.",
-    "imageUrl": "src/assets/doc8.png",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20Kundan%20Chufal.jpg",
     "buttonText": "Share"
   },
   {
     "id": 9,
-    "title": "Dr. William Clark",
-    "speciality":"Heart Surgeon",
+    "title": "Dr Mudit Agarwal",
+    "speciality":"Surgical Oncology",
     "description": "An experienced urologist with expertise in treating urinary and reproductive disorders.",
-    "imageUrl": "src/assets/doc9.png",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20Mudit%20Agarwal.jpg",
     "buttonText": "Share"
   },
   {
     "id": 10,
-    "title": "Dr. Sophia Lewis",
-    "speciality":"Heart Surgeon",
+    "title": "Dr Monica Malik",
+    "speciality":"Radiation Oncology",
     "description": "Highly skilled in endocrinology, focusing on hormonal and metabolic disorders.",
-    "imageUrl": "src/assets/doc10.png",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20Monica%20Malik.jpg",
     "buttonText": "Share"
   },
   {
     "id": 11,
-    "title": "Dr. Alexander Walker",
-    "speciality":"Heart Surgeon",
+    "title": "Dr (Lt Col) Ashok Kumar",
+    "speciality":"Radiation Oncology",
     "description": "A leading gastroenterologist specializing in digestive system disorders.",
-    "imageUrl": "src/assets/doc11.png",
+    "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr%20(Col)%20Ashok%20Kumar.jpg",
     "buttonText": "Share"
   },
   {

@@ -7,8 +7,9 @@ import DoctorDetailsModal from "../../components/doctorDetailModal";
 import styles from "../../Styles/doctorpage.module.css";
 import axios from "axios";
 import BookingForm from "../../components/testingStripe2";
-import {useDispatch} from "react-redux";
-import {selectDoctor} from "../../store/selectedDoctorSlice";
+import { useDispatch } from "react-redux";
+import { selectDoctor } from "../../store/selectedDoctorSlice";
+import doctorsData from "./data.json";
 
 interface Doctor {
   id: string;
@@ -20,7 +21,9 @@ interface Doctor {
 }
 
 export default function Doctors() {
-  const [selectedDoctor, setSelectedDoctor] = React.useState<Doctor | null>(null);  // To store the selected doctor
+  const [selectedDoctor, setSelectedDoctor] = React.useState<Doctor | null>(
+    null
+  ); // To store the selected doctor
   const [modalOpen, setModalOpen] = React.useState(false);
   const [data, setData] = React.useState<any[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
@@ -28,32 +31,33 @@ export default function Doctors() {
 
   const dispatch = useDispatch();
 
-  console.log("doc-data",data);
+  console.log("doc-data", data);
   const handleCardClick = (doctor: any) => {
     console.log("doctor-data", doctor);
-    setSelectedDoctor(doctor);        // Set the selected doctor
-    setModalOpen(true);               // Open the modal
-    dispatch(selectDoctor(doctor));   // Dispatch the selected doctor to the store
+    setSelectedDoctor(doctor); // Set the selected doctor
+    setModalOpen(true); // Open the modal
+    dispatch(selectDoctor(doctor)); // Dispatch the selected doctor to the store
   };
 
   // Handle modal close
   const handleModalClose = () => {
-    setModalOpen(false);  // Close the modal
+    setModalOpen(false); // Close the modal
   };
 
-  React.useEffect(()=> {
-    const fetchDoctors = async() => {
-    try{
-      const response = await axios.get("/api/doctorSignup");
-      setData(response.data)
-      setLoading(false);
-    }catch(err){
-      setError('Failed to fetch doctors data.'); 
-      setLoading(false);
-    }
-  }
-  fetchDoctors();
-  },[])
+  React.useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        // const response = await axios.get("/api/doctorSignup");
+        // setData(response.data);
+        setData(doctorsData);
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch doctors data.");
+        setLoading(false);
+      }
+    };
+    fetchDoctors();
+  }, []);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   return (
@@ -85,7 +89,7 @@ export default function Doctors() {
         Team of our Dedicated Doctor's
       </Grid>
       <Grid container item justifyContent={"space-around"}>
-        {/* {data?.map((doctor) => (
+        {data?.map((doctor) => (
           <CustomCard
             key={doctor.id}
             image={doctor.imageUrl}
@@ -96,14 +100,14 @@ export default function Doctors() {
             hourlyCharges={doctor.charges}
             onButtonClick={() => handleCardClick(doctor)}
           />
-        ))} */}
-        {data.map((doctor) => (
+        ))}
+        {/* {data.map((doctor) => (
           <CustomCard
           key={doctor.id}
           hourlyCharges={doctor.charges}
           onButtonClick={() => handleCardClick(doctor)}
           />
-        ))}
+        ))} */}
       </Grid>
       <Grid
         container
@@ -139,7 +143,7 @@ export default function Doctors() {
         <DoctorDetailsModal
           open={modalOpen}
           onClose={handleModalClose}
-          doctor={selectedDoctor}  // Pass selected doctor to modal
+          doctor={selectedDoctor} // Pass selected doctor to modal
         />
       )}
 
