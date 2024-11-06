@@ -19,9 +19,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import WorkIcon from "@mui/icons-material/Work";
-import ReviewsIcon from "@mui/icons-material/Reviews";
-import GradeIcon from "@mui/icons-material/Grade";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
+import SchoolIcon from "@mui/icons-material/School";
 import CustomTextField from "../customTextField";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -263,6 +261,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                   xl={12}
                   justifyContent={"center"}
                   className={styles.imageContainer}
+                  mb={5}
                 >
                   <img
                     src={doctorDetails?.imageUrl || "default-image.png"}
@@ -272,12 +271,13 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                 <Grid
                   container
                   item
-                  xs={10}
-                  md={10}
-                  sm={10}
-                  lg={10}
-                  xl={10}
+                  xs={5}
+                  md={5}
+                  sm={5}
+                  lg={11}
+                  xl={11}
                   justifyContent={"center"}
+                  spacing={2}
                   className={styles.infoContainer}
                 >
                   <Grid
@@ -303,7 +303,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                     lg={12}
                     xl={12}
                     justifyContent={"center"}
-                    mb={5}
+                    // mb={5}
                   >
                     <Typography className={styles.doctorSpeciality}>
                       {doctorDetails?.speciality ||
@@ -319,9 +319,10 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                     lg={10}
                     xl={10}
                     justifyContent={"center"}
+                    mb={3}
                   >
                     <Typography className={styles.doctorDescription}>
-                      {doctorDetails?.description ||
+                      {doctorDetails?.exploredescription ||
                         "Doctor description not Available"}
                     </Typography>
                   </Grid>
@@ -334,6 +335,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                   sm={12}
                   lg={12}
                   xl={12}
+                  mt={3}
                   justifyContent={"center"}
                   className={styles.secondContainer}
                 >
@@ -454,7 +456,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                       lg={4}
                       xl={4}
                     >
-                      <ReviewsIcon
+                      <SchoolIcon
                         sx={{
                           fontSize: "58px",
                           margin: "5px, 9px, 5px, 12px",
@@ -475,11 +477,8 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                       xl={7}
                       className={styles.consultationText}
                     >
-                      <GradeIcon />
-                      <GradeIcon />
-                      <GradeIcon />
-                      <GradeIcon />
-                      <StarHalfIcon />
+                      {doctorDetails?.qualification ||
+                        "Qualification not found"}
                     </Grid>
                   </Grid>
                   <Grid
@@ -525,7 +524,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                       xl={9}
                       className={styles.consultationText}
                     >
-                      15 Years of Exp
+                      {doctorDetails?.workExperience || "No work exp found"}
                     </Grid>
                   </Grid>
                 </Grid>
@@ -888,13 +887,13 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                             mt={3}
                           >
                             <Typography variant="body1">
-                              <strong>Service Charges & Tax (30%):</strong>
+                              <strong>Service Charges & Tax (15%):</strong>
                               <br />
                               <strong>Total Price:</strong> $
                             </Typography>
 
                             <p style={{ fontStyle: "italic", color: "gray" }}>
-                              The total price includes a 25% service charge and
+                              The total price includes a 15% service charge and
                               tax.
                             </p>
                             {selectedDoctor && (
@@ -910,9 +909,11 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                               />
                             )}
                             <Grid mt={5}>
-                              <Typography sx={{
-                                fontweight:"bold"
-                              }}>
+                              <Typography
+                                sx={{
+                                  fontweight: "bold",
+                                }}
+                              >
                                 Patient Email:
                                 {patientEmail || "No email found"}
                               </Typography>
@@ -933,7 +934,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                         md={12}
                         lg={12}
                         xl={12}
-                        justifyContent={"center"}
+                        justifyContent={"space-evenly"}
                       >
                         {/* <IconLabelButtons
                           name={"Book Consultation"}
@@ -945,6 +946,8 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                           disabled={activeStep === 0} // Disable back button on first step
                           onClick={handleBack}
                           variant="outlined"
+                          fullWidth
+                          sx={{ margin: "40px 0px 10px 0px" }}
                         >
                           Back
                         </Button>
@@ -953,6 +956,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                             type="button"
                             variant="contained"
                             onClick={handleNext}
+                            fullWidth
                           >
                             Next
                           </Button>

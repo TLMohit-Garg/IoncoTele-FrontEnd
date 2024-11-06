@@ -1,6 +1,5 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import data from "./data.json";
 import CustomCard from "../../components/customCards";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DoctorDetailsModal from "../../components/doctorDetailModal";
@@ -10,6 +9,8 @@ import BookingForm from "../../components/testingStripe2";
 import { useDispatch } from "react-redux";
 import { selectDoctor } from "../../store/selectedDoctorSlice";
 import doctorsData from "./data.json";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 interface Doctor {
   id: string;
@@ -21,6 +22,8 @@ interface Doctor {
 }
 
 export default function Doctors() {
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
   const [selectedDoctor, setSelectedDoctor] = React.useState<Doctor | null>(
     null
   ); // To store the selected doctor
@@ -30,6 +33,11 @@ export default function Doctors() {
   const [error, setError] = React.useState<string | null>(null);
 
   const dispatch = useDispatch();
+
+  const handleViewProfile = (doctorId: string) => {
+    navigate(`/doctor/${doctorId}`);
+    // alert("view profile got clicked");
+  };
 
   console.log("doc-data", data);
   const handleCardClick = (doctor: any) => {
@@ -92,13 +100,16 @@ export default function Doctors() {
         {data?.map((doctor) => (
           <CustomCard
             key={doctor.id}
+            id={doctor.id}
             image={doctor.imageUrl}
             title={doctor.title}
             speciality={doctor.speciality}
             description={doctor.description}
-            buttonText="Explore More"
+            buttonText="Book Consultation"
+            secondButtonText="View Profile"
             hourlyCharges={doctor.charges}
             onButtonClick={() => handleCardClick(doctor)}
+            handleViewProfile={() => handleViewProfile(doctor.id)}
           />
         ))}
         {/* {data.map((doctor) => (

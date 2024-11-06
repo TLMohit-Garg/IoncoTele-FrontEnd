@@ -10,23 +10,29 @@ import styles from "../../Styles/cards.module.css";
 // import { DialogProps } from "@mui/material";
 
 type CustomCardProps = {
+  id?: string;
   image?: string;
   title?: string;
   description?: string;
   buttonText?: string;
-  onButtonClick?: any;
+  secondButtonText?: string;
+  onButtonClick?: () => void;
   speciality?: string;
   hourlyCharges?: string;
+  handleViewProfile?: () => void;
 };
 
 export default function CustomCard({
+  id,
   image,
   title,
   description,
   buttonText,
+  secondButtonText,
   onButtonClick,
   speciality,
   hourlyCharges,
+  handleViewProfile
 }: CustomCardProps) {
   // const [modalOpen, setmodalOpen] = React.useState(false);
   // const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
@@ -39,13 +45,14 @@ export default function CustomCard({
   //   setmodalOpen(true);
   //   setScroll(scrollType);
   // };
+  
   return (
     <>
       <Card
         sx={{ maxWidth: 345 }}
         className={styles.root}
         // onClick={handleClickOpen}
-        onClick={onButtonClick}
+        // onClick={onButtonClick}
       >
         <CardActionArea>
           <CardMedia
@@ -58,7 +65,10 @@ export default function CustomCard({
             <Typography gutterBottom variant="h5" component="div">
               {title}
             </Typography>
-            <Typography gutterBottom >{speciality}{hourlyCharges}</Typography>
+            <Typography gutterBottom>
+              {speciality}
+              {hourlyCharges}
+            </Typography>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               {description}
             </Typography>
@@ -67,6 +77,9 @@ export default function CustomCard({
         <CardActions>
           <Button size="small" color="primary" onClick={onButtonClick}>
             {buttonText}
+          </Button>
+          <Button size="small" color="primary" onClick={handleViewProfile}>
+            {secondButtonText}
           </Button>
         </CardActions>
       </Card>
