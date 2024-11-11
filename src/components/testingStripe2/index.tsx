@@ -14,15 +14,12 @@ const BookingForm = ({ patientEmail, doctorPrice, doctorName }: any) => {
     console.log("Selected Currency:", currency);
     console.log("Selected Currency:", doctorPrice);
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/stripe/createCheckoutSession",
-        {
-          patientEmail: patientEmail, // Replace with real patientID
-          doctorPrice: increasedPrice, // Price based on doctor's card
-          preferredCurrency: currency, // Selected currency
-          doctorName:doctorName,
-        }
-      );
+      const response = await axios.post("/api/stripe/createCheckoutSession", {
+        patientEmail: patientEmail, // Replace with real patientID
+        doctorPrice: increasedPrice, // Price based on doctor's card
+        preferredCurrency: currency, // Selected currency
+        doctorName: doctorName,
+      });
       const { url, sessionId } = response.data;
 
       // Log the response to ensure the session is created successfully

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useSearchParams } from 'react-router-dom';
-import { Box, Typography, CircularProgress } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useSearchParams } from "react-router-dom";
+import { Box, Typography, CircularProgress } from "@mui/material";
 
 // Define the structure of the session object
 interface Session {
@@ -15,18 +15,20 @@ const SuccessPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null); // Define the state with the Session type
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
-  const sessionId = searchParams.get('session_id');
+  const sessionId = searchParams.get("session_id");
 
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const response = await axios.get<{ session: Session }>(`http://localhost:3000/api/stripe/session/${sessionId}`);
+        const response = await axios.get<{ session: Session }>(
+          `/api/stripe/session/${sessionId}`
+        );
         setSession(response.data.session);
         setLoading(false);
       } catch (error) {
-        setError('Unable to retrieve session details.');
+        setError("Unable to retrieve session details.");
         setLoading(false);
       }
     };
@@ -45,12 +47,19 @@ const SuccessPage: React.FC = () => {
   }
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="100vh">
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      minHeight="100vh"
+    >
       <Typography variant="h4" gutterBottom>
         Payment Successful!
       </Typography>
       <Typography variant="body1">
-        Thank you for your payment. An email receipt has been sent to {session?.customer_email}.
+        Thank you for your payment. An email receipt has been sent to{" "}
+        {session?.customer_email}.
       </Typography>
       {/* You can display more details about the session here */}
       <Typography variant="body2">
