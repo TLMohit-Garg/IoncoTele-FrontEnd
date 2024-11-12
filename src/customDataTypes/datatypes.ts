@@ -75,7 +75,8 @@ export type PatientPopoverProps = {
 
 export type CheckBoxprops = {
   checked?: any;
-  handleChange: any;
+  handleChange?: any;
+  onClick?: any;
 };
 export type Fileupload = {
   classes?: string;

@@ -15,9 +15,11 @@ import axios from "axios";
 import consultationImage from "../../assets/ConsultationImage.jpg";
 import CustomCheckBox from "../customCheckbox";
 import React from "react";
+import ConfirmationPopup from "../confirmationPopup";
 
 export default function PatientSignup() {
-  const [checkedbox, setcheckedbox] = React.useState<boolean>(false);
+  const [checkedbox, setCheckedbox] = React.useState<boolean>(false);
+  const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
 
   const {
     control,
@@ -27,6 +29,21 @@ export default function PatientSignup() {
   }: any = useForm({
     resolver: yupResolver(createPatientSchema),
   });
+
+  const handleOpenDialog = () => {
+    setDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  const handleConfirm = () => {
+    // Perform the confirm action here
+    console.log("Confirmed!  & Agreed");
+    setCheckedbox(!checkedbox);
+    setDialogOpen(false);
+  };
 
   const handleSignup = async (data: any) => {
     console.log(JSON.stringify(data));
@@ -45,7 +62,7 @@ export default function PatientSignup() {
     }
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setcheckedbox(event.target.checked);
+    setCheckedbox(event.target.checked);
   };
 
   return (
@@ -323,7 +340,21 @@ export default function PatientSignup() {
             <Grid item xs={1} md={1} sm={1} lg={1} xl={1}>
               <CustomCheckBox
                 checked={checkedbox}
-                handleChange={handleChange}
+                onClick={handleOpenDialog} // Open dialog on checkbox click
+                handleChange={() => {}}
+              />
+              <ConfirmationPopup
+                open={dialogOpen}
+                onClose={handleCloseDialog}
+                title="Please Accept our Term & Conditions"
+                content=" Read this carefully and then aggred with our rules & Policies.
+                Let Google help apps determine location. 
+                This means sending anonymous location data to Google, even when no apps are running.
+                Read this carefully and then aggred with our rules & Policies.
+                Let Google help apps determine location. 
+                This means sending anonymous location data to Google, even when no apps are running."
+                onConfirm={handleConfirm}
+                onCancel={handleCloseDialog}
               />
             </Grid>
             <Grid
@@ -338,9 +369,10 @@ export default function PatientSignup() {
               pt={1}
             >
               <Typography className={styles.checkboxText}>
-                I have read and accepted Terms and Conditions and the Privacy
+                Click here to agree with our term & Conditions.
+                {/* I have read and accepted Terms and Conditions and the Privacy
                 Policy , and I wish to receive the Top Doctors Newsletter and
-                Online Magazine on Top Doctors.
+                Online Magazine on Top Doctors. */}
               </Typography>
             </Grid>
           </Grid>

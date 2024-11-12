@@ -17,7 +17,21 @@
   font-family: Inter, sans-serif;
   font-stretch: expanded;
 } */
-
+.searchBar{
+  padding: 10px 15px 10px 15px;
+}
+.doctorsearchBar{
+  padding: 28px 0px 28px 0px;
+  background: #093B5B;
+  border:1px solid transparent;
+  border-radius: 4px 0px 0px 4px;
+}
+.countrysearchBar{
+  padding: 28px 0px 28px 0px;
+  background:#093B5B;
+  border-radius: 0px 4px 4px 0px;
+  border:1px solid transparent;
+}
 .bannerHeadingChild {
   width: 477.1px;
   height: 15px;

@@ -1,4 +1,3 @@
-import styles from "../../Styles/home.module.css";
 import { Grid, Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LinearWithValueLabel from "../../components/progressBar";
@@ -10,6 +9,9 @@ import Feedback from "../../components/feedback";
 import WorldMap from "../../components/worldMap";
 import TestingStripe from "../../components/testingStripe";
 import BookingForm from "../../components/testingStripe2";
+import CountrySelect from "../../components/countrySelect";
+import SearchDoctor from "../../components/searchComponent";
+import styles from "../../Styles/home.module.css";
 
 export default function Home() {
   return (
@@ -72,6 +74,47 @@ export default function Home() {
         </Grid>
       </Grid>
       <Grid
+        className={styles.searchBar}
+        container
+        item
+        xl={12}
+        lg={12}
+        md={12}
+        sm={12}
+        xs={12}
+        mb={7}
+        justifyContent={"center"}
+      >
+        <Grid
+          container
+          item
+          xl={7}
+          lg={7}
+          md={7}
+          sm={7}
+          xs={7}
+          justifyContent={"center"}
+          className={styles.doctorsearchBar}
+        >
+          <SearchDoctor />
+        </Grid>
+        <Grid
+          container
+          item
+          xl={4}
+          lg={4}
+          md={4}
+          sm={4}
+          xs={4}
+          justifyContent={"left"}
+          className={styles.countrysearchBar}
+        >
+          <CountrySelect />
+        </Grid>
+      </Grid>
+
+      {/* </Grid> */}
+      <Grid
         className={styles.completeBannerSectionGroup}
         container
         item
@@ -83,7 +126,6 @@ export default function Home() {
         mt={12}
         mb={12}
         justifyContent={"center"}
-        // sx={{ border: "1px solid red" }}
       >
         <Grid
           className={styles.completeBannerSectionGroup}
@@ -105,11 +147,6 @@ export default function Home() {
             alt={"consultation"}
             className={styles.consultImageFirst}
           />
-          {/* <img
-            src={docConsult}
-            alt={"consultation"}
-            className={styles.consultImageSecond}
-          /> */}
         </Grid>
         <Grid
           className={styles.rightsideGrid}
@@ -137,7 +174,7 @@ export default function Home() {
           >
             We Provide Best Online Doctor Consultation For You
           </Grid>
-          <Grid
+          {/* <Grid
             className={styles.paraGrid}
             container
             item
@@ -149,7 +186,7 @@ export default function Home() {
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua
-          </Grid>
+          </Grid> */}
           <Grid
             className={styles.cardsGrid}
             container

@@ -16,9 +16,11 @@ import InputFileUpload from "../CustomFileuploadBtn";
 import CustomCheckBox from "../customCheckbox";
 import { Toast } from "../ToastMessage";
 import consultationImage from "../../assets/doctorRegistration.jpg";
+import ConfirmationPopup from "../confirmationPopup";
 
 const DoctorSignup: React.FC = () => {
-  const [checkedbox, setcheckedbox] = React.useState<boolean>(false);
+  const [checkedbox, setCheckedbox] = React.useState<boolean>(false);
+  const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
   const {
     control,
     handleSubmit,
@@ -45,9 +47,22 @@ const DoctorSignup: React.FC = () => {
     }
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setcheckedbox(event.target.checked);
-  };
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setCheckedbox(event.target.checked);
+  // };
+
+  const handleOpenDialog =()=> {
+    setDialogOpen(true);
+  }
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  }
+  const handleConfirm = () => {
+    console.log("Confirmed!  & Agreed");
+    setCheckedbox(!checkedbox);
+    setDialogOpen(false);
+  }
   return (
     // <form
     //   onSubmit={handleSubmit(onSubmit)}
@@ -509,7 +524,32 @@ const DoctorSignup: React.FC = () => {
             <Grid item xs={1} md={1} sm={1} lg={1} xl={1}>
               <CustomCheckBox
                 checked={checkedbox}
-                handleChange={handleChange}
+                onClick = {handleOpenDialog}
+              />
+              <ConfirmationPopup
+                open={dialogOpen}
+                onClose={handleCloseDialog}
+                title="Please Accept our Term & Conditions"
+                content=" Read this carefully and then aggred with our rules & Policies.
+                Let Google help apps determine location. 
+                This means sending anonymous location data to Google, even when no apps are running.
+                Read this carefully and then aggred with our rules & Policies.
+                Let Google help apps determine location. 
+                This means sending anonymous location data to Google, even when no apps are running.
+                Read this carefully and then aggred with our rules & Policies.
+                Let Google help apps determine location. 
+                This means sending anonymous location data to Google, even when no apps are running.
+                Read this carefully and then aggred with our rules & Policies.
+                Let Google help apps determine location. 
+                This means sending anonymous location data to Google, even when no apps are running.
+                Read this carefully and then aggred with our rules & Policies.
+                Let Google help apps determine location. 
+                This means sending anonymous location data to Google, even when no apps are running.
+                Read this carefully and then aggred with our rules & Policies.
+                Let Google help apps determine location. 
+                This means sending anonymous location data to Google, even when no apps are running."
+                onConfirm={handleConfirm}
+                onCancel={handleCloseDialog}
               />
             </Grid>
             <Grid
@@ -524,9 +564,7 @@ const DoctorSignup: React.FC = () => {
               pt={1}
             >
               <Typography className={styles.checkboxText}>
-                I have read and accepted Terms and Conditions and the Privacy
-                Policy , and I wish to receive the Top Doctors Newsletter and
-                Online Magazine on Top Doctors.
+              Click here to agree with our term & Conditions.
               </Typography>
             </Grid>
           </Grid>
