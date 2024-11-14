@@ -1,0 +1,22 @@
+[
+    { "code": "GB", "label":"United Kingdom", "phone": "44" },
+{
+  "code": "US",
+  "label": "United States",
+  "phone": "1",
+  "suggested": true
+},
+{ "code": "IN", "label": "India", "phone": "91" },
+{
+  "code": "AU",
+  "label": "Australia",
+  "phone": "61",
+  "suggested": true
+},
+{
+  "code": "DE",
+  "label": "Germany",
+  "phone": "49",
+  "suggested": true
+}
+]

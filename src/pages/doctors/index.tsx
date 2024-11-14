@@ -11,6 +11,7 @@ import { selectDoctor } from "../../store/selectedDoctorSlice";
 import doctorsData from "./data.json";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 interface Doctor {
   id: string;
@@ -23,6 +24,7 @@ interface Doctor {
 
 export default function Doctors() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { id } = useParams<{ id: string }>();
   const [selectedDoctor, setSelectedDoctor] = React.useState<Doctor | null>(
     null
@@ -33,6 +35,7 @@ export default function Doctors() {
   const [error, setError] = React.useState<string | null>(null);
 
   const dispatch = useDispatch();
+  const filteredDoctors = location.state?.filteredDoctors || [];
 
   const handleViewProfile = (doctorId: string) => {
     navigate(`/doctor/${doctorId}`);
@@ -97,7 +100,8 @@ export default function Doctors() {
         Team of our Dedicated Doctor's
       </Grid>
       <Grid container item justifyContent={"space-around"}>
-        {data?.map((doctor) => (
+      {filteredDoctors.length > 0 ? (
+        filteredDoctors.map((doctor:any) => (
           <CustomCard
             key={doctor.id}
             id={doctor.id}
@@ -111,7 +115,29 @@ export default function Doctors() {
             onButtonClick={() => handleCardClick(doctor)}
             handleViewProfile={() => handleViewProfile(doctor.id)}
           />
-        ))}
+        ))
+      ) : (
+        <p>No doctors found for the selected speciality and country.</p>
+        
+          // {data?.map((doctor) => ())}
+        
+      )}
+
+        {/* {data?.map((doctor) => (
+          <CustomCard
+            key={doctor.id}
+            id={doctor.id}
+            image={doctor.imageUrl}
+            title={doctor.title}
+            speciality={doctor.speciality}
+            description={doctor.description}
+            buttonText="Book Consultation"
+            secondButtonText="View Profile"
+            hourlyCharges={doctor.charges}
+            onButtonClick={() => handleCardClick(doctor)}
+            handleViewProfile={() => handleViewProfile(doctor.id)}
+          />
+        ))} */}
         {/* {data.map((doctor) => (
           <CustomCard
           key={doctor.id}

@@ -57,8 +57,7 @@ function Feedback() {
           justifyContent={"center"}
         >
           <Typography className={styles.paraFeedback}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
+          Read the positive testimonials from our patients who have experienced excellent care and outstanding results
           </Typography>
         </Grid>
       </Grid>

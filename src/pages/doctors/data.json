@@ -8,6 +8,7 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-Munish-Gairola.jpg",
     "buttonText": "Share",
     "charges": "$200",
+    "country": "United States",
     "qualification": "MBBS, MD, DNB",
     "workExperience": "30 Years"
   },
@@ -20,6 +21,7 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-Anusheel-Munshi.jpg",
     "buttonText": "Share",
     "charges": "$500",
+    "country": "United Kingdom",
     "qualification": "MD, DNB",
     "workExperience": "25 Years"
   },
@@ -32,6 +34,7 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-Indu-Bansal.jpg",
     "buttonText": "Share",
     "charges": "$100",
+    "country": "United Kingdom",
     "qualification": "MBBS, MD",
     "workExperience": "25 Years"
   },
@@ -44,7 +47,8 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-Ajeet-Gandhi.jpg",
     "buttonText": "Share",
     "qualification": "MBBS, MD, DNB",
-    "workExperience": "12 Years"
+    "workExperience": "12 Years",
+    "country": "United Kingdom"
   },
   {
     "id": 5,
@@ -55,6 +59,7 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-Charu-Garg.jpg",
     "buttonText": "Share",
     "qualification": "MBBS, MD",
+    "country": "United Kingdom",
     "workExperience": "25 Years"
   },
   {
@@ -66,6 +71,7 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-Rahul-Nathani.jpg",
     "buttonText": "Share",
     "qualification": "MBBS, MD, DM, FRCP (Edinburgh)",
+    "country": "United States",
     "workExperience": "22 Years"
   },
   {
@@ -77,6 +83,7 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-Narendra-Kumar-Bhalla.jpg",
     "buttonText": "Share",
     "qualification": "MBBS, MD",
+    "country": "United States",
     "workExperience": "24 Years"
   },
   {
@@ -88,6 +95,7 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-Kundan-Chufal.jpg",
     "buttonText": "Share",
     "qualification": "MBBS, MD",
+    "country": "United Kingdom",
     "workExperience": "22 Years"
   },
   {
@@ -99,6 +107,7 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-Mudit-Agarwal.jpg",
     "buttonText": "Share",
     "qualification": "MBBS, MS, MRCS, MCh (surgical oncology)",
+    "country": "United Kingdom",
     "workExperience": "25 Years"
   },
   {
@@ -110,6 +119,7 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-Monica-Malik.jpg",
     "buttonText": "Share",
     "qualification": "MBBS, MD, DNB",
+    "country": "Australia",
     "workExperience": "20 Years"
   },
   {
@@ -121,6 +131,7 @@
     "imageUrl": "https://teleconsultation.ioncosolutions.com/assets/Dr-(Col)-Ashok-Kumar.jpg",
     "buttonText": "Share",
     "qualification": "MBBS, DNB",
+    "country": "India",
     "workExperience": "20 Years"
   },
   {
@@ -129,6 +140,8 @@
     "speciality": "Heart Surgeon",
     "description": "Expert in ophthalmology, specializing in eye surgeries and vision correction. Designation and Affiliations: Professor, Radiation Oncology & Ex Head of Dept:",
     "imageUrl": "src/assets/doc12.png",
-    "buttonText": "Share"
+    "buttonText": "Share",
+    "country": "India",
+    "workExperience": "20 Years"
   }
 ]

@@ -1,4 +1,5 @@
-import { Grid, Typography } from "@mui/material";
+import React from "react";
+import { Button, Grid, Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LinearWithValueLabel from "../../components/progressBar";
 import individualDoctor from "../../assets/doc11.png";
@@ -11,9 +12,56 @@ import TestingStripe from "../../components/testingStripe";
 import BookingForm from "../../components/testingStripe2";
 import CountrySelect from "../../components/countrySelect";
 import SearchDoctor from "../../components/searchComponent";
+import { useNavigate } from "react-router-dom";
+import doctorsData from "../../pages/doctors/data.json";
+import countriesData from "../../components/countrySelect/data.json";
 import styles from "../../Styles/home.module.css";
+import DoctorSpecialitySelect from "../../components/doctorSpecialitySelect";
+import SearchIcon from "@mui/icons-material/Search";
 
+interface DoctorType {
+  id: number;
+  title: string;
+  speciality: string;
+  description: string;
+  exploredescription: string;
+  imageUrl: string;
+  buttonText: string;
+  charges: string;
+  country: string;
+  qualification: string;
+  workExperience: string;
+}
 export default function Home() {
+  const navigate = useNavigate();
+  const [selectedSpeciality, setSelectedSpeciality] = React.useState<
+    string | null
+  >(null);
+  const [selectedCountry, setSelectedCountry] = React.useState<string | null>(
+    null
+  );
+
+  const handleSearch = () => {
+    if (selectedSpeciality && selectedCountry) {
+      const filteredDoctors = doctorsData.filter(
+        (doctor) =>
+          doctor.speciality.toLowerCase() ===
+            selectedSpeciality.toLowerCase() &&
+          doctor.country.toLowerCase() === selectedCountry.toLowerCase()
+      );
+
+      if (filteredDoctors.length === 1) {
+        // Navigate to a single doctor profile if only one match
+        const doctor = filteredDoctors[0];
+        navigate(`/doctor/${doctor.id}`);
+      } else if (filteredDoctors.length > 1) {
+        // Navigate to the results page if multiple matches found
+        navigate("/doctors", { state: { filteredDoctors } });
+      } else {
+        console.log("No doctors found for this speciality and country.");
+      }
+    }
+  };
   return (
     <>
       {/* Banner Section */}
@@ -66,11 +114,12 @@ export default function Home() {
           mt={3}
           justifyContent={"end"}
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit
+          Get expert medical advice from the comfort of your home with our video
+          consultation service. Connect with our experienced doctors in real
+          time, wherever you are, for a range of medical needs—from general
+          {/* health concerns to specialist consultations. Our seamless video
+          platform allowing you to receive guidance, discuss symptoms, and get
+          personalized recommendations, all without needing to visit a clinic. */}
         </Grid>
       </Grid>
       <Grid
@@ -88,15 +137,19 @@ export default function Home() {
         <Grid
           container
           item
-          xl={7}
-          lg={7}
-          md={7}
-          sm={7}
-          xs={7}
+          xl={4}
+          lg={4}
+          md={4}
+          sm={12}
+          xs={12}
+          pl={2}
           justifyContent={"center"}
           className={styles.doctorsearchBar}
         >
-          <SearchDoctor />
+          <SearchDoctor
+            doctors={doctorsData as DoctorType[]}
+            setSelectedSpeciality={setSelectedSpeciality}
+          />
         </Grid>
         <Grid
           container
@@ -104,12 +157,53 @@ export default function Home() {
           xl={4}
           lg={4}
           md={4}
-          sm={4}
-          xs={4}
+          sm={12}
+          xs={12}
+          justifyContent={"center"}
+          className={styles.specialitySearchBar}
+        >
+          <DoctorSpecialitySelect
+            setSelectedSpeciality={setSelectedSpeciality}
+          />
+        </Grid>
+        <Grid
+          container
+          item
+          xl={4}
+          lg={4}
+          md={4}
+          sm={12}
+          xs={12}
           justifyContent={"left"}
           className={styles.countrysearchBar}
         >
-          <CountrySelect />
+          <CountrySelect
+            countries={countriesData}
+            setSelectedCountry={setSelectedCountry}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              console.log("Search button clicked");
+              handleSearch();
+            }}
+            disabled={!selectedSpeciality || !selectedCountry}
+            sx={{
+              marginLeft: "5px",
+              bgcolor:
+                !selectedSpeciality || !selectedCountry
+                  ? "primary.light"
+                  : "primary.main",
+              color: "white",
+              "&.Mui-disabled": {
+                bgcolor: "grey.300", // Lighter grey color for disabled state
+                color: "grey.500", // Adjust text color for visibility
+              },
+            }}
+          >
+            <SearchIcon />
+          </Button>
         </Grid>
       </Grid>
 
@@ -228,8 +322,7 @@ export default function Home() {
               </Grid>
               <Grid item xl={11} lg={11} md={11} sm={11} xs={11}>
                 <Typography className={styles.textconsultPara}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do
+                Get personalized recommendations, all without needing to visit a clinic
                 </Typography>
               </Grid>
               <Grid
@@ -320,8 +413,7 @@ export default function Home() {
               </Grid>
               <Grid item xl={10} lg={10} md={10} sm={10} xs={10}>
                 <Typography className={styles.textconsultPara}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do
+                Consult with multiple doctors effortlessly through our platform easily
                 </Typography>
               </Grid>
               <Grid

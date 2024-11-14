@@ -48,8 +48,10 @@ function OnlineSection() {
               Start An Online Chat Consultation With Our Doctor
             </Typography>
             <Typography className={styles.consultationPara} mt={1}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              elusmod tempor ho jata hai dolore mangwe.
+            Our telemedicine service is designed to be convenient, accessible, 
+            and effective, enabling you to take control of your health from anywhere. 
+            {/* Whether you’re seeking quick advice, a second opinion, or a follow-up consultation, 
+            our doctors are here to support you every step of the way. */}
             </Typography>
           </Grid>
           <Grid

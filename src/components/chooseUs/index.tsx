@@ -68,9 +68,7 @@ function Chooseus() {
               </Grid>
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do
+                Consult with highly trained and experienced doctors dedicated to providing the best care possible
                 </Typography>
               </Grid>
             </Grid>
@@ -91,9 +89,7 @@ function Chooseus() {
               </Grid>
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do
+                Access a wide array of medical specialties, ensuring all your health needs are met
                 </Typography>
               </Grid>
             </Grid>
@@ -114,9 +110,7 @@ function Chooseus() {
               </Grid>
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do
+                Get the support you need, anytime, anywhere, with our round-the-clock healthcare services
                 </Typography>
               </Grid>
             </Grid>
@@ -137,9 +131,7 @@ function Chooseus() {
               </Grid>
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do
+                Experience top-notch healthcare services delivered with care, precision, and professionalism
                 </Typography>
               </Grid>
             </Grid>
