@@ -6,33 +6,39 @@
   font-size: 22px;
   padding: 12px 0px 12px 28px;
 }
+
 .logo {
   height: 80px;
   width: 80px;
   border-radius: 150px;
 }
+
 .parentGrind .chooseus {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   font-stretch: expanded;
   letter-spacing: 0.1em;
 }
+
 .parentGrind .chooseusHeading {
-  font-size: 32px;
+  font-size: 27px;
   font-weight: bold;
   font-stretch: expanded;
   word-spacing: 1px;
 }
+
 .parentGrind .chooseustext {
   font-family: Inter, sans-serif;
-  font-size: 22px;
+  font-size: 20px;
 }
+
 .parentGrind .chooseusPara {
   color: #8e92a4;
-  padding-top: 12px;
+  padding-top: 8px;
 }
+
 .parentGrind .image {
-  border-radius: 12px 0px 0px 12px;
+  border-radius: 4px 0px 0px 4px;
   width: 100%;
   height: 70%;
 }

@@ -322,7 +322,8 @@ export default function Home() {
               </Grid>
               <Grid item xl={11} lg={11} md={11} sm={11} xs={11}>
                 <Typography className={styles.textconsultPara}>
-                Get personalized recommendations, all without needing to visit a clinic
+                  Get personalized recommendations, all without needing to visit
+                  a clinic
                 </Typography>
               </Grid>
               <Grid
@@ -368,7 +369,9 @@ export default function Home() {
                   pl={2}
                 >
                   <img
-                    src={individualDoctor}
+                    src={
+                      "https://teleconsultation.ioncosolutions.com/assets/Dr-Munish-Gairola.jpg"
+                    }
                     alt={"docimage"}
                     className={styles.docImage}
                   />
@@ -413,7 +416,8 @@ export default function Home() {
               </Grid>
               <Grid item xl={10} lg={10} md={10} sm={10} xs={10}>
                 <Typography className={styles.textconsultPara}>
-                Consult with multiple doctors effortlessly through our platform easily
+                  Consult with multiple doctors effortlessly through our
+                  platform easily
                 </Typography>
               </Grid>
               <Grid
@@ -447,7 +451,15 @@ export default function Home() {
                 xs={12}
                 mt={2}
               >
-                <Grid item xl={4} lg={4} md={4} sm={4} xs={4}></Grid>
+                <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
+                  <img
+                    src={
+                      "https://teleconsultation.ioncosolutions.com/assets/Dr-(Col)-Ashok-Kumar.jpg"
+                    }
+                    alt={"docimage"}
+                    className={styles.docImage}
+                  />
+                </Grid>
                 <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
                   <Typography className={styles.drName}>
                     Dr. Marlie Varga
