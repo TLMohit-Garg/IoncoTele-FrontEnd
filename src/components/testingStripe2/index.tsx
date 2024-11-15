@@ -1,5 +1,11 @@
 import React from "react";
 import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+
+// Load your Stripe publishable key
+const stripePromise = loadStripe(
+  "pk_live_51Q3bltA8kzNiYMNTljp2tSqfgkoWuM2Fi667Xdlvts1JABnvKnzvh1795SBDnMZAIn3yUZlB0Kkl0VbxrmViVSgh007yj5Qtay"
+); // Replace with your Publishable Key
 
 const BookingForm = ({ patientEmail, doctorPrice, doctorName }: any) => {
   const [currency, setCurrency] = React.useState("gbp");
@@ -22,11 +28,22 @@ const BookingForm = ({ patientEmail, doctorPrice, doctorName }: any) => {
       });
       const { url, sessionId } = response.data;
 
-      // Log the response to ensure the session is created successfully
-      console.log("Stripe Checkout Session created successfully:");
-      console.log("Session ID:", sessionId);
-      console.log(response.data);
-      window.location.href = url; // Redirect to Stripe Checkout
+      console.log("Stripe Checkout Session created successfully:", response.data);
+
+      // Redirect to Stripe Checkout
+      if (url) {
+      window.location.href = url; 
+      }
+
+      // Redirect to the Stripe Checkout session
+      const stripe = await stripePromise;
+      if (stripe) {
+        const result = await stripe.redirectToCheckout({ sessionId });
+        if (result.error) {
+          console.error("Stripe Checkout redirection error:", result.error.message);
+        }
+      }
+    
     } catch (error: any) {
       console.error(
         "Error during checkout:" +

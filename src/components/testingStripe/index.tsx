@@ -13,7 +13,7 @@ import { Grid } from "@mui/material";
 
 // Load your Stripe publishable key
 const stripePromise = loadStripe(
-  "pk_test_51PyXQuRpCokjQ3Hx01o9Lo3Wke6XgBla6JjgpOFAlalN3D4iuEndRJw8m2ifuXEC46IZ2hWtGveO44rmxKHfNQlJ00mF0DJqd0"
+  "pk_live_51Q3bltA8kzNiYMNTljp2tSqfgkoWuM2Fi667Xdlvts1JABnvKnzvh1795SBDnMZAIn3yUZlB0Kkl0VbxrmViVSgh007yj5Qtay"
 ); // Replace with your Publishable Key
 
 const cardElementOptions: CardElementProps["options"] = {

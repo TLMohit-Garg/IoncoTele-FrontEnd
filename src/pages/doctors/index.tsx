@@ -58,9 +58,9 @@ export default function Doctors() {
   React.useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        // const response = await axios.get("/api/doctorSignup");
-        // setData(response.data);
-        setData(doctorsData);
+        const response = await axios.get("/api/doctorSignup");
+        setData(response.data);
+        // setData(doctorsData);
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch doctors data.");
@@ -100,7 +100,7 @@ export default function Doctors() {
         Team of our Dedicated Doctor's
       </Grid>
       <Grid container item justifyContent={"space-around"}>
-      {filteredDoctors.length > 0 ? (
+      {/* {filteredDoctors.length > 0 ? (
         filteredDoctors.map((doctor:any) => (
           <CustomCard
             key={doctor.id}
@@ -119,11 +119,9 @@ export default function Doctors() {
       ) : (
         <p>No doctors found for the selected speciality and country.</p>
         
-          // {data?.map((doctor) => ())}
-        
-      )}
+      )} */}
 
-        {/* {data?.map((doctor) => (
+         {data?.map((doctor) => (
           <CustomCard
             key={doctor.id}
             id={doctor.id}
@@ -137,7 +135,7 @@ export default function Doctors() {
             onButtonClick={() => handleCardClick(doctor)}
             handleViewProfile={() => handleViewProfile(doctor.id)}
           />
-        ))} */}
+        ))} 
         {/* {data.map((doctor) => (
           <CustomCard
           key={doctor.id}
