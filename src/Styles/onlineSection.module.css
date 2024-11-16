@@ -11,34 +11,41 @@
   /* border: "1px solid red"; */
   color: black;
 }
+
 .parentGrid .button {
   background-color: #10a0bd;
   color: white;
   height: 50px;
 }
+
 .parentGrid .button:hover {
   background-color: #10a0bd;
   color: white;
 }
+
 .parentGrid.button2 {
   background-color: white;
   color: #10a0bd;
 }
+
 .parentGrid .button2:hover {
   background-color: #e2f7fc;
   color: #10a0bd;
 }
+
 .parentGrid .childGrid {
   border-radius: 8px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+
 .parentGrid .consultationText {
   font-family: Inter, sans-serif;
   font-size: 22px;
   font-weight: bold;
 }
+
 .parentGrid .consultationPara {
   font-family: Inter, sans-serif;
-  font-size: 19px;
+  font-size: 15px;
   color: #8e92a4;
 }
