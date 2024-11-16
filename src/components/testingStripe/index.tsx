@@ -1,122 +1,122 @@
-import React, { useState, FormEvent } from "react";
-import { loadStripe, Stripe } from "@stripe/stripe-js";
-import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements,
-  CardElementProps,
-} from "@stripe/react-stripe-js";
-import axios from "axios";
-import styles from "../../Styles/testingStripe.module.css";
-import { Grid } from "@mui/material";
+// import React, { useState, FormEvent } from "react";
+// import { loadStripe, Stripe } from "@stripe/stripe-js";
+// import {
+//   Elements,
+//   CardElement,
+//   useStripe,
+//   useElements,
+//   CardElementProps,
+// } from "@stripe/react-stripe-js";
+// import axios from "axios";
+// import styles from "../../Styles/testingStripe.module.css";
+// import { Grid } from "@mui/material";
 
-// Load your Stripe publishable key
-const stripePromise = loadStripe(
-  "pk_live_51Q3bltA8kzNiYMNTljp2tSqfgkoWuM2Fi667Xdlvts1JABnvKnzvh1795SBDnMZAIn3yUZlB0Kkl0VbxrmViVSgh007yj5Qtay"
-); // Replace with your Publishable Key
+// // Load your Stripe publishable key
+// const stripePromise = loadStripe(
+//   "pk_live_51Q3bltA8kzNiYMNTljp2tSqfgkoWuM2Fi667Xdlvts1JABnvKnzvh1795SBDnMZAIn3yUZlB0Kkl0VbxrmViVSgh007yj5Qtay"
+// ); // Replace with your Publishable Key
 
-const cardElementOptions: CardElementProps["options"] = {
-  style: {
-    base: {
-      fontSize: "18px", // Increase font size
-      color: "black", // Text color
-      "::placeholder": {
-        color: "green", // Placeholder text color
-      },
-      padding: "10px 12px",
-    },
-    complete: {
-      color: "blue", // Text color when field is complete
-    },
-    invalid: {
-      color: "violet", // Text color for invalid inputs
-      iconColor: "#fa755a", // Icon color for invalid inputs
-    },
-  },
-};
+// const cardElementOptions: CardElementProps["options"] = {
+//   style: {
+//     base: {
+//       fontSize: "18px", // Increase font size
+//       color: "black", // Text color
+//       "::placeholder": {
+//         color: "green", // Placeholder text color
+//       },
+//       padding: "10px 12px",
+//     },
+//     complete: {
+//       color: "blue", // Text color when field is complete
+//     },
+//     invalid: {
+//       color: "violet", // Text color for invalid inputs
+//       iconColor: "#fa755a", // Icon color for invalid inputs
+//     },
+//   },
+// };
 
-const CheckoutForm: React.FC = () => {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [amount, setAmount] = useState<number>(10); // Example amount in dollars
-  const [clientSecret, setClientSecret] = useState<string>("");
+// const CheckoutForm: React.FC = () => {
+//   const stripe = useStripe();
+//   const elements = useElements();
+//   const [amount, setAmount] = useState<number>(10); // Example amount in dollars
+//   const [clientSecret, setClientSecret] = useState<string>("");
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+//   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+//     event.preventDefault();
 
-    if (!stripe || !elements) return; // Stripe.js has not yet loaded
-    const card = elements.getElement(CardElement);
+//     if (!stripe || !elements) return; // Stripe.js has not yet loaded
+//     const card = elements.getElement(CardElement);
 
-    if (!card) return;
+//     if (!card) return;
 
-    try {
-      const { paymentIntent, error } = await stripe.confirmCardPayment(
-        clientSecret,
-        {
-          payment_method: {
-            card: card,
-            billing_details: {
-              name: "John Doe",
-            },
-          },
-        }
-      );
+//     try {
+//       const { paymentIntent, error } = await stripe.confirmCardPayment(
+//         clientSecret,
+//         {
+//           payment_method: {
+//             card: card,
+//             billing_details: {
+//               name: "John Doe",
+//             },
+//           },
+//         }
+//       );
 
-      if (error) {
-        alert(`Payment failed: ${error.message}`);
-      } else if (paymentIntent?.status === "succeeded") {
-        alert("Payment successful!");
-      }
-    } catch (error) {
-      alert("Payment failed");
-      console.error(error);
-    }
-  };
+//       if (error) {
+//         alert(`Payment failed: ${error.message}`);
+//       } else if (paymentIntent?.status === "succeeded") {
+//         alert("Payment successful!");
+//       }
+//     } catch (error) {
+//       alert("Payment failed");
+//       console.error(error);
+//     }
+//   };
 
-  const handlePayment = async () => {
-    try {
-      const response = await axios.post("/api/paymentBookingConsultation", {
-        amount: amount * 100, // Convert to cents
-        currency: "usd",
-      });
+//   const handlePayment = async () => {
+//     try {
+//       const response = await axios.post("/api/paymentBookingConsultation", {
+//         amount: amount * 100, // Convert to cents
+//         currency: "usd",
+//       });
 
-      setClientSecret(response.data.clientSecret);
-    } catch (error) {
-      console.error("Error creating payment intent:", error);
-    }
-  };
+//       setClientSecret(response.data.clientSecret);
+//     } catch (error) {
+//       console.error("Error creating payment intent:", error);
+//     }
+//   };
 
-  return (
-    <Grid className={styles.formcontainer}>
-      <h2>Checkout</h2>
-      <form onSubmit={handleSubmit}>
-        <Grid className="cardElement" style={{ width: "200%", height: "100%" }}>
-          <CardElement options={cardElementOptions} />
-        </Grid>
-        <button
-          type="button"
-          onClick={handlePayment}
-          style={{ background: "red", margin: "10px" }}
-        >
-          Initiate Payment
-        </button>
-        <button
-          type="submit"
-          disabled={!stripe || !clientSecret}
-          style={{ margin: "10px" }}
-        >
-          Pay Now
-        </button>
-      </form>
-    </Grid>
-  );
-};
+//   return (
+//     <Grid className={styles.formcontainer}>
+//       <h2>Checkout</h2>
+//       <form onSubmit={handleSubmit}>
+//         <Grid className="cardElement" style={{ width: "200%", height: "100%" }}>
+//           <CardElement options={cardElementOptions} />
+//         </Grid>
+//         <button
+//           type="button"
+//           onClick={handlePayment}
+//           style={{ background: "red", margin: "10px" }}
+//         >
+//           Initiate Payment
+//         </button>
+//         <button
+//           type="submit"
+//           disabled={!stripe || !clientSecret}
+//           style={{ margin: "10px" }}
+//         >
+//           Pay Now
+//         </button>
+//       </form>
+//     </Grid>
+//   );
+// };
 
-const TestingStripe: React.FC = () => (
-  <Elements stripe={stripePromise}>
-    <CheckoutForm />
-  </Elements>
-);
+// const TestingStripe: React.FC = () => (
+//   <Elements stripe={stripePromise}>
+//     <CheckoutForm />
+//   </Elements>
+// );
 
-export default TestingStripe;
+// export default TestingStripe;

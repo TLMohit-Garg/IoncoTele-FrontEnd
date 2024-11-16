@@ -5,7 +5,7 @@ import { loadStripe } from "@stripe/stripe-js";
 // Load your Stripe publishable key
 const stripePromise = loadStripe(
   "pk_live_51Q3bltA8kzNiYMNTljp2tSqfgkoWuM2Fi667Xdlvts1JABnvKnzvh1795SBDnMZAIn3yUZlB0Kkl0VbxrmViVSgh007yj5Qtay"
-); // Replace with your Publishable Key
+); 
 
 const BookingForm = ({ patientEmail, doctorPrice, doctorName }: any) => {
   const [currency, setCurrency] = React.useState("gbp");
