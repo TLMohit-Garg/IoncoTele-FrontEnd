@@ -45,7 +45,7 @@ function OnlineSection() {
             ml={5}
           >
             <Typography className={styles.consultationText} mt={3}>
-              Start An Online Chat Consultation With Our Doctor
+              Start An Tele-Consultation With Our Doctor's
             </Typography>
             <Typography className={styles.consultationPara} mt={1}>
             Our telemedicine service is designed to be convenient, accessible, 

@@ -6,6 +6,7 @@ import styles from "/src/Styles/patientProfile.module.css";
 import axios from "axios";
 import { patientProfileTypes } from "../../customDataTypes/datatypes";
 import {bankingDetailsTypes} from "../../customDataTypes/datatypes";
+import {doctorProfileDataTypes} from "../../customDataTypes/datatypes";
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserId } from '../../store/userSlice';
 import { RootState } from '../../store/store';
@@ -25,6 +26,15 @@ function DoctorProfile() {
   // const userId = useSelector((state: RootState) => state.user.userId);
   // const token = useSelector((state: RootState) => state.authDoctor.token);
   // const [userData, setuserData] = React.useState<patientProfileTypes>();
+  const [profileData, setProfileData] = React.useState<doctorProfileDataTypes>();
+  const [isEditingProfile, setIsEditingProfile] = React.useState(false);
+  const [formDataProfile, setFormDataProfile] = React.useState<doctorProfileDataTypes>(
+    {
+      title: profileData?.title || "",
+      speciality: profileData?.speciality || "",
+      description: profileData?.description || "",
+    }
+  );
   const [bankingDetail, setBankingDetail] = React.useState<bankingDetailsTypes>();
   const [loading, setLoading] = React.useState(true);
   const [isEditing, setIsEditing] = React.useState(false);
@@ -43,12 +53,19 @@ function DoctorProfile() {
         return;
       }
       try {
+        //Fetch signup data
         const response = await axios.get(
           `api/doctorSignup/${userId}`
         );
         console.log(response, "signin doctor data");
         // setuserData(response.data);
         dispatch(setDoctorUserData(response.data));
+
+        // Fetch profile data
+        const profileResponse = await axios.get(`/api/doctorProfile/${userId}`);
+        console.log(profileResponse.data, "Doctor profile data");
+        setProfileData(profileResponse.data.doctor);
+        setFormDataProfile(profileResponse.data.doctor);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -58,6 +75,31 @@ function DoctorProfile() {
     fetchData();
   }, [userId, token, dispatch]);
 
+  const profilehandleInputChange = (event:any) => {
+    const { name, value } = event.target;
+    setFormDataProfile({ ...formDataProfile, [name]: value });
+  };
+
+  const profilehandleEditClick = () => {
+    setIsEditingProfile(true);
+  };
+
+  const handleSaveClick = async () => {
+    try {
+      const response = await axios.put(`/api/doctorProfile/${userId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include token if required
+        },
+      });
+      console.log(response.data, "Updated Profile Data");
+      setProfileData(response.data.updatedProfile); // Assuming the API returns the updated profile
+      setIsEditingProfile(false);
+    } catch (error) {
+      console.error("Error updating profile data:", error);
+    }
+  };
+
+  // For Banking details
   React.useEffect(() => {
     const fetchBankingData  = async () => {
       if (!userId) {
@@ -109,10 +151,7 @@ function DoctorProfile() {
       bankAccountNumber: bankingDetail?.bankAccountNumber,
       branchCodeIFSC: bankingDetail?.branchCodeIFSC,
       bankAccountNumberIBAN: bankingDetail?.bankAccountNumberIBAN,
-      speciality: bankingDetail?.speciality,
-      description: bankingDetail?.description,
-      experience: bankingDetail?.experience,
-      consultationCharges: bankingDetail?.consultationCharges,
+      
     });
     setIsEditing(true);
   };
@@ -122,7 +161,7 @@ function DoctorProfile() {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSaveClick = async () => {
+  const profilehandleSaveClick = async () => {
     try {
       const response = await axios.put(
         `/api/doctorBankingDetail/${bankingDetail?._id}`,
@@ -322,7 +361,122 @@ function DoctorProfile() {
             )
           )}
 
-{loading ? (
+          {/* {loading ? (
+            <div>Loading...</div> 
+          ):(
+            profileData && (
+              <div>
+          <h2>Doctor Profile</h2>
+          <p>Title: {profileData.title}</p>
+          <p>Speciality: {profileData.speciality}</p>
+          <p>Description: {profileData.description}</p>
+          <p>Experience: {profileData.workExperience} years</p>
+          <p>Qualification: {profileData.qualification}</p>
+          <p>Charges: ${profileData.charges}</p>
+          {/* <img src={profileData.imageUrl} alt="Doctor Profile" width="200" /> */}
+        {/* </div> */}
+            {/* ) */}
+          {/* )}  */}
+
+          {isEditingProfile ? (
+        <>
+          <TextField
+            label="Title"
+            name="title"
+            value={formDataProfile.title}
+            onChange={profilehandleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Speciality"
+            name="speciality"
+            value={formDataProfile.speciality}
+            onChange={profilehandleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Description"
+            name="description"
+            value={formDataProfile.description}
+            onChange={profilehandleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Work Experience"
+            name="workExperience"
+            value={formDataProfile.workExperience}
+            onChange={profilehandleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Qualification"
+            name="qualification"
+            value={formDataProfile.qualification}
+            onChange={profilehandleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Charges"
+            name="charges"
+            value={formDataProfile.charges}
+            onChange={profilehandleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <Button variant="contained" onClick={handleSaveClick}>
+            Save
+          </Button>
+        </>
+      ) : (
+        profileData && 
+        <>
+          <Grid item xs={12}>
+            <Typography variant="body1">
+              <strong>Title:</strong> {profileData.title}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1">
+              <strong>Speciality:</strong> {profileData.speciality}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1">
+              <strong>Description:</strong> {profileData.description}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1">
+              <strong>Work Experience:</strong> {profileData.workExperience} years
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1">
+              <strong>Qualification:</strong> {profileData.qualification}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1">
+              <strong>Charges:</strong> ${profileData.charges}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              startIcon={<EditIcon />}
+              onClick={profilehandleEditClick}
+            >
+              Edit
+            </Button>
+          </Grid>
+        </>
+      )}
+          {loading ? (
             <div>Loading...</div> 
           ) : (
             bankingDetail && (

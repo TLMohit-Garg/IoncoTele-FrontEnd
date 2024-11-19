@@ -120,8 +120,16 @@ export type bankingDetailsTypes = {
   branchCodeIFSC?: string;
   bankAccountNumberIBAN?: string;
   fullName?: string;
+};
+
+export type doctorProfileDataTypes = {
+  title?: string;
   speciality?: string;
   description?: string;
-  experience?: string;
-  consultationCharges?: string;
-};
+  exploredescription?: string;
+  charges?: string;
+  country?: string;
+  qualification?: string;
+  workExperience?: string;
+  imageUrl?: string;
+}
