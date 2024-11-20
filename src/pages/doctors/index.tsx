@@ -42,9 +42,9 @@ export default function Doctors() {
     // alert("view profile got clicked");
   };
 
-  console.log("doc-data", data);
+  console.log("doc-data before API hit", data);
   const handleCardClick = (doctor: any) => {
-    console.log("doctor-data", doctor);
+    console.log("doctor-data before card hit", doctor);
     setSelectedDoctor(doctor); // Set the selected doctor
     setModalOpen(true); // Open the modal
     dispatch(selectDoctor(doctor)); // Dispatch the selected doctor to the store
@@ -58,17 +58,25 @@ export default function Doctors() {
   React.useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await axios.get("/api/doctorSignup");
-        setData(response.data);
-        // setData(doctorsData);
-        setLoading(false);
-      } catch (err) {
-        setError("Failed to fetch doctors data.");
+        const response = await axios.get('/api/doctorProfile');
+        console.log("API Response Data:", response.data);
+        
+        if (Array.isArray(response.data)) {
+          setData(response.data); 
+        } else if (response.data.doctors) {
+          setData(response.data.doctors); 
+        } else {
+          throw new Error("Unexpected API response structure");
+        }
+      } catch (err: any) {
+        setError(err.message || "Failed to fetch doctors data.");
+      } finally {
         setLoading(false);
       }
     };
     fetchDoctors();
   }, []);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
   return (
@@ -121,7 +129,8 @@ export default function Doctors() {
         
       )} */}
 
-         {data?.map((doctor) => (
+      {Array.isArray(data) ? (
+        data.map((doctor) => (
           <CustomCard
             key={doctor.id}
             id={doctor.id}
@@ -135,7 +144,10 @@ export default function Doctors() {
             onButtonClick={() => handleCardClick(doctor)}
             handleViewProfile={() => handleViewProfile(doctor.id)}
           />
-        ))} 
+        ))
+      ) : (
+        <p>No doctors available.</p>
+      )}
         {/* {data.map((doctor) => (
           <CustomCard
           key={doctor.id}

@@ -25,6 +25,7 @@ import SignIn from "./pages/adminSignIn/index.tsx";
 import SuccessPage from "./pages/success/index.tsx";
 import DoctorInfo from "./pages/doctorInfo/index.tsx";
 import { PersistGate } from "redux-persist/integration/react";
+import UpdateProfile from "./pages/updateProfilePage/index.tsx";
 // import CredentialsSignInPage from "./pages/adminSignIn/index.tsx";
 
 const router = createBrowserRouter(
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
       <Route path="/testing" element={<Testing />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/updateProfile" element={<UpdateProfile />} />
       <Route path="/doctor/:id" element={<DoctorInfo />} />
       <Route path="/doctorBankingDetails" element={<DoctorBankingDetails />} />
       <Route path="/myAppointments" element={<Appointments />} />

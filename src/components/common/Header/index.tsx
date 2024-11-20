@@ -15,6 +15,7 @@ import avatarImage from "../../../assets/doc2.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Settings from "@mui/icons-material/Settings";
@@ -112,6 +113,9 @@ function Header() {
     if (isDoctorSignedIn || isPatientSignedIn) {
       navigate("/profile");
     }
+  };
+  const handleUpdateProfile = () => {
+    navigate("/updateProfile");
   };
   const bankingDetails = () => {
     navigate("/doctorBankingDetails");
@@ -388,6 +392,12 @@ function Header() {
             <PersonAddAltOutlinedIcon />
           </ListItemIcon>
           My Profile
+        </MenuItem>
+        <MenuItem onClick={handleUpdateProfile}>
+          <ListItemIcon>
+            <DriveFileRenameOutlineIcon />
+          </ListItemIcon>
+          Update Profile
         </MenuItem>
         <MenuItem onClick={appointments}>
           <ListItemIcon>

@@ -26,7 +26,18 @@ const SuccessPage: React.FC = () => {
           `/api/stripe/session/${sessionId}`
         );
         setSession(response.data.session);
+        // Trigger email notification on successful payment
+        if (response.data.session.payment_status === "paid") {
+          await axios.post("/api/send-payment-email", {
+            email: response.data.session.customer_email,
+            sessionId,
+            amount: response.data.session.amount_total / 100,
+            currency: response.data.session.currency,
+          });
+        }
+
         setLoading(false);
+
       } catch (error) {
         setError("Unable to retrieve session details.");
         setLoading(false);

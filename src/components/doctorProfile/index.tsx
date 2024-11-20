@@ -33,6 +33,8 @@ function DoctorProfile() {
       title: profileData?.title || "",
       speciality: profileData?.speciality || "",
       description: profileData?.description || "",
+      charges: profileData?.charges || "",
+      country: profileData?.country || "",
     }
   );
   const [bankingDetail, setBankingDetail] = React.useState<bankingDetailsTypes>();
@@ -75,7 +77,19 @@ function DoctorProfile() {
     fetchData();
   }, [userId, token, dispatch]);
 
-  const profilehandleInputChange = (event:any) => {
+  React.useEffect(() => {
+    if (profileData) {
+      setFormDataProfile({
+        title: profileData.title,
+        speciality: profileData.speciality,
+        description: profileData.description,
+        charges: profileData.charges,
+        country: profileData.country,
+      });
+    }
+  }, [profileData]);
+
+  const profilehandleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormDataProfile({ ...formDataProfile, [name]: value });
   };
@@ -86,11 +100,15 @@ function DoctorProfile() {
 
   const handleSaveClick = async () => {
     try {
-      const response = await axios.put(`/api/doctorProfile/${userId}`, formData, {
+      const { title, speciality, description, charges, country } = formDataProfile;
+      const payload = { title, speciality, description, charges, country };
+
+      const response = await axios.put(`/api/doctorProfile/${userId}`, payload, {
         headers: {
           Authorization: `Bearer ${token}`, // Include token if required
         },
       });
+      console.log(payload, "Updated-Profile-data");
       console.log(response.data, "Updated Profile Data");
       setProfileData(response.data.updatedProfile); // Assuming the API returns the updated profile
       setIsEditingProfile(false);
@@ -385,6 +403,7 @@ function DoctorProfile() {
             name="title"
             value={formDataProfile.title}
             onChange={profilehandleInputChange}
+            // onChange={(e:any) => setFormDataProfile({...formDataProfile, title: e.target.value})}
             fullWidth
             margin="normal"
           />
@@ -393,6 +412,8 @@ function DoctorProfile() {
             name="speciality"
             value={formDataProfile.speciality}
             onChange={profilehandleInputChange}
+            
+            // onChange={(e) => setFormDataProfile({ ...formDataProfile, speciality: e.target.value })}
             fullWidth
             margin="normal"
           />
@@ -401,6 +422,7 @@ function DoctorProfile() {
             name="description"
             value={formDataProfile.description}
             onChange={profilehandleInputChange}
+            // onChange={(e) => setFormDataProfile({ ...formDataProfile, description: e.target.value })}
             fullWidth
             margin="normal"
           />
@@ -424,6 +446,14 @@ function DoctorProfile() {
             label="Charges"
             name="charges"
             value={formDataProfile.charges}
+            onChange={profilehandleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Country"
+            name="country"
+            value={formDataProfile.country}
             onChange={profilehandleInputChange}
             fullWidth
             margin="normal"
@@ -463,6 +493,11 @@ function DoctorProfile() {
           <Grid item xs={12}>
             <Typography variant="body1">
               <strong>Charges:</strong> ${profileData.charges}
+            </Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="body1">
+              <strong>Country:</strong> ${profileData.country}
             </Typography>
           </Grid>
           <Grid item xs={12}>
