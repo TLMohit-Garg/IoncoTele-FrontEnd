@@ -73,7 +73,7 @@ function UpdateProfile() {
   };
   return (
     <>
-      <div>UpdateProfile</div>
+      {/* <div>UpdateProfile</div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -123,7 +123,96 @@ function UpdateProfile() {
         />
         <input type="file" onChange={handleFileChange} />
         <button type="submit">Submit</button>
-      </form>
+      </form> */}
+
+<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 2fr", // Two columns: left for headings, right for inputs
+          gap: "20px",
+          maxWidth: "800px",
+          width: "100%",
+        }}
+      >
+        {/* Left column for headings */}
+        <div style={{ textAlign: "right", paddingRight: "10px" }}>
+          <p>Title:</p>
+          <p>Speciality:</p>
+          <p>Description:</p>
+          <p>Explore Description:</p>
+          <p>Charges:</p>
+          <p>Country:</p>
+          <p>Qualification:</p>
+          <p>Work Experience:</p>
+          <p>Upload File:</p>
+        </div>
+
+        {/* Right column for inputs */}
+        <div>
+          <form onSubmit={handleSubmit} style={{ display: "grid", gap: "15px" }}>
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+            />
+            <input
+              type="text"
+              placeholder="Speciality"
+              value={speciality}
+              onChange={(e) => setSpeciality(e.target.value)}
+              style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+            />
+            <textarea
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+            />
+            <textarea
+              placeholder="Explore Description"
+              value={exploredescription}
+              onChange={(e) => setExploreDescription(e.target.value)}
+              style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+            />
+            <input
+              type="text"
+              placeholder="Charges"
+              value={charges}
+              onChange={(e) => setCharges(e.target.value)}
+              style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+            />
+            <input
+              type="text"
+              placeholder="Country"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+            />
+            <input
+              type="text"
+              placeholder="Qualification"
+              value={qualification}
+              onChange={(e) => setQualification(e.target.value)}
+              style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+            />
+            <input
+              type="text"
+              placeholder="Work Experience"
+              value={workExperience}
+              onChange={(e) => setWorkExperience(e.target.value)}
+              style={{ width: "100%", padding: "10px", fontSize: "16px" }}
+            />
+            <input type="file" onChange={handleFileChange} style={{ fontSize: "16px" }} />
+            <button type="submit" style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}>
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
     </>
   );
 }

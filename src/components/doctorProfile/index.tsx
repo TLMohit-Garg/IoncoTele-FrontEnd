@@ -5,46 +5,52 @@ import Divider from "@mui/material/Divider";
 import styles from "/src/Styles/patientProfile.module.css";
 import axios from "axios";
 import { patientProfileTypes } from "../../customDataTypes/datatypes";
-import {bankingDetailsTypes} from "../../customDataTypes/datatypes";
-import {doctorProfileDataTypes} from "../../customDataTypes/datatypes";
-import { useSelector, useDispatch } from 'react-redux';
-import { setUserId } from '../../store/userSlice';
-import { RootState } from '../../store/store';
+import { bankingDetailsTypes } from "../../customDataTypes/datatypes";
+import { doctorProfileDataTypes } from "../../customDataTypes/datatypes";
+import { useSelector, useDispatch } from "react-redux";
+import { setUserId } from "../../store/userSlice";
+import { RootState } from "../../store/store";
 import IconLabelButtons from "../CustomButton/Button";
-import EditIcon from '@mui/icons-material/Edit';
+import EditIcon from "@mui/icons-material/Edit";
 import { Toast } from "../ToastMessage";
-import { selectDoctorUserId, selectDoctorToken, setDoctorUserData, selectDoctorUserData } from "../../store/authDoctorSlice";
+import {
+  selectDoctorUserId,
+  selectDoctorToken,
+  setDoctorUserData,
+  selectDoctorUserData,
+} from "../../store/authDoctorSlice";
 
- 
 function DoctorProfile() {
-  const userId = useSelector(selectDoctorUserId); 
+  const userId = useSelector(selectDoctorUserId);
   const token = useSelector(selectDoctorToken);
 
   const dispatch = useDispatch();
-  const userData = useSelector(selectDoctorUserData); 
+  const userData = useSelector(selectDoctorUserData);
   // const bankingDetail = useSelector(selectDoctorBankingDetail);
   // const userId = useSelector((state: RootState) => state.user.userId);
   // const token = useSelector((state: RootState) => state.authDoctor.token);
   // const [userData, setuserData] = React.useState<patientProfileTypes>();
-  const [profileData, setProfileData] = React.useState<doctorProfileDataTypes>();
+  const [profileData, setProfileData] =
+    React.useState<doctorProfileDataTypes>();
   const [isEditingProfile, setIsEditingProfile] = React.useState(false);
-  const [formDataProfile, setFormDataProfile] = React.useState<doctorProfileDataTypes>(
-    {
+  const [formDataProfile, setFormDataProfile] =
+    React.useState<doctorProfileDataTypes>({
       title: profileData?.title || "",
       speciality: profileData?.speciality || "",
       description: profileData?.description || "",
       charges: profileData?.charges || "",
       country: profileData?.country || "",
-    }
-  );
-  const [bankingDetail, setBankingDetail] = React.useState<bankingDetailsTypes>();
+      imageUrl: profileData?.imageUrl || "",
+    });
+  const [bankingDetail, setBankingDetail] =
+    React.useState<bankingDetailsTypes>();
   const [loading, setLoading] = React.useState(true);
   const [isEditing, setIsEditing] = React.useState(false);
   const [formData, setFormData] = React.useState<bankingDetailsTypes>({
     fullName: bankingDetail?.fullName || "",
-  accountName: bankingDetail?.accountName || "",
-  bankName: bankingDetail?.bankName || "",
-  bankAccountNumber: bankingDetail?.bankAccountNumber || "",
+    accountName: bankingDetail?.accountName || "",
+    bankName: bankingDetail?.bankName || "",
+    bankAccountNumber: bankingDetail?.bankAccountNumber || "",
   });
 
   React.useEffect(() => {
@@ -56,9 +62,7 @@ function DoctorProfile() {
       }
       try {
         //Fetch signup data
-        const response = await axios.get(
-          `api/doctorSignup/${userId}`
-        );
+        const response = await axios.get(`api/doctorSignup/${userId}`);
         console.log(response, "signin doctor data");
         // setuserData(response.data);
         dispatch(setDoctorUserData(response.data));
@@ -85,11 +89,14 @@ function DoctorProfile() {
         description: profileData.description,
         charges: profileData.charges,
         country: profileData.country,
+        imageUrl: profileData.imageUrl,
       });
     }
   }, [profileData]);
 
-  const profilehandleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const profilehandleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const { name, value } = event.target;
     setFormDataProfile({ ...formDataProfile, [name]: value });
   };
@@ -100,14 +107,19 @@ function DoctorProfile() {
 
   const handleSaveClick = async () => {
     try {
-      const { title, speciality, description, charges, country } = formDataProfile;
+      const { title, speciality, description, charges, country } =
+        formDataProfile;
       const payload = { title, speciality, description, charges, country };
 
-      const response = await axios.put(`/api/doctorProfile/${userId}`, payload, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include token if required
-        },
-      });
+      const response = await axios.put(
+        `/api/doctorProfile/${userId}`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token if required
+          },
+        }
+      );
       console.log(payload, "Updated-Profile-data");
       console.log(response.data, "Updated Profile Data");
       setProfileData(response.data.updatedProfile); // Assuming the API returns the updated profile
@@ -119,7 +131,7 @@ function DoctorProfile() {
 
   // For Banking details
   React.useEffect(() => {
-    const fetchBankingData  = async () => {
+    const fetchBankingData = async () => {
       if (!userId) {
         console.error("User ID is not available");
         setLoading(false); // Stop loading if no user ID
@@ -132,7 +144,7 @@ function DoctorProfile() {
         console.log(response, "doctor Banking Detail data");
         setBankingDetail(response.data);
         setFormData(response.data);
-      } catch ({error}:any) {
+      } catch ({ error }: any) {
         console.error("Error fetching data:", error.response || error.message);
       } finally {
         setLoading(false);
@@ -141,7 +153,9 @@ function DoctorProfile() {
     fetchBankingData();
   }, [userId, token]);
 
-  const handleUpdateBankingDetail = async(updatedData: bankingDetailsTypes) => {
+  const handleUpdateBankingDetail = async (
+    updatedData: bankingDetailsTypes
+  ) => {
     setIsEditing(true);
     try {
       const response = await axios.put(
@@ -153,12 +167,11 @@ function DoctorProfile() {
           },
         }
       );
-      console.log('Banking details updated:', response.data);
+      console.log("Banking details updated:", response.data);
     } catch (error) {
-      console.error('Error updating banking details:', error);
-      
+      console.error("Error updating banking details:", error);
     }
-  }
+  };
 
   const handleEditClick = () => {
     setFormData({
@@ -169,7 +182,6 @@ function DoctorProfile() {
       bankAccountNumber: bankingDetail?.bankAccountNumber,
       branchCodeIFSC: bankingDetail?.branchCodeIFSC,
       bankAccountNumberIBAN: bankingDetail?.bankAccountNumberIBAN,
-      
     });
     setIsEditing(true);
   };
@@ -186,17 +198,17 @@ function DoctorProfile() {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`,  // Use token from Redux
+            Authorization: `Bearer ${token}`, // Use token from Redux
           },
         }
       );
-      setIsEditing(false);  // Exit edit mode after saving
-      setBankingDetail(response.data);  // Update UI with saved data
+      setIsEditing(false); // Exit edit mode after saving
+      setBankingDetail(response.data); // Update UI with saved data
     } catch (error) {
       console.error("Error updating banking details:", error);
     }
   };
-  
+
   return (
     <>
       <Grid
@@ -220,12 +232,15 @@ function DoctorProfile() {
           xs={5}
           className={styles.profileimageGrid}
         >
-            This is Doctor Profile
-          <img
-            src={patientImage}
-            alt="patientimage"
-            className={styles.profileimage}
-          />
+          {profileData && (
+            <>
+              <img
+                src={profileData.imageUrl}
+                alt="Doctor Profile"
+                style={{ width: "450px", height: "auto", marginTop: "10px" }}
+              />
+            </>
+          )}
         </Grid>
         <Grid
           container
@@ -237,11 +252,10 @@ function DoctorProfile() {
           xs={6}
           className={styles.profileinfo}
           mt={1}
-         sx={{marginBottom:"25px", height:"auto"}}
+          sx={{ marginBottom: "25px", height: "auto" }}
         >
-            
           {loading ? (
-            <div>Loading...</div> 
+            <div>Loading...</div>
           ) : (
             userData && (
               <>
@@ -375,7 +389,7 @@ function DoctorProfile() {
                     </Typography>
                   </Grid>
                 </Grid>
-                </>
+              </>
             )
           )}
 
@@ -392,133 +406,171 @@ function DoctorProfile() {
           <p>Qualification: {profileData.qualification}</p>
           <p>Charges: ${profileData.charges}</p>
           {/* <img src={profileData.imageUrl} alt="Doctor Profile" width="200" /> */}
-        {/* </div> */}
-            {/* ) */}
+          {/* </div> */}
+          {/* ) */}
           {/* )}  */}
 
           {isEditingProfile ? (
-        <>
-          <TextField
-            label="Title"
-            name="title"
-            value={formDataProfile.title}
-            onChange={profilehandleInputChange}
-            // onChange={(e:any) => setFormDataProfile({...formDataProfile, title: e.target.value})}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Speciality"
-            name="speciality"
-            value={formDataProfile.speciality}
-            onChange={profilehandleInputChange}
-            
-            // onChange={(e) => setFormDataProfile({ ...formDataProfile, speciality: e.target.value })}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Description"
-            name="description"
-            value={formDataProfile.description}
-            onChange={profilehandleInputChange}
-            // onChange={(e) => setFormDataProfile({ ...formDataProfile, description: e.target.value })}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Work Experience"
-            name="workExperience"
-            value={formDataProfile.workExperience}
-            onChange={profilehandleInputChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Qualification"
-            name="qualification"
-            value={formDataProfile.qualification}
-            onChange={profilehandleInputChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Charges"
-            name="charges"
-            value={formDataProfile.charges}
-            onChange={profilehandleInputChange}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Country"
-            name="country"
-            value={formDataProfile.country}
-            onChange={profilehandleInputChange}
-            fullWidth
-            margin="normal"
-          />
-          <Button variant="contained" onClick={handleSaveClick}>
-            Save
-          </Button>
-        </>
-      ) : (
-        profileData && 
-        <>
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              <strong>Title:</strong> {profileData.title}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              <strong>Speciality:</strong> {profileData.speciality}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              <strong>Description:</strong> {profileData.description}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              <strong>Work Experience:</strong> {profileData.workExperience} years
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              <strong>Qualification:</strong> {profileData.qualification}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              <strong>Charges:</strong> ${profileData.charges}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="body1">
-              <strong>Country:</strong> ${profileData.country}
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              startIcon={<EditIcon />}
-              onClick={profilehandleEditClick}
-            >
-              Edit
-            </Button>
-          </Grid>
-        </>
-      )}
+            <>
+              <TextField
+                label="Title"
+                name="title"
+                value={formDataProfile.title}
+                onChange={profilehandleInputChange}
+                // onChange={(e:any) => setFormDataProfile({...formDataProfile, title: e.target.value})}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Speciality"
+                name="speciality"
+                value={formDataProfile.speciality}
+                onChange={profilehandleInputChange}
+                // onChange={(e) => setFormDataProfile({ ...formDataProfile, speciality: e.target.value })}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Description"
+                name="description"
+                value={formDataProfile.description}
+                onChange={profilehandleInputChange}
+                // onChange={(e) => setFormDataProfile({ ...formDataProfile, description: e.target.value })}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Work Experience"
+                name="workExperience"
+                value={formDataProfile.workExperience}
+                onChange={profilehandleInputChange}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Qualification"
+                name="qualification"
+                value={formDataProfile.qualification}
+                onChange={profilehandleInputChange}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Charges"
+                name="charges"
+                value={formDataProfile.charges}
+                onChange={profilehandleInputChange}
+                fullWidth
+                margin="normal"
+              />
+              <TextField
+                label="Country"
+                name="country"
+                value={formDataProfile.country}
+                onChange={profilehandleInputChange}
+                fullWidth
+                margin="normal"
+              />
+              <Button variant="contained" onClick={handleSaveClick}>
+                Save
+              </Button>
+            </>
+          ) : (
+            profileData && (
+              <>
+              <Grid
+                    container
+                    item
+                    xl={10}
+                    lg={10}
+                    md={10}
+                    sm={10}
+                    xs={10}
+                    justifyContent={"space-between"}
+                  >
+                    <Typography className={styles.email}>Title:</Typography>
+                    <Typography className={styles.emailValue}>
+                      {profileData.title}
+                    </Typography>
+                  </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1">
+                    <strong>Title:</strong> {profileData.title}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1">
+                    <strong>Speciality:</strong> {profileData.speciality}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1">
+                    <strong>Description:</strong> {profileData.description}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1">
+                    <strong>Work Experience:</strong>{" "}
+                    {profileData.workExperience} years
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1">
+                    <strong>Qualification:</strong> {profileData.qualification}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1">
+                    <strong>Charges:</strong> ${profileData.charges}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1">
+                    <strong>Country:</strong> {profileData.country}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="body1">
+                    {/* <img
+                      src={profileData.imageUrl}
+                      alt="Doctor Profile"
+                      style={{
+                        width: "200px",
+                        height: "auto",
+                        marginTop: "10px",
+                      }}
+                    /> */}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    startIcon={<EditIcon />}
+                    onClick={profilehandleEditClick}
+                  >
+                    Edit
+                  </Button>
+                </Grid>
+              </>
+            )
+          )}
           {loading ? (
-            <div>Loading...</div> 
+            <div>Loading...</div>
           ) : (
             bankingDetail && (
               <>
-                <Grid item xl={10} lg={10} md={10} sm={10} xs={10} mt={2} mb={5}>
+                <Grid
+                  item
+                  xl={10}
+                  lg={10}
+                  md={10}
+                  sm={10}
+                  xs={10}
+                  mt={2}
+                  mb={5}
+                >
                   <Typography className={styles.contact}>
-                    Banking Details 
+                    Banking Details
                   </Typography>
                   <Grid
                     container
@@ -538,150 +590,157 @@ function DoctorProfile() {
                     />
                   </Grid>
                   {isEditing ? (
-              <>
-                <TextField
-                  label="Account Holder Name"
-                  name="fullName"
-                  value={formData.fullName}
-                  onChange={handleInputChange}
-                  fullWidth
-                />
-                <TextField
-                  label="Account Name"
-                  name="accountName"
-                  value={formData.accountName}
-                  onChange={handleInputChange}
-                  fullWidth
-                />
-                {/* Add other TextFields here for editable fields */}
+                    <>
+                      <TextField
+                        label="Account Holder Name"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                        fullWidth
+                      />
+                      <TextField
+                        label="Account Name"
+                        name="accountName"
+                        value={formData.accountName}
+                        onChange={handleInputChange}
+                        fullWidth
+                      />
+                      {/* Add other TextFields here for editable fields */}
 
-                <Button variant="contained" onClick={handleSaveClick}>
-                  Save
-                </Button>
+                      <Button variant="contained" onClick={handleSaveClick}>
+                        Save
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Grid
+                        container
+                        item
+                        xl={10}
+                        lg={10}
+                        md={10}
+                        sm={10}
+                        xs={10}
+                        justifyContent={"space-between"}
+                        mt={2}
+                      >
+                        <Typography className={styles.email}>
+                          Account Holder Name:
+                        </Typography>
+                        <Typography className={styles.emailValue}>
+                          {bankingDetail.fullName}
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xl={10}
+                        lg={10}
+                        md={10}
+                        sm={10}
+                        xs={10}
+                        justifyContent={"space-between"}
+                        mt={2}
+                      >
+                        <Typography className={styles.email}>
+                          Bank Name:
+                        </Typography>
+                        <Typography className={styles.emailValue}>
+                          {bankingDetail.bankName}
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xl={10}
+                        lg={10}
+                        md={10}
+                        sm={10}
+                        xs={10}
+                        justifyContent={"space-between"}
+                      >
+                        <Typography className={styles.email}>
+                          Bank Address:
+                        </Typography>
+                        <Typography className={styles.emailValue}>
+                          {bankingDetail.bankAddress}
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xl={10}
+                        lg={10}
+                        md={10}
+                        sm={10}
+                        xs={10}
+                        justifyContent={"space-between"}
+                      >
+                        <Typography className={styles.email}>
+                          Bank Account Number:
+                        </Typography>
+                        <Typography className={styles.emailValue}>
+                          {bankingDetail.bankAccountNumber}
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xl={10}
+                        lg={10}
+                        md={10}
+                        sm={10}
+                        xs={10}
+                        justifyContent={"space-between"}
+                      >
+                        <Typography className={styles.email}>
+                          Branch Code:[IFSC/Routing Code]
+                        </Typography>
+                        <Typography className={styles.emailValue}>
+                          {bankingDetail.branchCodeIFSC}
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xl={10}
+                        lg={10}
+                        md={10}
+                        sm={10}
+                        xs={10}
+                        justifyContent={"space-between"}
+                      >
+                        <Typography className={styles.email}>
+                          Bank Account Number/IBAN:
+                        </Typography>
+                        <Typography className={styles.emailValue}>
+                          {bankingDetail.bankAccountNumberIBAN}
+                        </Typography>
+                      </Grid>
+                      <Grid
+                        container
+                        item
+                        xl={10}
+                        lg={10}
+                        md={10}
+                        sm={10}
+                        xs={10}
+                      >
+                        <IconLabelButtons
+                          name={"Edit"}
+                          variant={"contained"}
+                          className={styles.IconLabelButtons}
+                          endIcon={<EditIcon />}
+                          onClick={handleEditClick}
+                          // onClick={() => editBankingDetail({ accountName: "Updated Account Name" })} // Example of passing new data
+                        />
+                      </Grid>
+                    </>
+                  )}
+                </Grid>
               </>
-            ) : (
-              <>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                    mt={2}
-                  >
-                    <Typography className={styles.email}>Account Holder Name:</Typography>
-                    <Typography className={styles.emailValue}>
-                      {bankingDetail.fullName}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                    mt={2}
-                  >
-                    <Typography className={styles.email}>
-                    Bank Name:
-                    </Typography>
-                    <Typography className={styles.emailValue}>
-                      {bankingDetail.bankName}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                  >
-                    <Typography className={styles.email}>Bank Address:</Typography>
-                    <Typography className={styles.emailValue}>
-                      {bankingDetail.bankAddress}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                  >
-                    <Typography className={styles.email}>Bank Account Number:</Typography>
-                    <Typography className={styles.emailValue}>
-                      {bankingDetail.bankAccountNumber}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                  >
-                    <Typography className={styles.email}>Branch Code:[IFSC/Routing Code]</Typography>
-                    <Typography className={styles.emailValue}>
-                      {bankingDetail.branchCodeIFSC}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                  >
-                    <Typography className={styles.email}>Bank Account Number/IBAN:</Typography>
-                    <Typography className={styles.emailValue}>
-                      {bankingDetail.bankAccountNumberIBAN}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                container
-                item
-                xl={10}
-                lg={10}
-                md={10}
-                sm={10}
-                xs={10}
-                >
-                  <IconLabelButtons
-                  name={"Edit"}
-                  variant={"contained"}
-                  className={styles.IconLabelButtons}
-                  endIcon={<EditIcon />}
-                  onClick={handleEditClick}
-                  // onClick={() => editBankingDetail({ accountName: "Updated Account Name" })} // Example of passing new data
-                  />
-                </Grid>
-                </>
-            )}
-                </Grid>
-                
-
-                </>
             )
           )}
-             
         </Grid>
       </Grid>
     </>
