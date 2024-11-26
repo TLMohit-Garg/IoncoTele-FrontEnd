@@ -49,7 +49,8 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
   //   const { userInfo }: any = useAppSelector(
   //     (state: RootState) => state.userSlice
   //   );
-  console.log("Doctor prop:", doctor);
+  console.log("Doctor prop:", doctor.userId);
+  console.log("Doctor prop with id:", doctor._id);
   const [selectedFile, setSelectedFile] = useState<any>();
   console.log("selectedFile", selectedFile);
   const [activeStep, setActiveStep] = useState(0);
@@ -160,6 +161,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
   const isAuthenticated = useSelector(selectIsPatientAuthenticated);
   console.log("Patient Email:", patientEmail);
   console.log("Selected Doctor:", selectedDoctor);
+  console.log("Selected Doctor with id:", selectedDoctor?.userId._id);
 
   React.useEffect(() => {
     console.log("Patient Email from Redux:", patientEmail);
@@ -630,6 +632,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                             lg={12}
                             xl={12}
                           >
+                          {/* {doctor && doctor.userId ? ( */}
                             <CustomDatePicker
                               error={Boolean(errors.prefferDate)}
                               errorCondition={
@@ -643,7 +646,9 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                               name="prefferDate"
                               showTimePicker={true}
                               className={styles.datefieldContainer}
+                              doctorId={doctor?._id}
                             />
+                          {/* ):(<p>Loading doctor details...</p>)} */}
                           </Grid>
                           <Grid className={styles.fullName}>
                             <Typography className={styles.fullNameTypo}>

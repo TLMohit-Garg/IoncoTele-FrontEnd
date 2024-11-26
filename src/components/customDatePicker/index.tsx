@@ -9,7 +9,7 @@ import dayjs from "dayjs";
 import { Dayjs } from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-
+import axios from "axios";
 // Enable timezone and UTC support in dayjs
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -26,12 +26,46 @@ export default function CustomDatePicker({
   onChange,
   selectedDate,
   showTimePicker = false, // Toggle date and time picker
+  doctorId,
 }: any) {
   const [value, setValue] = React.useState<Dayjs | null>(
     selectedDate
       ? dayjs(selectedDate).tz(userTimeZone)
       : dayjs().tz(userTimeZone) // Initialize with the selected date or current date
   );
+  const [availableDates, setAvailableDates] = React.useState<any[]>([]);
+
+
+  // Fetch availability data when the component mounts
+  React.useEffect(() => {
+    if (doctorId) {
+      console.log("Doctor ID from the parent props:", doctorId);
+      axios
+        .get(`/api/availability/${doctorId}`)
+        .then((response) => {
+          // Assuming the response contains an array of available dates
+          setAvailableDates(response.data.availability);
+        })
+        .catch((error) => {
+          console.error("Failed to fetch availability:", error);
+        });
+    }
+  }, [doctorId]);
+
+  // Function to check if the date is available
+  const isDateAvailable = (date: Dayjs) => {
+    const formattedDate = date.format("YYYY-MM-DD"); // Format date for comparison
+    return availableDates.some((availability) => availability.date === formattedDate);
+  };
+
+  // Function to check if time is available
+  // const isTimeAvailable = (date: Dayjs) => {
+  //   // Logic to check if the time is available, based on available dates fetched from the API
+  //   const formattedDateTime = date.format("YYYY-MM-DD HH:mm"); // Assuming date-time format
+  //   return availableDates.some((availability) => {
+  //     return availability.times.includes(formattedDateTime); // Check if the exact time is available
+  //   });
+  // };
 
   // Calculate the first and last day of the current month
   // const currentMonthStart = dayjs().startOf("month");
@@ -68,10 +102,22 @@ export default function CustomDatePicker({
     value,
     view
   ) =>
-    view === "hours" &&
-    ((value.hour() >= 1 && value.hour() <= 2) || // Disable 1 to 2
-      (value.hour() >= 4 && value.hour() <= 5) || // Disable 3 to 5
-      (value.hour() >= 15 && value.hour() <= 17)); // Disable 14 to 17 (2 PM to 5 PM)
+    view === "hours" &&  !isTimeAvailable(value);
+    // ((value.hour() >= 1 && value.hour() <= 2) || // Disable 1 to 2
+    //   (value.hour() >= 4 && value.hour() <= 5) || // Disable 3 to 5
+    //   (value.hour() >= 15 && value.hour() <= 17)); // Disable 14 to 17 (2 PM to 5 PM)
+
+    // Function to check if time is available
+  const isTimeAvailable = (date: Dayjs) => {
+    // Logic to check if the time is available, based on available dates fetched from the API
+    const formattedDateTime = date.format("YYYY-MM-DD HH:mm"); // Assuming date-time format
+    return availableDates.some((availability) => {
+      if (availability?.times) {
+        return availability.times.includes(formattedDateTime); // Check if the exact time is available
+        }
+        return false; 
+      });
+  };
 
   React.useEffect(() => {
     if (selectedDate) {
