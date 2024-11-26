@@ -51,18 +51,18 @@ const DoctorSignup: React.FC = () => {
   //   setCheckedbox(event.target.checked);
   // };
 
-  const handleOpenDialog =()=> {
+  const handleOpenDialog = () => {
     setDialogOpen(true);
-  }
+  };
 
   const handleCloseDialog = () => {
     setDialogOpen(false);
-  }
+  };
   const handleConfirm = () => {
     console.log("Confirmed!  & Agreed");
     setCheckedbox(!checkedbox);
     setDialogOpen(false);
-  }
+  };
   return (
     // <form
     //   onSubmit={handleSubmit(onSubmit)}
@@ -457,7 +457,7 @@ const DoctorSignup: React.FC = () => {
                 inputClass={`${styles.inputPhn} ${
                   Boolean(errors?.phone) ? styles.errorBorder : ""
                 }`}
-                placeholder="+91-8050656794"
+                placeholder="+91-9876543219"
                 helperText={errors?.phone?.message}
               />
             </Grid>
@@ -471,7 +471,7 @@ const DoctorSignup: React.FC = () => {
               xl={6}
               justifyContent={"center"}
             >
-              <InputFileUpload />
+              {/* <InputFileUpload /> */}
               {/* <Typography>Attach File</Typography> */}
             </Grid>
           </Grid>
@@ -505,7 +505,6 @@ const DoctorSignup: React.FC = () => {
                 placeholder="Hourly Charges"
               />
             </Grid>
-            
           </Grid>
 
           {/* Seventh Row start */}
@@ -522,10 +521,7 @@ const DoctorSignup: React.FC = () => {
             className={styles.checkboxContainer}
           >
             <Grid item xs={1} md={1} sm={1} lg={1} xl={1}>
-              <CustomCheckBox
-                checked={checkedbox}
-                onClick = {handleOpenDialog}
-              />
+              <CustomCheckBox checked={checkedbox} onClick={handleOpenDialog} />
               <ConfirmationPopup
                 open={dialogOpen}
                 onClose={handleCloseDialog}
@@ -564,7 +560,7 @@ const DoctorSignup: React.FC = () => {
               pt={1}
             >
               <Typography className={styles.checkboxText}>
-              Click here to agree with our term & Conditions.
+                Click here to agree with our term & Conditions.
               </Typography>
             </Grid>
           </Grid>

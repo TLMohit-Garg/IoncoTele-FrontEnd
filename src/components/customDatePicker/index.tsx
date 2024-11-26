@@ -27,8 +27,10 @@ export default function CustomDatePicker({
   selectedDate,
   showTimePicker = false, // Toggle date and time picker
 }: any) {
-  const [value, setValue] =  React.useState<Dayjs | null>(
-    selectedDate ? dayjs(selectedDate).tz(userTimeZone) : dayjs().tz(userTimeZone) // Initialize with the selected date or current date
+  const [value, setValue] = React.useState<Dayjs | null>(
+    selectedDate
+      ? dayjs(selectedDate).tz(userTimeZone)
+      : dayjs().tz(userTimeZone) // Initialize with the selected date or current date
   );
 
   // Calculate the first and last day of the current month
@@ -38,11 +40,30 @@ export default function CustomDatePicker({
   const tomorrow = dayjs().add(1, "day");
   const nextSunday = dayjs().endOf("week").startOf("day");
 
+  // Calculate the range for the next three months
+  const threeMonthsFromToday = dayjs().add(3, "months").endOf("month");
+
   const isWeekend = (date: Dayjs) => {
     const dayOfWeek = date.day(); // Day of the week (0-6)
-    const dayOfMonth = date.date(); // Day of the month (1-31)
-    return dayOfWeek === 0 || dayOfWeek === 6 || dayOfMonth === 24;
+    // const dayOfMonth = date.date(); // Day of the month (1-31)
+    return dayOfWeek === 0 || dayOfWeek === 6;
   };
+
+  // Logic to disable the next two days (48 hours)
+  const isNextTwoDays = (date: Dayjs) => {
+    const now = dayjs();
+    return date.isAfter(now) && date.isBefore(now.add(3, "day").startOf("day"));
+  };
+
+  // Combined logic to disable dates
+  const isWeekendOrOutOfRangeOrNextTwoDays = (date: Dayjs) => {
+    return (
+      isWeekend(date) || // Disable weekends
+      isNextTwoDays(date) || // Disable the next 48 hours
+      !date.isBetween(dayjs(), threeMonthsFromToday, "day", "[]") // Restrict to next three months
+    );
+  };
+
   const shouldDisableTime: TimePickerProps<Dayjs>["shouldDisableTime"] = (
     value,
     view
@@ -91,10 +112,14 @@ export default function CustomDatePicker({
               // defaultValue={yesterday}
               // disablePast
               defaultValue={nextSunday}
-              shouldDisableDate={isWeekend}
+              // shouldDisableDate={isWeekend}
               shouldDisableTime={shouldDisableTime}
-              minDate={tomorrow} // Only allow dates from current month
-              maxDate={currentMonthEnd} // Restrict to the current month's end
+              // minDate={tomorrow} // Only allow dates from current month
+              // maxDate={currentMonthEnd} // Restrict to the current month's end
+
+              shouldDisableDate={isWeekendOrOutOfRangeOrNextTwoDays} // Disable dates logic
+              minDate={dayjs()} // Minimum date is today
+              maxDate={threeMonthsFromToday} // Maximum date is three months from today
             />
           </LocalizationProvider>
         )}

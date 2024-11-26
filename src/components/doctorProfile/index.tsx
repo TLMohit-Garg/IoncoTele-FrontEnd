@@ -19,6 +19,7 @@ import {
   setDoctorUserData,
   selectDoctorUserData,
 } from "../../store/authDoctorSlice";
+import DoctorAvailability from "../setAvailability";
 
 function DoctorProfile() {
   const userId = useSelector(selectDoctorUserId);
@@ -478,21 +479,21 @@ function DoctorProfile() {
           ) : (
             profileData && (
               <>
-              <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                  >
-                    <Typography className={styles.email}>Title:</Typography>
-                    <Typography className={styles.emailValue}>
-                      {profileData.title}
-                    </Typography>
-                  </Grid>
+                <Grid
+                  container
+                  item
+                  xl={10}
+                  lg={10}
+                  md={10}
+                  sm={10}
+                  xs={10}
+                  justifyContent={"space-between"}
+                >
+                  <Typography className={styles.email}>Title:</Typography>
+                  <Typography className={styles.emailValue}>
+                    {profileData.title}
+                  </Typography>
+                </Grid>
                 <Grid item xs={12}>
                   <Typography variant="body1">
                     <strong>Title:</strong> {profileData.title}
@@ -742,6 +743,7 @@ function DoctorProfile() {
             )
           )}
         </Grid>
+        <DoctorAvailability />
       </Grid>
     </>
   );
