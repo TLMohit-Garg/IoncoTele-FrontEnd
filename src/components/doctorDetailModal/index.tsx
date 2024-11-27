@@ -49,7 +49,9 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
   //   const { userInfo }: any = useAppSelector(
   //     (state: RootState) => state.userSlice
   //   );
-  console.log("Doctor prop:", doctor.userId);
+  const userId = doctor.userId?._id;
+  console.log("Doctor prop parent prop:", userId);
+  // console.log("Doctor prop:", doctor.userId?._id);
   console.log("Doctor prop with id:", doctor._id);
   const [selectedFile, setSelectedFile] = useState<any>();
   console.log("selectedFile", selectedFile);
@@ -62,14 +64,14 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
     reset,
   }: any = useForm({ resolver: yupResolver(consultationBookingSchema) });
 
-  const [doctorDetails, setDoctorDetails] = useState<any>(doctor);
+  const [doctorDetails, setDoctorDetails] = useState<any>(userId);
 
   React.useEffect(() => {
-    if (doctor) {
-      console.log("Doctor data in modal:", doctor);
+    if (userId) {
+      console.log("Doctor data in modal:", userId);
       setDoctorDetails(doctor); // Use doctor data
     }
-  }, [doctor]);
+  }, [userId]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -646,7 +648,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                               name="prefferDate"
                               showTimePicker={true}
                               className={styles.datefieldContainer}
-                              doctorId={doctor?._id}
+                              doctorId={userId}
                             />
                           {/* ):(<p>Loading doctor details...</p>)} */}
                           </Grid>

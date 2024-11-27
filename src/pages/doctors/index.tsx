@@ -59,7 +59,7 @@ export default function Doctors() {
     const fetchDoctors = async () => {
       try {
         const response = await axios.get('/api/doctorProfile');
-        console.log("API Response Data:", response.data);
+        console.log("API Response Data:", response.data.doctors);
         
         if (Array.isArray(response.data)) {
           setData(response.data); 
@@ -132,8 +132,8 @@ export default function Doctors() {
       {Array.isArray(data) ? (
         data.map((doctor) => (
           <CustomCard
-            key={doctor.id}
-            id={doctor.id}
+            key={doctor.userId?._id}
+            id={doctor.userId?._id}
             image={doctor.imageUrl}
             title={doctor.title}
             speciality={doctor.speciality}
@@ -142,7 +142,7 @@ export default function Doctors() {
             secondButtonText="View Profile"
             hourlyCharges={doctor.charges}
             onButtonClick={() => handleCardClick(doctor)}
-            handleViewProfile={() => handleViewProfile(doctor.id)}
+            handleViewProfile={() => handleViewProfile(doctor.userId?._id)}
           />
         ))
       ) : (

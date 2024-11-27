@@ -33,8 +33,18 @@ export default function CustomDatePicker({
       ? dayjs(selectedDate).tz(userTimeZone)
       : dayjs().tz(userTimeZone) // Initialize with the selected date or current date
   );
-  const [availableDates, setAvailableDates] = React.useState<any[]>([]);
+  const [availableDates, setAvailableDates] = React.useState<
+  { date: string; startTime: string; endTime: string }[]
+>([]);
 
+
+const parseAvailability = (availability: any[]) => {
+  return availability.map(item => ({
+    date: item.date,
+    startTime: item.startTime,
+    endTime: item.endTime,
+  }));
+};
 
   // Fetch availability data when the component mounts
   React.useEffect(() => {
@@ -43,8 +53,10 @@ export default function CustomDatePicker({
       axios
         .get(`/api/availability/${doctorId}`)
         .then((response) => {
-          // Assuming the response contains an array of available dates
-          setAvailableDates(response.data.availability);
+          console.log("response api from custom date picker", response.data.availability);
+          const parsedData = parseAvailability(response.data.availability);
+          console.log("Parsed Availability Data:", parsedData);
+          setAvailableDates(parsedData);
         })
         .catch((error) => {
           console.error("Failed to fetch availability:", error);
@@ -58,15 +70,32 @@ export default function CustomDatePicker({
     return availableDates.some((availability) => availability.date === formattedDate);
   };
 
-  // Function to check if time is available
-  // const isTimeAvailable = (date: Dayjs) => {
-  //   // Logic to check if the time is available, based on available dates fetched from the API
-  //   const formattedDateTime = date.format("YYYY-MM-DD HH:mm"); // Assuming date-time format
-  //   return availableDates.some((availability) => {
-  //     return availability.times.includes(formattedDateTime); // Check if the exact time is available
-  //   });
-  // };
+  // Function to Check if a time is available for a selected date
+  const isTimeAvailable = (date: Dayjs) => {
+    const formattedDate = date.format("YYYY-MM-DD");
+    const selectedTime = date.format("HH:mm");
+    const availability = availableDates.find((a) => a.date === formattedDate);
 
+    if (!availability) return false;
+
+    const { startTime, endTime } = availability;
+    return selectedTime >= startTime && selectedTime <= endTime;
+  };
+
+  // Disable dates
+  const shouldDisableDate = (date: Dayjs) => !isDateAvailable(date);
+
+  // Disable times
+  const shouldDisableTime: TimePickerProps<Dayjs>["shouldDisableTime"] = (
+    time,
+    view
+  ) => {
+    if (view === "hours" || view === "minutes") {
+      return !isTimeAvailable(time);
+    }
+    return false;
+  };
+  
   // Calculate the first and last day of the current month
   // const currentMonthStart = dayjs().startOf("month");
   const currentMonthEnd = dayjs().endOf("month");
@@ -98,26 +127,15 @@ export default function CustomDatePicker({
     );
   };
 
-  const shouldDisableTime: TimePickerProps<Dayjs>["shouldDisableTime"] = (
-    value,
-    view
-  ) =>
-    view === "hours" &&  !isTimeAvailable(value);
+  // const shouldDisableTime: TimePickerProps<Dayjs>["shouldDisableTime"] = (
+  //   value,
+  //   view
+  // ) =>
+  //   view === "hours" &&  !isTimeAvailable(value);
     // ((value.hour() >= 1 && value.hour() <= 2) || // Disable 1 to 2
     //   (value.hour() >= 4 && value.hour() <= 5) || // Disable 3 to 5
     //   (value.hour() >= 15 && value.hour() <= 17)); // Disable 14 to 17 (2 PM to 5 PM)
 
-    // Function to check if time is available
-  const isTimeAvailable = (date: Dayjs) => {
-    // Logic to check if the time is available, based on available dates fetched from the API
-    const formattedDateTime = date.format("YYYY-MM-DD HH:mm"); // Assuming date-time format
-    return availableDates.some((availability) => {
-      if (availability?.times) {
-        return availability.times.includes(formattedDateTime); // Check if the exact time is available
-        }
-        return false; 
-      });
-  };
 
   React.useEffect(() => {
     if (selectedDate) {
