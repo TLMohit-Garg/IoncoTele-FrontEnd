@@ -1,7 +1,9 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
 import logodoc from "../../assets/logoDoc.png";
-import docConsultation2 from "../../assets/docsconsul2.jpg";
+import docConsultation2 from "../../assets/docWithPatient.png";
+import docOnscreen2 from "../../assets/docOnscreen2.png";
+import docOnScreen from "../../assets/docOnScreen.png";
 import styles from "../../Styles/chooseUs.module.css";
 
 function Chooseus() {
@@ -68,7 +70,8 @@ function Chooseus() {
               </Grid>
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
-                Consult with highly trained and experienced doctors dedicated to providing the best care possible
+                  Consult with highly trained and experienced doctors dedicated
+                  to providing the best care possible
                 </Typography>
               </Grid>
             </Grid>
@@ -89,7 +92,8 @@ function Chooseus() {
               </Grid>
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
-                Access a wide array of medical specialties, ensuring all your health needs are met
+                  Access a wide array of medical specialties, ensuring all your
+                  health needs are met
                 </Typography>
               </Grid>
             </Grid>
@@ -110,7 +114,8 @@ function Chooseus() {
               </Grid>
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
-                Get the support you need, anytime, anywhere, with our round-the-clock healthcare services
+                  Get the support you need, anytime, anywhere, with our
+                  round-the-clock healthcare services
                 </Typography>
               </Grid>
             </Grid>
@@ -131,18 +136,78 @@ function Chooseus() {
               </Grid>
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
-                Experience top-notch healthcare services delivered with care, precision, and professionalism
+                  Experience top-notch healthcare services delivered with care,
+                  precision, and professionalism
                 </Typography>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xl={6} sm={6} md={6} lg={6} xs={6} mt={12} pt={8}>
-          <img
-            src={docConsultation2}
-            alt={"consulation image 2"}
-            className={styles.image}
-          />
+        <Grid
+          item
+          xl={6}
+          sm={6}
+          md={6}
+          lg={6}
+          xs={6}
+          mt={12}
+          // pt={8}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Grid
+            item
+            xl={10}
+            sm={6}
+            md={6}
+            lg={8}
+            xs={6}
+            // mt={12}
+            // pt={8}
+            sx={{ alignSelf: "flex-start" }}
+          >
+            <img
+              src={docConsultation2}
+              alt={"consulation image 2"}
+              className={styles.image}
+            />
+          </Grid>
+          <Grid
+            item
+            xl={10}
+            sm={6}
+            md={6}
+            lg={8}
+            xs={6}
+            mt={2}
+            // pt={8}
+            sx={{ alignSelf: "flex-end" }}
+          >
+            <img
+              src={docOnscreen2}
+              alt={"consulation image 2"}
+              className={styles.image}
+            />
+          </Grid>
+          <Grid
+            item
+            xl={10}
+            sm={6}
+            md={6}
+            lg={8}
+            xs={6}
+            mt={2}
+            // pt={8}
+            sx={{ alignSelf: "flex-start" }}
+          >
+            <img
+              src={docOnScreen}
+              alt={"consulation image 2"}
+              className={styles.image}
+            />
+          </Grid>
         </Grid>
       </Grid>
     </>

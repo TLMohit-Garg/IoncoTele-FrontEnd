@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 import individualDoctorSecond from "../../assets/doc3.png";
 import individualDoctorThird from "../../assets/doc5.png";
 import individualDoctorFourth from "../../assets/doc6.png";
-import imageWorldmap from "../../assets/worldMap.jpg";
+import imageWorldmap from "../../assets/worldMap.png";
 import individualDoctor from "../../assets/doc11.png";
 
 function WorldMap() {

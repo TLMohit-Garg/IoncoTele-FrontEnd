@@ -3,7 +3,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LinearWithValueLabel from "../../components/progressBar";
 // import individualDoctor from "../../assets/doc11.png";
-import docConsult from "../../assets/docConsultation.jpg";
+import docConsult from "../../assets/docDesktop.png";
 import Chooseus from "../../components/chooseUs";
 import OnlineSection from "../../components/onlineChat";
 import Feedback from "../../components/feedback";
