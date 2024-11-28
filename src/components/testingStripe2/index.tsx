@@ -7,7 +7,7 @@ const stripePromise = loadStripe(
   "pk_live_51Q3bltA8kzNiYMNTljp2tSqfgkoWuM2Fi667Xdlvts1JABnvKnzvh1795SBDnMZAIn3yUZlB0Kkl0VbxrmViVSgh007yj5Qtay"
 ); 
 
-const BookingForm = ({ patientEmail, doctorPrice, doctorName }: any) => {
+const BookingForm = ({ patientEmail, doctorPrice, doctorName, patientName }: any) => {
   const [currency, setCurrency] = React.useState("gbp");
   const [error, setError] = React.useState("");
 
@@ -21,10 +21,11 @@ const BookingForm = ({ patientEmail, doctorPrice, doctorName }: any) => {
     console.log("Selected Currency:", doctorPrice);
     try {
       const response = await axios.post("/api/stripe/createCheckoutSession", {
-        patientEmail: patientEmail, // Replace with real patientID
+        patientEmail: patientEmail, // Replace with real patientEmail
         doctorPrice: increasedPrice, // Price based on doctor's card
         preferredCurrency: currency, // Selected currency
         doctorName: doctorName,
+        patientName: patientName
       });
       const { url, sessionId } = response.data;
 
