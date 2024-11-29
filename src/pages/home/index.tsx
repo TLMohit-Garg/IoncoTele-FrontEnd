@@ -378,10 +378,10 @@ export default function Home() {
                 </Grid>
                 <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
                   <Typography className={styles.drName}>
-                    Dr. Marlie Varga
+                    Dr. Munish Gairola
                   </Typography>
                   <Typography className={styles.founderName}>
-                    Founder Ionco Sol.
+                    Radiation Oncology
                   </Typography>
                 </Grid>
               </Grid>
@@ -462,10 +462,12 @@ export default function Home() {
                 </Grid>
                 <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
                   <Typography className={styles.drName}>
-                    Dr. Marlie Varga
+                    {/* Dr. Marlie Varga */}
+                    Dr. (Lt Col) Ashok Kumar
                   </Typography>
                   <Typography className={styles.founderName}>
-                    Founder Ionco Sol.
+                    {/* Founder Ionco Sol. */}
+                    Radiation Oncology
                   </Typography>
                 </Grid>
               </Grid>

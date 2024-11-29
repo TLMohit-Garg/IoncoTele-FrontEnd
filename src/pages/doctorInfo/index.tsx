@@ -1,18 +1,68 @@
 import React from "react";
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
-import data from "../doctors/data.json";
+import axios from "axios";
 
-type DoctorInfoProps = {
-  imageUrl?: string;
-  name?: string;
-};
-
-const DoctorInfo: React.FC<DoctorInfoProps> = ({ imageUrl, name }) => {
+const DoctorInfo: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const doctor = data.find((doc) => doc.id === Number(id)); // Find doctor by ID
+  const [doctor, setDoctor] = React.useState<any>(null);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [error, setError] = React.useState<string | null>(null);
 
-  if (!doctor) return <Typography>Doctor not found</Typography>;
+  React.useEffect(() => {
+    const fetchDoctorData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("/api/doctorProfile");
+        const doctorData = response.data.doctors.find(
+          (doc: any) => doc.userId?._id === id
+        );
+
+        if (doctorData) {
+          setDoctor(doctorData);
+        } else {
+          setError("Doctor not found.");
+        }
+      } catch (err) {
+        setError("Failed to fetch doctor details.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDoctorData();
+  }, [id]);
+
+  // Render Loading State
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  // Render Error State
+  if (error) {
+    return (
+      <Box sx={{ textAlign: "center", padding: 2 }}>
+        <Typography color="error" variant="h6">
+          {error}
+        </Typography>
+      </Box>
+    );
+  }
+
+  // Render Doctor Information
+  if (!doctor) {
+    return (
+      <Box sx={{ textAlign: "center", padding: 2 }}>
+        <Typography color="text.secondary" variant="h6">
+          Doctor not found.
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ padding: 2 }}>
@@ -28,7 +78,7 @@ const DoctorInfo: React.FC<DoctorInfoProps> = ({ imageUrl, name }) => {
         <Grid item xs={12} sm={4}>
           <img
             src={doctor.imageUrl}
-            alt={name}
+            alt={doctor.title || "Doctor"}
             style={{
               width: "100%",
               borderRadius: 8,
@@ -41,10 +91,10 @@ const DoctorInfo: React.FC<DoctorInfoProps> = ({ imageUrl, name }) => {
         {/* Content Section */}
         <Grid item xs={12} sm={8}>
           <Typography variant="h5" fontWeight="bold" gutterBottom>
-            Name:{doctor.title}
+            Name: {doctor.title}
           </Typography>
           <Typography variant="subtitle1" color="text.secondary">
-            Qualification:{doctor.qualification}
+            Qualification: {doctor.qualification}
           </Typography>
 
           <Box mt={2}>
@@ -52,7 +102,7 @@ const DoctorInfo: React.FC<DoctorInfoProps> = ({ imageUrl, name }) => {
               About
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {doctor.description}
+              {doctor.exploredescription}
             </Typography>
           </Box>
 

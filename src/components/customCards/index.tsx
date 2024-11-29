@@ -32,7 +32,7 @@ export default function CustomCard({
   onButtonClick,
   speciality,
   hourlyCharges,
-  handleViewProfile
+  handleViewProfile,
 }: CustomCardProps) {
   // const [modalOpen, setmodalOpen] = React.useState(false);
   // const [scroll, setScroll] = React.useState<DialogProps["scroll"]>("paper");
@@ -45,7 +45,7 @@ export default function CustomCard({
   //   setmodalOpen(true);
   //   setScroll(scrollType);
   // };
-  
+
   return (
     <>
       <Card
@@ -65,10 +65,22 @@ export default function CustomCard({
             <Typography gutterBottom variant="h5" component="div">
               {title}
             </Typography>
-            <Typography gutterBottom>
-              {speciality}
-              {hourlyCharges}
-            </Typography>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingBottom:"12px",
+              }}
+            >
+              <span style={{ fontSize:"16px"}}>{speciality}</span>
+              <span>
+                Charges
+                <span style={{ fontWeight: "bold", marginLeft: "5px" }}>
+                  {hourlyCharges}
+                </span>
+              </span>
+            </div>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
               {description}
             </Typography>

@@ -326,7 +326,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                     mb={3}
                   >
                     <Typography className={styles.doctorDescription}>
-                      {doctorDetails?.exploredescription ||
+                      {doctorDetails?.description ||
                         "Doctor description not Available"}
                     </Typography>
                   </Grid>

@@ -522,7 +522,7 @@ function DoctorProfile() {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="body1">
-                    <strong>Charges:</strong> ${profileData.charges}
+                    <strong>Charges:</strong> INR  {profileData.charges}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>

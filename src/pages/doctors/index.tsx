@@ -38,6 +38,7 @@ export default function Doctors() {
   const filteredDoctors = location.state?.filteredDoctors || [];
 
   const handleViewProfile = (doctorId: string) => {
+    console.log("handleViewProfile", doctorId)
     navigate(`/doctor/${doctorId}`);
     // alert("view profile got clicked");
   };
