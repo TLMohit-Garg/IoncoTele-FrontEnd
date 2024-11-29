@@ -133,3 +133,23 @@ export type doctorProfileDataTypes = {
   workExperience?: string;
   imageUrl?: string;
 }
+
+export type  DoctorType = {
+  _id: string; 
+  userId: {
+    _id: string; 
+    firstName: string;
+    lastName: string;
+    email: string;
+  };
+  title: string;
+  speciality: string;
+  description: string;
+  exploredescription: string;
+  imageUrl: string;
+  buttonText: string;
+  charges: string;
+  country: string;
+  qualification: string;
+  workExperience: string;
+}

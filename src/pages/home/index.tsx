@@ -13,25 +13,15 @@ import WorldMap from "../../components/worldMap";
 import CountrySelect from "../../components/countrySelect";
 import SearchDoctor from "../../components/searchComponent";
 import { useNavigate } from "react-router-dom";
-import doctorsData from "../../pages/doctors/data.json";
+// import doctorsData from "../../pages/doctors/data.json";
 import countriesData from "../../components/countrySelect/data.json";
 import styles from "../../Styles/home.module.css";
 import DoctorSpecialitySelect from "../../components/doctorSpecialitySelect";
 import SearchIcon from "@mui/icons-material/Search";
+import axios from "axios";
+import {DoctorType} from "../../customDataTypes/datatypes";
 
-interface DoctorType {
-  id: number;
-  title: string;
-  speciality: string;
-  description: string;
-  exploredescription: string;
-  imageUrl: string;
-  buttonText: string;
-  charges: string;
-  country: string;
-  qualification: string;
-  workExperience: string;
-}
+
 export default function Home() {
   const navigate = useNavigate();
   const [selectedSpeciality, setSelectedSpeciality] = React.useState<
@@ -40,28 +30,102 @@ export default function Home() {
   const [selectedCountry, setSelectedCountry] = React.useState<string | null>(
     null
   );
+  const[doctors, setDoctors] = React.useState<DoctorType[]>([]);
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [error, setError] = React.useState<string | null>(null);
 
+  React.useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("/api/doctorProfile");
+        console.log("API Response after select :", response.data.doctors);
+        // Ensure the API returns an array of doctors
+      if (Array.isArray(response.data.doctors)) {
+        setDoctors(response.data.doctors);
+      } else {
+        setDoctors([]);
+        console.error("Unexpected API response format.");
+      }
+      } catch (err) {
+        setError("Failed to fetch doctors data. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
+  
+  const handleSpecialityChange = (event: any) => {
+    const speciality = event.target.value;
+    console.log("Selected speciality before update:", selectedSpeciality);
+    setSelectedSpeciality(speciality);
+    console.log("Selected speciality after update:", speciality);
+  };
+  
+  const handleCountryChange = (event: any) => {
+    const country = event.target.value;
+    console.log("Selected country before update:", selectedCountry);
+    setSelectedCountry(country);
+    console.log("Selected country after update:", country);
+  };
+  
   const handleSearch = () => {
-    if (selectedSpeciality && selectedCountry) {
-      const filteredDoctors = doctorsData.filter(
-        (doctor) =>
-          doctor.speciality.toLowerCase() ===
-            selectedSpeciality.toLowerCase() &&
-          doctor.country.toLowerCase() === selectedCountry.toLowerCase()
-      );
+    console.log("Search triggered!");
+     console.log("Selected speciality:", selectedSpeciality);
+     console.log("Selected country:", selectedCountry);
+    if (selectedSpeciality && selectedCountry && Array.isArray(doctors)) {
+      console.log("Doctors data before filtering:", doctors);
 
+      // Filter doctors based on speciality and country
+      const filteredDoctors = doctors.filter(
+        (doctor) =>
+          doctor.speciality.toLowerCase().trim() === selectedSpeciality.toLowerCase().trim() &&
+          doctor.country.toLowerCase().trim() === selectedCountry.toLowerCase().trim()
+      );
+      console.log("Filtered doctors:", filteredDoctors);
+  
       if (filteredDoctors.length === 1) {
-        // Navigate to a single doctor profile if only one match
-        const doctor = filteredDoctors[0];
-        navigate(`/doctor/${doctor.id}`);
+        console.log("Navigating to a single doctor profile:", filteredDoctors[0]);
+
+        // Navigate to the single doctor's profile
+        navigate(`/doctor/${filteredDoctors[0].userId?._id}`);
       } else if (filteredDoctors.length > 1) {
-        // Navigate to the results page if multiple matches found
+        console.log("Navigating to results page with multiple doctors:", filteredDoctors);
+
+        // Navigate to the results page with filtered doctors
         navigate("/doctors", { state: { filteredDoctors } });
       } else {
+        // Handle no matching doctors
         console.log("No doctors found for this speciality and country.");
       }
+    } else {
+      console.log("Either speciality or country is not selected, or doctors data is invalid.");
     }
   };
+  
+  // const handleSearch = () => {
+  //   if (selectedSpeciality && selectedCountry) {
+  //     const filteredDoctors = doctors.filter(
+  //       (doctor) =>
+  //         doctor.speciality.toLowerCase() ===
+  //           selectedSpeciality.toLowerCase() &&
+  //         doctor.country.toLowerCase() === selectedCountry.toLowerCase()
+  //     );
+
+  //     if (filteredDoctors.length === 1) {
+  //       // Navigate to a single doctor profile if only one match
+  //       const doctor = filteredDoctors[0];
+  //       navigate(`/doctor/${doctor.userId?._id}`);
+  //     } else if (filteredDoctors.length > 1) {
+  //       // Navigate to the results page if multiple matches found
+  //       navigate("/doctors", { state: { filteredDoctors } });
+  //     } else {
+  //       console.log("No doctors found for this speciality and country.");
+  //     }
+  //   }
+  // };
   return (
     <>
       {/* Banner Section */}
@@ -147,7 +211,7 @@ export default function Home() {
           className={styles.doctorsearchBar}
         >
           <SearchDoctor
-            doctors={doctorsData as DoctorType[]}
+            // doctors={doctorsData as DoctorType[]}
             setSelectedSpeciality={setSelectedSpeciality}
           />
         </Grid>
