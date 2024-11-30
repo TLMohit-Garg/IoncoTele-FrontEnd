@@ -101,6 +101,18 @@ function DoctorProfile() {
     const { name, value } = event.target;
     setFormDataProfile({ ...formDataProfile, [name]: value });
   };
+  const profilehandleImageChange = (event:any) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setFormDataProfile((prevState) => ({
+        ...prevState,
+        imageUrl: imageUrl, // Temporarily set for preview
+        imageFile: file, // Store the actual file for uploading
+      }));
+    }
+  };
+  
 
   const profilehandleEditClick = () => {
     setIsEditingProfile(true);
@@ -472,6 +484,12 @@ function DoctorProfile() {
                 fullWidth
                 margin="normal"
               />
+              <input
+  type="file"
+  accept="image/*"
+  onChange={profilehandleImageChange} // Function to handle the image upload
+  style={{ marginTop: "16px" }}
+/>
               <Button variant="contained" onClick={handleSaveClick}>
                 Save
               </Button>

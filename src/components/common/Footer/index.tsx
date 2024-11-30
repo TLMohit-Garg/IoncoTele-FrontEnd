@@ -122,15 +122,6 @@ export default function Footer() {
                     </a>
                   </ListItem>
                   <ListItem>
-                    <a
-                      href="/https://ioncosolutions.com/services/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ListItemButton>Our Services</ListItemButton>
-                    </a>
-                  </ListItem>
-                  <ListItem>
                     <Link to="/doctors">
                       <ListItemButton>All Doctors</ListItemButton>
                     </Link>
@@ -248,7 +239,7 @@ export default function Footer() {
           fontSize: "12px",
         }}
       >
-        <p>© 2024/2025, IOncology Solutions. All Rights Reserved.</p>
+        <p>© 2024-25, IOncology Solutions. All Rights Reserved.</p>
       </Grid>
       <Divider sx={{ my: 2 }} />
     </Sheet>

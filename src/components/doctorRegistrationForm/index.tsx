@@ -15,7 +15,7 @@ import perInfoData from "../infoDataJSON/userData.json";
 import InputFileUpload from "../CustomFileuploadBtn";
 import CustomCheckBox from "../customCheckbox";
 import { Toast } from "../ToastMessage";
-import consultationImage from "../../assets/doctors-hold-meeting-office.png";
+import consultationImage from "../../assets/portrait-smiling-young-doctors-standing.png";
 import ConfirmationPopup from "../confirmationPopup";
 
 const DoctorSignup: React.FC = () => {
