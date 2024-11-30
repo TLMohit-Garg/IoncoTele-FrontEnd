@@ -26,6 +26,9 @@ import SuccessPage from "./pages/success/index.tsx";
 import DoctorInfo from "./pages/doctorInfo/index.tsx";
 import { PersistGate } from "redux-persist/integration/react";
 import UpdateProfile from "./pages/updateProfilePage/index.tsx";
+import TermCondition from "./pages/termCondition/index.tsx";
+import PrivacyPolicy from "./pages/privacyPolicy/index.tsx";
+import RefundPolicy from "./pages/refundsPolicy/index.tsx";
 // import CredentialsSignInPage from "./pages/adminSignIn/index.tsx";
 
 const router = createBrowserRouter(
@@ -46,6 +49,9 @@ const router = createBrowserRouter(
       <Route path="/myAppointments" element={<Appointments />} />
       <Route path="/adminSignIn" element={<SignIn />} />
       <Route path="/success" element={<SuccessPage />} />
+      <Route path="/term&Condition" element={<TermCondition />} />
+      <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+      <Route path="/refundPolicy" element={<RefundPolicy />} />
     </Route>
   )
 );

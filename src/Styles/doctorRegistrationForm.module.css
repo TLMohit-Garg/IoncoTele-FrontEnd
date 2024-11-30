@@ -10,6 +10,16 @@
 
 .parentGrid .consultationImg {
   width: 100%;
+  padding-top: 30px;
+  margin-left: 30px;
+  padding-bottom: 20px;
+}
+.parentGrid .consultationImgGrid{
+  /* border-left: 30px solid #10a0bd; */
+  /* border-top: 30px solid #10a0bd; */
+  border-radius: 4px 1px 1px 3px;
+  cursor: pointer;
+  background-color: #10a0bd;
 }
 .parentGrid .parentContainer .registrationformHeading {
   font-size: 42px;

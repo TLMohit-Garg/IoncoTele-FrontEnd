@@ -15,7 +15,7 @@ import perInfoData from "../infoDataJSON/userData.json";
 import InputFileUpload from "../CustomFileuploadBtn";
 import CustomCheckBox from "../customCheckbox";
 import { Toast } from "../ToastMessage";
-import consultationImage from "../../assets/doctorRegistration.jpg";
+import consultationImage from "../../assets/doctors-hold-meeting-office.png";
 import ConfirmationPopup from "../confirmationPopup";
 
 const DoctorSignup: React.FC = () => {
@@ -213,6 +213,8 @@ const DoctorSignup: React.FC = () => {
       xl={12}
       justifyContent={"space-evenly"}
       className={styles.parentGrid}
+      mt={5}
+      mb={5}
     >
       <Grid
         container
@@ -222,7 +224,7 @@ const DoctorSignup: React.FC = () => {
         sm={5}
         lg={5}
         xl={5}
-        sx={{ background: "lightGrey" }}
+        className={styles.consultationImgGrid}
       >
         <img src={consultationImage} className={styles.consultationImg} />
       </Grid>
@@ -527,23 +529,28 @@ const DoctorSignup: React.FC = () => {
                 onClose={handleCloseDialog}
                 title="Please Accept our Term & Conditions"
                 content=" Read this carefully and then aggred with our rules & Policies.
-                Let Google help apps determine location. 
-                This means sending anonymous location data to Google, even when no apps are running.
-                Read this carefully and then aggred with our rules & Policies.
-                Let Google help apps determine location. 
-                This means sending anonymous location data to Google, even when no apps are running.
-                Read this carefully and then aggred with our rules & Policies.
-                Let Google help apps determine location. 
-                This means sending anonymous location data to Google, even when no apps are running.
-                Read this carefully and then aggred with our rules & Policies.
-                Let Google help apps determine location. 
-                This means sending anonymous location data to Google, even when no apps are running.
-                Read this carefully and then aggred with our rules & Policies.
-                Let Google help apps determine location. 
-                This means sending anonymous location data to Google, even when no apps are running.
-                Read this carefully and then aggred with our rules & Policies.
-                Let Google help apps determine location. 
-                This means sending anonymous location data to Google, even when no apps are running."
+
+               1. The website www.ioncosolutions.com is intended to provide the platform for the cancer
+                  patients and the leading oncologists of various specialties. The platform serves as an
+intermediary in booking appointments between the user(s) and the doctor(s)/ medical
+practitioner(s). It also provides the information for our business clients (Private cancer
+hospitals/units and Government Hospitals Trusts) worldwide to serve remote radiotherapy
+planning services.
+
+2. Selecting a doctor(s)/medical practitioner(s) for cancer treatment is an important decision
+and that should not be based solely on advertising or listings on this website.
+
+3. iOncology Solutions is the name of a professional entity and is not a title or nickname that is
+bestowed upon a doctor(s). Therefore, its advertisements do not certify or designate a
+physician as a specialist.
+
+4. It is not asserted that the quality of the medical services provided by the doctor(s)/medical
+practitioner(s) listed on this website is greater than those of other licensed
+doctor(s)/medicalmpractitioner(s) in the field of oncology, and past results do not guarantee
+future success.
+"
+                text="For more details regarding privacy policy, term & condition 
+and refund policy Please visit our Footer section"
                 onConfirm={handleConfirm}
                 onCancel={handleCloseDialog}
               />

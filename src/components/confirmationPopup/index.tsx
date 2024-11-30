@@ -13,6 +13,7 @@ export default function ConfirmationPopup({
   onClose,
   title,
   content,
+  text,
   onConfirm,
   onCancel,
 }: any) {
@@ -29,6 +30,7 @@ export default function ConfirmationPopup({
       <DialogTitle id="confirmation-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{content}</DialogContentText>
+        <DialogContentText sx={{marginTop:"30px", fontWeight:"bold"}}>{text}</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancel || onClose}>Disagree</Button>
