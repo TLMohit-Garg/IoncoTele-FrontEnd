@@ -53,6 +53,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
   console.log("Doctor prop parent prop:", userId);
   // console.log("Doctor prop:", doctor.userId?._id);
   console.log("Doctor prop with id:", doctor._id);
+  console.log("Doctor prop with email:", doctor.userId?.email);
   const [selectedFile, setSelectedFile] = useState<any>();
   console.log("selectedFile", selectedFile);
   const [activeStep, setActiveStep] = useState(0);
@@ -434,8 +435,8 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                       xl={9}
                       className={styles.consultationText}
                     >
-                      {doctorDetails?.charges || "Charges not available"}Per
-                      Hour
+                      {doctorDetails?.charges || "Charges not available"}
+                      Per Consultation
                     </Grid>
                   </Grid>
                   <Grid
