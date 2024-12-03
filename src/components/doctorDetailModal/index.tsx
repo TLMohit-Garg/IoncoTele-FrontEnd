@@ -8,13 +8,7 @@ import {
   TextareaAutosize,
 } from "@mui/material";
 import FullScreenDialog from "../sliderModal";
-import doctorimage from "../../assets/Individual-doctor.jpg";
 import styles from "../../Styles/doctorSlider.module.css";
-// import moment from "moment";
-// import { useAppSelector } from "src/store/hooks";
-// import { RootState } from "src/store/store";
-// import EmployeeChangePassword from "./EmployeeChangePassword";
-// import EmployeePersonalInformation from "./EmployeePersonalInformation";
 import CloseIcon from "@mui/icons-material/Close";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
@@ -30,8 +24,6 @@ import PhoneInput from "../phoneInput";
 import { Toast } from "../ToastMessage";
 import IconLabelButtons from "../CustomButton/Button";
 import CustomDatePicker from "../customDatePicker";
-// import FileUploader from "../customDragandDop";
-// import InputField from "../TextField";
 import Dropzone from "../UploadDropZone";
 import axios from "axios";
 import BookingForm from "../testingStripe2";
@@ -74,44 +66,22 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
     }
   }, [userId]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-
-  // const uploadFile = async (evt: any) => {
-  //   try {
-  //     const allowedFormats = ["jpeg", "jpg", "png", "svg", "pdf", "webp"];
-  //     const file = evt.target.files[0];
-  //     if (!file) {
-  //       return;
-  //     }
-  //     const fileFormat = file.name.split(".").pop().toLowerCase();
-  //     if (!allowedFormats.includes(fileFormat)) {
-  //       Toast(
-  //         "error",
-  //         "Invalid file format. Please upload only JPEG, JPG, PNG, SVG, PDF, or WEBP files."
-  //       );
-  //       return;
-  //     }
-  //     const newFormData = new FormData();
-  //     newFormData.append("file", evt.target.files[0]);
-  //     newFormData.append("hostname", "localhost");
-  //     setSelectedFile(newFormData);
-  //   } catch (error) {
-  //     console.error("Error uploading the file:", error);
-  //   }
-  // };
-
   const handleSignup = async (data: any) => {
     console.log(data, "Booking appointment data");
     console.log(JSON.stringify(data));
     try {
       const formData = new FormData();
+       // Append uploaded images
+      // if (data.images && data.images.length > 0) {
+      //   data.images.forEach((image: string | Blob) => {
+      //     formData.append("images", image);
+      //   });
+      // }
+      data.images.forEach((file: File) => {
+        formData.append("images", file);
+    });
 
-      if (data.images && data.images.length > 0) {
-        data.images.forEach((image: string | Blob) => {
-          formData.append("images", image);
-        });
-      }
-
+      // Append form fields
       formData.append("fullName", data.fullName);
       formData.append("email", data.email);
       formData.append("prefferDate", data.prefferDate);
@@ -121,13 +91,19 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
       formData.append("phone", data.phone);
       formData.append("description", data.description);
 
-      const response = await axios.post("/api/bookingConsultation", formData, {
+      // Append doctorId from props
+      // formData.append("doctorId", doctor?.userId?._id); // Add doctorId here
+      formData.append("doctorId", doctor?._id); // Add doctorId here
+
+      console.log("FormData before API call:", formData);
+      const response = await axios.post("/api/bookingConsultation/createConsultation", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
       if (response.status === 201) {
+        console.log("Booking Consultation API Response:", response.data);
         Toast("success", "Congratulations! You have booked your consultation.");
         reset();
         setActiveStep(0); // Reset to the first step after submission
@@ -140,10 +116,16 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
     }
   };
   // Handle form submission and step transition
-  const handleNext = async (data: any) => {
+  const handleNext = async () => {
+    console.log("Active Step:", activeStep);
+    console.log("Steps Length - 1:", steps.length - 1);
+
     if (activeStep === steps.length - 1) {
-      await handleSignup(data); // If on the last step, submit the form
+      console.log("On last step, calling handleSignup...");
+      // await handleSignup(data); // If on the last step, submit the form
+      await handleSubmit(handleSignup)();
     } else {
+      console.log("Moving to the next step...");
       setActiveStep((prev) => prev + 1); // Move to the next step
     }
   };
@@ -792,11 +774,12 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                             <Controller
                               control={control}
                               name="images"
-                              defaultValue=""
+                              defaultValue={[]}
                               render={({ field, fieldState: { error } }) => (
                                 <>
                                   <Dropzone
-                                    {...field}
+                                    // {...field}
+                                    onChange={field.onChange}
                                     //  onFileDrop={uploadFile}
                                   />
                                   {error && (
@@ -913,7 +896,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                                 }
                                 //  patientEmail={patientEmail.email || "loading"}
                                 doctorPrice={selectedDoctor.charges}
-                                doctorName={selectedDoctor.firstName}
+                                doctorName={selectedDoctor.title}
                               />
                             )}
                             <Grid mt={5}>
@@ -955,7 +938,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                           onClick={handleBack}
                           variant="outlined"
                           fullWidth
-                          sx={{ margin: "40px 0px 10px 0px" }}
+                          sx={{ margin: "40px 0px 20px 0px" }}
                         >
                           Back
                         </Button>
@@ -963,12 +946,18 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                           <Button
                             type="button"
                             variant="contained"
-                            onClick={handleNext}
+                            onClick={handleSubmit(handleNext)}
                             fullWidth
+                            sx={{marginBottom:"5px", paddingBottom:"10px"}}
                           >
                             Next
                           </Button>
                         )}
+                         {activeStep === steps.length - 1 && (
+                        <Button type="button" variant="contained" fullWidth onClick={handleSubmit(handleNext)}>
+                               Book Consultation
+                        </Button>
+                            )}
                         {/* <Button type="submit" variant="contained"
                           onClick={handleNext}
                         >

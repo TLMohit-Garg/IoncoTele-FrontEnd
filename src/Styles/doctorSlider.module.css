@@ -140,14 +140,13 @@
 
 .rightContainer .bookingContainer {
   width: 80%;
-  /* height: fit-content; */
   min-height: fit-content;
-  max-height: 90rem;
+  max-height: 120rem;
   border-radius: 10px;
   border: 1px solid #ffff;
-  /* background-color: #10a0bd; */
   display: flex;
   justify-content: center;
+  /* padding-bottom: 150px; */
 }
 
 .rightContainer .bookingContainer .text {
@@ -255,6 +254,7 @@
 
 .modalContent .submitButtonContainer {
   /* border: 1px solid red; */
+  margin-bottom: 20px;
 }
 
 .modalContent .buttons {
