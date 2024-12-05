@@ -142,6 +142,7 @@ export default function Doctors() {
             buttonText="Book Consultation"
             secondButtonText="View Profile"
             hourlyCharges={doctor.charges}
+            preferredCurrency={doctor.preferredCurrency}
             onButtonClick={() => handleCardClick(doctor)}
             handleViewProfile={() => handleViewProfile(doctor.userId?._id)}
           />

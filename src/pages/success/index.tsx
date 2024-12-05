@@ -114,7 +114,8 @@ const SuccessPage: React.FC = () => {
 
     const fetchSession = async () => {
       try {
-        const { data } = await axios.get<SessionData>(`/api/stripe/session/${sessionId}`);
+        // const { data } = await axios.get<SessionData>(`/api/stripe/session/${sessionId}`);
+        const { data } = await axios.get<SessionData>(`/api/tempBookingConsultation/stripe/session/${sessionId}`);
         setSessionData(data);
         console.log("user payment details here",data);
         setLoading(false);

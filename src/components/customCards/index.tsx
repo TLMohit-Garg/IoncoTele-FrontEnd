@@ -19,6 +19,7 @@ type CustomCardProps = {
   onButtonClick?: () => void;
   speciality?: string;
   hourlyCharges?: string;
+  preferredCurrency?: string;
   handleViewProfile?: () => void;
 };
 
@@ -32,6 +33,7 @@ export default function CustomCard({
   onButtonClick,
   speciality,
   hourlyCharges,
+  preferredCurrency,
   handleViewProfile,
 }: CustomCardProps) {
   // const [modalOpen, setmodalOpen] = React.useState(false);
@@ -78,6 +80,7 @@ export default function CustomCard({
                 Charges
                 <span style={{ fontWeight: "bold", marginLeft: "5px" }}>
                   {hourlyCharges}
+                  {preferredCurrency}
                 </span>
               </span>
             </div>

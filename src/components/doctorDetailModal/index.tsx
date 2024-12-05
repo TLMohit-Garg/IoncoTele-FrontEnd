@@ -33,8 +33,15 @@ import {
   selectIsPatientAuthenticated,
 } from "../../store/authPatientSlice";
 import { Stepper, Step, StepLabel, Button } from "@mui/material";
+import { loadStripe } from "@stripe/stripe-js";
+
 
 const steps = ["Step 1", "Step 2"];
+// Load your Stripe publishable key
+const stripePromise = loadStripe(
+  "pk_test_51PyXQuRpCokjQ3Hx01o9Lo3Wke6XgBla6JjgpOFAlalN3D4iuEndRJw8m2ifuXEC46IZ2hWtGveO44rmxKHfNQlJ00mF0DJqd0"
+  // "pk_live_51Q3bltA8kzNiYMNTljp2tSqfgkoWuM2Fi667Xdlvts1JABnvKnzvh1795SBDnMZAIn3yUZlB0Kkl0VbxrmViVSgh007yj5Qtay"
+); 
 
 const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -44,6 +51,10 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
   const userId = doctor.userId?._id;
   console.log("Doctor prop parent prop:", userId);
   // console.log("Doctor prop:", doctor.userId?._id);
+  console.log("Doctor prop with id:", doctor._id);
+  console.log("Doctor prop with title:", doctor.title);
+  console.log("Doctor prop with charges:", doctor.charges);
+  console.log("Doctor prop with preferredCurrency:", doctor.preferredCurrency);
   console.log("Doctor prop with id:", doctor._id);
   console.log("Doctor prop with email:", doctor.userId?.email);
   const [selectedFile, setSelectedFile] = useState<any>();
@@ -94,13 +105,35 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
       // Append doctorId from props
       // formData.append("doctorId", doctor?.userId?._id); // Add doctorId here
       formData.append("doctorId", doctor?._id); // Add doctorId here
+      formData.append("doctorName", doctor?.title); 
+      formData.append("doctorPrice", doctor?.charges); 
+      formData.append("preferredCurrency", doctor?.preferredCurrency); 
 
       console.log("FormData before API call:", formData);
-      const response = await axios.post("/api/bookingConsultation/createConsultation", formData, {
+      // const response = await axios.post("/api/bookingConsultation/createConsultation", formData, {
+      const response = await axios.post("/api/tempBookingConsultation/createTempConsultation", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+
+      const { url, sessionId } = response.data;
+
+      console.log("Stripe Checkout Session created successfully:", response.data);
+
+      // Redirect to Stripe Checkout
+      if (url) {
+      window.location.href = url; 
+      }
+
+      // Redirect to the Stripe Checkout session
+      const stripe = await stripePromise;
+      if (stripe) {
+        const result = await stripe.redirectToCheckout({ sessionId });
+        if (result.error) {
+          console.error("Stripe Checkout redirection error:", result.error.message);
+        }
+      }
 
       if (response.status === 201) {
         console.log("Booking Consultation API Response:", response.data);
@@ -538,7 +571,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                         Book Consultation Now
                       </Typography>
                       <Divider className={styles.formdivider} />
-                      {activeStep === 0 && (
+                      {/* {activeStep === 0 && ( */}
                         <>
                           <Grid className={styles.fullName}>
                             <Typography className={styles.fullNameTypo}>
@@ -861,8 +894,8 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                             />
                           </Grid>
                         </>
-                      )}
-                      {activeStep === 1 && (
+                      {/* )} */}
+                      {/* {activeStep === 1 && (
                         <>
                           <Grid
                             container
@@ -910,11 +943,11 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                               </Typography>
                               {/* <h2>
                                 {isAuthenticated ? "Yes" : "No"}
-                              </h2> */}
+                              </h2> 
                             </Grid>
                           </Grid>
                         </>
-                      )}
+                      )} */}
 
                       <Grid
                         container
@@ -933,7 +966,9 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                           variant="contained"
                           className={styles.buttons}
                         /> */}
-                        <Button
+
+
+                        {/* <Button
                           disabled={activeStep === 0} // Disable back button on first step
                           onClick={handleBack}
                           variant="outlined"
@@ -952,17 +987,13 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
                           >
                             Next
                           </Button>
-                        )}
-                         {activeStep === steps.length - 1 && (
-                        <Button type="button" variant="contained" fullWidth onClick={handleSubmit(handleNext)}>
+                        )} */}
+                         {/* {activeStep === steps.length - 1 && ( */}
+                        <Button type="button" variant="contained" fullWidth onClick={handleSubmit(handleSignup)}>
                                Book Consultation
                         </Button>
-                            )}
-                        {/* <Button type="submit" variant="contained"
-                          onClick={handleNext}
-                        >
-                          {activeStep === steps.length - 1 ? "Submit" : "Next"}
-                        </Button> */}
+                            {/* )} */}
+                       
                       </Grid>
                     </form>
                   </CardContent>

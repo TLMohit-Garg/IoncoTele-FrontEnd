@@ -31,9 +31,9 @@ const DoctorSignup: React.FC = () => {
   });
 
   const handleSignup = async (data: any) => {
-    // console.log(JSON.stringify(data));
+    console.log(JSON.stringify(data));
     try {
-      const response = await axios.post("/api/doctorsignup", data);
+      const response = await axios.post("/api/doctorSignup", data);
       if (response.status === 201) {
         console.log(response.data, "Signup successfully");
         Toast("success", "you have signup successful!");
@@ -46,10 +46,6 @@ const DoctorSignup: React.FC = () => {
       Toast("error", "An error occurred during signup!");
     }
   };
-
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setCheckedbox(event.target.checked);
-  // };
 
   const handleOpenDialog = () => {
     setDialogOpen(true);
@@ -491,7 +487,7 @@ const DoctorSignup: React.FC = () => {
             justifyContent={"space-between"}
           >
             <Grid container item xs={12} md={5} sm={12} lg={5} xl={5}>
-              <CustomTextField
+              {/* <CustomTextField
                 error={Boolean(errors.charges)}
                 errorCondition={
                   errors.charges && (
@@ -505,7 +501,7 @@ const DoctorSignup: React.FC = () => {
                 fullWidth={true}
                 className={styles.fieldContainer}
                 placeholder="Hourly Charges"
-              />
+              /> */}
             </Grid>
           </Grid>
 
