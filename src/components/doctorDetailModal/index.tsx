@@ -30,7 +30,7 @@ import BookingForm from "../testingStripe2";
 import { useSelector } from "react-redux";
 import {
   selectPatientEmail,
-  selectIsPatientAuthenticated,
+  selectIsPatientAuthenticated,selectPatientUserId,
 } from "../../store/authPatientSlice";
 import { Stepper, Step, StepLabel, Button } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
@@ -43,11 +43,9 @@ const stripePromise = loadStripe(
   // "pk_live_51Q3bltA8kzNiYMNTljp2tSqfgkoWuM2Fi667Xdlvts1JABnvKnzvh1795SBDnMZAIn3yUZlB0Kkl0VbxrmViVSgh007yj5Qtay"
 ); 
 
+
 const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  //   const { userInfo }: any = useAppSelector(
-  //     (state: RootState) => state.userSlice
-  //   );
+  
   const userId = doctor.userId?._id;
   console.log("Doctor prop parent prop:", userId);
   // console.log("Doctor prop:", doctor.userId?._id);
@@ -60,6 +58,10 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
   const [selectedFile, setSelectedFile] = useState<any>();
   console.log("selectedFile", selectedFile);
   const [activeStep, setActiveStep] = useState(0);
+
+// render patientID from redux
+const patientId = useSelector(selectPatientUserId);
+  console.log("patientId from redux:", patientId);
 
   const {
     control,
@@ -101,7 +103,8 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
       formData.append("cancertype", data.cancertype);
       formData.append("phone", data.phone);
       formData.append("description", data.description);
-
+      
+      formData.append("patientId", patientId ?? "");
       // Append doctorId from props
       // formData.append("doctorId", doctor?.userId?._id); // Add doctorId here
       formData.append("doctorId", doctor?._id); // Add doctorId here

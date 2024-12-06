@@ -8,10 +8,6 @@ function Appointments() {
     <Grid container item xl={10} lg={10} md={10} sm={12} ml={3} mt={3}>
     <UserCard />
     </Grid>
-    <div> Previous Appointments </div>
-    <Grid container item xl={10} lg={10} md={10} sm={12} ml={3} mt={2}>
-    <UserCard />
-    </Grid>
     </>
   )
 }
