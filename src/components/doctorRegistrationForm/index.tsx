@@ -95,11 +95,7 @@ const DoctorSignup: React.FC = () => {
         xl={5}
         className={styles.parentContainer}
       >
-        <form onSubmit={(e) => {
-          e.preventDefault(); 
-          console.log("Form submitted!");
-          handleSubmit(handleSignup)(e);
-        }} style={{ width: "100%" }}>
+        <form onSubmit={handleSubmit(handleSignup)} style={{ width: "100%" }}>
           <Grid container item xs={12} md={12} sm={12} lg={12} xl={12}>
             <Typography className={styles.registrationformHeading}>
               Registration Form
@@ -384,7 +380,7 @@ const DoctorSignup: React.FC = () => {
           >
             <Grid item xs={1} md={1} sm={1} lg={1} xl={1}>
               <CustomCheckBox checked={checkedbox} onClick={handleOpenDialog} />
-              <ConfirmationPopup
+              {/* <ConfirmationPopup
                 open={dialogOpen}
                 onClose={handleCloseDialog}
                 title="Please Accept our Term & Conditions"
@@ -413,7 +409,7 @@ future success.
 and refund policy Please visit our Footer section"
                 onConfirm={handleConfirm}
                 onCancel={handleCloseDialog}
-              />
+              /> */}
             </Grid>
             <Grid
               item
@@ -432,7 +428,7 @@ and refund policy Please visit our Footer section"
             </Grid>
           </Grid>
           <Grid mt={3} container justifyContent={"flex-end"}>
-            <IconLabelButtons
+          <IconLabelButtons
               name="CREATE MY ACCOUNT"
               className={styles.submitBtn}
               type="submit"

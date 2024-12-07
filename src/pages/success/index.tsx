@@ -160,7 +160,7 @@ const SuccessPage: React.FC = () => {
         Payment Status: <strong>{sessionData?.payment_status}</strong>
       </Typography>
       <Typography variant="body2" gutterBottom>
-        Amount Paid: <strong>{(sessionData?.amount_total / 100).toFixed(2)} {sessionData?.currency.toUpperCase()}</strong>
+        Amount Paid: <strong>{(sessionData?.amount_total / 100).toFixed(2)} {sessionData?.currency}</strong>
       </Typography>
     </Box>
   );
