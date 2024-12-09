@@ -90,10 +90,15 @@ import axios from 'axios';
 import { Box, Typography, CircularProgress } from '@mui/material';
 
 interface SessionData {
-  customer_email?: string;
-  payment_status?: string;
-  amount_total?: string | any;
-  currency?: string | any;
+  bookingDetails?: {
+    email?: string;
+    doctorId?: {
+      charges?: number;
+      preferredCurrency?: string;
+    };
+    fullName?: string;
+    prefferDate?: string;
+  };
 }
 
 const SuccessPage: React.FC = () => {
@@ -108,6 +113,8 @@ const SuccessPage: React.FC = () => {
     const sessionId = urlParams.get('session_id');
     if (!sessionId) {
       console.error('Session ID is missing in the URL');
+      setError('Session ID is missing in the URL.');
+      return;
     } else {
       console.log('Fetched session_id:', sessionId);
     }
@@ -125,8 +132,8 @@ const SuccessPage: React.FC = () => {
         setLoading(false);
       }
     };
-
-    if (sessionId) fetchSession();
+      fetchSession();
+    // if (sessionId) fetchSession();
   }, []);
 
   if (loading) {
@@ -150,17 +157,24 @@ const SuccessPage: React.FC = () => {
   return (
     <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" minHeight="100vh">
       <Typography variant="h4" gutterBottom>
-        Payment Successful!
+        Payment Successfull!
       </Typography>
       <Typography variant="body1" gutterBottom>
         Thank you for your payment. An email receipt has been sent to
-        <strong>{sessionData?.customer_email}</strong>.
+        {/* <strong>{sessionData?.customer_email}</strong>. */}
+        <strong>{sessionData?.bookingDetails?.email}</strong>.
       </Typography>
       <Typography variant="body2" gutterBottom>
-        Payment Status: <strong>{sessionData?.payment_status}</strong>
+        Patient Name: <strong>{sessionData?.bookingDetails?.fullName}</strong>
       </Typography>
       <Typography variant="body2" gutterBottom>
-        Amount Paid: <strong>{(sessionData?.amount_total / 100).toFixed(2)} {sessionData?.currency}</strong>
+        Consultation Date: <strong>{sessionData?.bookingDetails?.prefferDate}</strong>
+      </Typography>
+      <Typography variant="body2" gutterBottom>
+        {/* Payment Status: <strong>{sessionData?.payment_status}</strong> */}
+      </Typography>
+      <Typography variant="body2" gutterBottom>
+        Amount Paid: <strong>{sessionData?.bookingDetails?.doctorId?.charges} {sessionData?.bookingDetails?.doctorId?.preferredCurrency}</strong>
       </Typography>
     </Box>
   );

@@ -42,7 +42,7 @@ export default function Footer() {
         }),
         flexGrow: 1,
         p: 2,
-        borderRadius: { xs: 0, sm: "sm" },
+        // borderRadius: { xs: 0, sm: "sm" },
       }}
     >
       <Box

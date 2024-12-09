@@ -177,17 +177,18 @@ const patientId = useSelector(selectPatientUserId);
     (state: any) => state.doctor.selectedDoctor
   );
 
-  const patientEmail = useSelector(selectPatientEmail);
+  // const patientEmail = useSelector(selectPatientEmail);
   // const patientEmail = useSelector((state: any) => state.user.email);
   const isAuthenticated = useSelector(selectIsPatientAuthenticated);
-  console.log("Patient Email:", patientEmail);
+  // console.log("Patient Email:", patientEmail);
   console.log("Selected Doctor:", selectedDoctor);
   console.log("Selected Doctor with id:", selectedDoctor?.userId._id);
 
   React.useEffect(() => {
-    console.log("Patient Email from Redux:", patientEmail);
+    // console.log("Patient Email from Redux:", patientEmail);
     console.log("Is Patient Authenticated:", isAuthenticated);
-  }, [patientEmail, isAuthenticated]);
+  }, [ isAuthenticated]);
+  // }, [patientEmail, isAuthenticated]);
   return (
     <>
       <FullScreenDialog
