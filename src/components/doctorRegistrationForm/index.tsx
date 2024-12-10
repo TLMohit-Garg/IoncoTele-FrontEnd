@@ -456,7 +456,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "../../Styles/doctorRegistrationForm.module.css";
 import axios from "axios";
-import consultationImage from "../../assets/meidum-shot-woman-videocall.png";
+import consultationImage from "../../assets/portrait-smiling-young-doctors-standing.png";
 import CustomCheckBox from "../customCheckbox";
 import React from "react";
 import ConfirmationPopup from "../confirmationPopup";

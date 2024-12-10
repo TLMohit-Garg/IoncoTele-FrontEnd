@@ -132,6 +132,7 @@ export type doctorProfileDataTypes = {
   qualification?: string;
   workExperience?: string;
   imageUrl?: string;
+  preferredCurrency?: string;
 }
 
 export type  DoctorType = {

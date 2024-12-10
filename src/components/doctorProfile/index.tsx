@@ -42,6 +42,7 @@ function DoctorProfile() {
       charges: profileData?.charges || "",
       country: profileData?.country || "",
       imageUrl: profileData?.imageUrl || "",
+      preferredCurrency: profileData?.preferredCurrency || "",
     });
   const [bankingDetail, setBankingDetail] =
     React.useState<bankingDetailsTypes>();
@@ -91,6 +92,7 @@ function DoctorProfile() {
         charges: profileData.charges,
         country: profileData.country,
         imageUrl: profileData.imageUrl,
+        preferredCurrency: profileData.preferredCurrency,
       });
     }
   }, [profileData]);
@@ -101,7 +103,7 @@ function DoctorProfile() {
     const { name, value } = event.target;
     setFormDataProfile({ ...formDataProfile, [name]: value });
   };
-  const profilehandleImageChange = (event:any) => {
+  const profilehandleImageChange = (event: any) => {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
@@ -112,7 +114,7 @@ function DoctorProfile() {
       }));
     }
   };
-  
+
 
   const profilehandleEditClick = () => {
     setIsEditingProfile(true);
@@ -120,9 +122,9 @@ function DoctorProfile() {
 
   const handleSaveClick = async () => {
     try {
-      const { title, speciality, description, charges, country } =
+      const { title, speciality, description, charges, country, preferredCurrency } =
         formDataProfile;
-      const payload = { title, speciality, description, charges, country };
+      const payload = { title, speciality, description, charges, country, preferredCurrency };
 
       const response = await axios.put(
         `/api/doctorProfile/${userId}`,
@@ -484,12 +486,20 @@ function DoctorProfile() {
                 fullWidth
                 margin="normal"
               />
+              <TextField
+                label="Preferred Country"
+                name="preferredCurrency"
+                value={formDataProfile.preferredCurrency}
+                onChange={profilehandleInputChange}
+                fullWidth
+                margin="normal"
+              />
               <input
-  type="file"
-  accept="image/*"
-  onChange={profilehandleImageChange} // Function to handle the image upload
-  style={{ marginTop: "16px" }}
-/>
+                type="file"
+                accept="image/*"
+                onChange={profilehandleImageChange} // Function to handle the image upload
+                style={{ marginTop: "16px" }}
+              />
               <Button variant="contained" onClick={handleSaveClick}>
                 Save
               </Button>
@@ -512,40 +522,110 @@ function DoctorProfile() {
                     {profileData.title}
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1">
-                    <strong>Title:</strong> {profileData.title}
+                <Grid
+                  container
+                  item
+                  xl={10}
+                  lg={10}
+                  md={10}
+                  sm={10}
+                  xs={10}
+                  justifyContent={"space-between"}
+                >
+                  <Typography className={styles.email}>Speciality:</Typography>
+                  <Typography className={styles.emailValue}>
+                    {profileData.speciality}
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1">
-                    <strong>Speciality:</strong> {profileData.speciality}
+                <Grid
+                  container
+                  item
+                  xl={10}
+                  lg={10}
+                  md={10}
+                  sm={10}
+                  xs={10}
+                  justifyContent={"space-between"}
+                >
+                  <Typography className={styles.email}>Description:</Typography>
+                  <Typography className={styles.emailValue}>
+                    {profileData.description}
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1">
-                    <strong>Description:</strong> {profileData.description}
+                <Grid
+                  container
+                  item
+                  xl={10}
+                  lg={10}
+                  md={10}
+                  sm={10}
+                  xs={10}
+                  justifyContent={"space-between"}
+                >
+                  <Typography className={styles.email}>Qualification:</Typography>
+                  <Typography className={styles.emailValue}>
+                    {profileData.qualification}
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1">
-                    <strong>Work Experience:</strong>{" "}
-                    {profileData.workExperience} years
+                <Grid
+                  container
+                  item
+                  xl={10}
+                  lg={10}
+                  md={10}
+                  sm={10}
+                  xs={10}
+                  justifyContent={"space-between"}
+                >
+                  <Typography className={styles.email}>Work Experience:</Typography>
+                  <Typography className={styles.emailValue}>
+                    {profileData.workExperience}
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1">
-                    <strong>Qualification:</strong> {profileData.qualification}
+                <Grid
+                  container
+                  item
+                  xl={10}
+                  lg={10}
+                  md={10}
+                  sm={10}
+                  xs={10}
+                  justifyContent={"space-between"}
+                >
+                  <Typography className={styles.email}>Country:</Typography>
+                  <Typography className={styles.emailValue}>
+                    {profileData.country}
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1">
-                    <strong>Charges:</strong> INR  {profileData.charges}
+                
+                <Grid
+                  container
+                  item
+                  xl={10}
+                  lg={10}
+                  md={10}
+                  sm={10}
+                  xs={10}
+                  justifyContent={"space-between"}
+                >
+                  <Typography className={styles.email}>Charges:</Typography>
+                  <Typography className={styles.emailValue}>
+                    {profileData.charges}
                   </Typography>
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1">
-                    <strong>Country:</strong> {profileData.country}
+                <Grid
+                  container
+                  item
+                  xl={10}
+                  lg={10}
+                  md={10}
+                  sm={10}
+                  xs={10}
+                  justifyContent={"space-between"}
+                >
+                  <Typography className={styles.email}>Preffered Currency:</Typography>
+                  <Typography className={styles.emailValue}>
+                    {profileData.preferredCurrency}
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
@@ -562,13 +642,20 @@ function DoctorProfile() {
                   </Typography>
                 </Grid>
                 <Grid item xs={12}>
-                  <Button
+                  {/* <Button
                     variant="contained"
                     startIcon={<EditIcon />}
                     onClick={profilehandleEditClick}
                   >
                     Edit
-                  </Button>
+                  </Button> */}
+                  <IconLabelButtons
+                          name={"Edit"}
+                          variant={"contained"}
+                          className={styles.IconLabelButtons}
+                          endIcon={<EditIcon />}
+                          onClick={profilehandleEditClick}
+                          />
                 </Grid>
               </>
             )
@@ -751,7 +838,7 @@ function DoctorProfile() {
                           className={styles.IconLabelButtons}
                           endIcon={<EditIcon />}
                           onClick={handleEditClick}
-                          // onClick={() => editBankingDetail({ accountName: "Updated Account Name" })} // Example of passing new data
+                        // onClick={() => editBankingDetail({ accountName: "Updated Account Name" })} // Example of passing new data
                         />
                       </Grid>
                     </>

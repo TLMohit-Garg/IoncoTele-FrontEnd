@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import DoctorPopover from "../../doctorPopover";
 import PatientPopover from "../../patientPopover";
 import Avatar from "@mui/material/Avatar";
-import avatarImage from "../../../assets/doc2.png";
+import avatarImage from "../../../assets/avatar.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
@@ -29,6 +29,7 @@ import {
   logout as patientLogout,
 } from "../../../store/authPatientSlice";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Header() {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
@@ -42,6 +43,7 @@ function Header() {
   const [isPatientSignedIn, setIsPatientSignedIn] = React.useState(false);
   // const [doctorAuthenticated, setDoctorAuthenticated] = React.useState(false);
   // const [patientAuthenticated, setPatientAuthenticated] = React.useState(false);
+  const [profileImage, setProfileImage] = React.useState<string | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -174,7 +176,36 @@ function Header() {
      if (isPatientAuthenticated) {
        setIsPatientSignedIn(true);
      }
-  },[isPatientAuthenticated, patientToken])
+  },[isPatientAuthenticated, patientToken]);
+
+  // Fetch profile image based on login type
+  React.useEffect(() => {
+    const fetchProfileImage = async () => {
+      try {
+        let apiUrl = "";
+        const userId = localStorage.getItem("doctoruserId") || localStorage.getItem("patientuserId");
+
+        if (!userId) return; // If no userId is found, stop execution
+
+        if (isDoctorAuthenticated) {
+          apiUrl = `/api/doctorProfile/${userId}`;
+        } else if (isPatientAuthenticated) {
+          apiUrl = `/api/patientProfile/${userId}`;
+        }
+
+        if (apiUrl) {
+          const response = await axios.get(apiUrl);
+          const imageUrl = response.data?.doctor?.imageUrl || response.data?.patient?.imageUrl || null;
+          setProfileImage(imageUrl); // Update profile image URL
+        }
+      } catch (error) {
+        console.error("Error fetching profile image:", error);
+        setProfileImage(null); // Reset to default in case of an error
+      }
+    };
+
+    fetchProfileImage();
+  }, [isDoctorAuthenticated, isPatientAuthenticated]);
   return (
     <>
       <Grid
@@ -320,7 +351,7 @@ function Header() {
             >
               <Avatar
                 alt="avatar"
-                src={avatarImage}
+                src={profileImage || avatarImage}
                 className={styles.avatarImage}
               />
               <KeyboardArrowDownIcon
