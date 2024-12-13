@@ -50,6 +50,7 @@ const DoctorDetailsModal = ({ onClick, open, onClose, doctor }: any) => {
   console.log("Doctor prop parent prop:", userId);
   // console.log("Doctor prop:", doctor.userId?._id);
   console.log("Doctor prop with id:", doctor._id);
+  console.log("Doctor prop with its data:", doctor);
   console.log("Doctor prop with title:", doctor.title);
   console.log("Doctor prop with charges:", doctor.charges);
   console.log("Doctor prop with preferredCurrency:", doctor.preferredCurrency);
@@ -71,6 +72,8 @@ const patientId = useSelector(selectPatientUserId);
   }: any = useForm({ resolver: yupResolver(consultationBookingSchema) });
 
   const [doctorDetails, setDoctorDetails] = useState<any>(userId);
+  const doctorTimeZone = doctor?.userId?.timeZone || "Time zone not available";
+  console.log("doctorTimeZone is :---", doctorTimeZone);
 
   React.useEffect(() => {
     if (userId) {
@@ -78,6 +81,15 @@ const patientId = useSelector(selectPatientUserId);
       setDoctorDetails(doctor); // Use doctor data
     }
   }, [userId]);
+
+  React.useEffect(() => {
+    if (doctor) {
+      // Pre-fill the form with doctor's timeZone
+      reset({
+        timezone: doctorTimeZone, // Default value for the timezone
+      });
+    }
+  }, [doctor, reset]);
 
   const handleSignup = async (data: any) => {
     console.log(data, "Booking appointment data");
@@ -707,7 +719,7 @@ const patientId = useSelector(selectPatientUserId);
                           </Grid>
                           <Grid className={styles.fullName}>
                             <Typography className={styles.fullNameTypo}>
-                              Time Zone
+                              Time Zone of Doctor
                             </Typography>
                           </Grid>
                           <Grid
@@ -720,7 +732,7 @@ const patientId = useSelector(selectPatientUserId);
                             lg={12}
                             xl={12}
                           >
-                            <CustomSelect
+                            <CustomTextField
                               error={Boolean(errors.timezone)}
                               errorCondition={
                                 errors.timezone && (
@@ -731,12 +743,31 @@ const patientId = useSelector(selectPatientUserId);
                               }
                               control={control}
                               name="timezone"
-                              selectData={perInfoData.timezone}
+                              fullWidth={true}
+                              className={styles.fieldContainer}
+                              placeholder="Selected timezone"
+                              value={doctorTimeZone}
+                              disabled = {true}
+                            />
+                            {/* <CustomSelect
+                              error={Boolean(errors.timezone)}
+                              errorCondition={
+                                errors.timezone && (
+                                  <Typography className={styles.errorMsg}>
+                                    {errors.timezone.message}
+                                  </Typography>
+                                )
+                              }
+                              control={control}
+                              name="timezone"
+                              // selectData={perInfoData.timezone}
+                              selectData={doctorTimeZone}
                               placeHolder="Select your timezone"
                               selectFieldCss={styles.selectField}
                               fullWidth={true}
+                              // disabled={true}
                               className={styles.customSelect}
-                            />
+                            /> */}
                           </Grid>
                           <Grid className={styles.fullName}>
                             <Typography className={styles.fullNameTypo}>

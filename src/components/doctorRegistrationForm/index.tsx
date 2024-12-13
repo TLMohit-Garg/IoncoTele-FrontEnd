@@ -445,7 +445,7 @@
 import { Grid, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { createPatientSchema } from "../../utils/validation";
+import { createDoctorsSchema } from "../../utils/validation";
 import CustomTextField from "../customTextField";
 import CustomSelect from "../customSelect";
 import perInfoData from "../infoDataJSON/userData.json";
@@ -473,7 +473,7 @@ export default function DoctorSignup() {
     formState: { errors },
     reset,
   }: any = useForm({
-    resolver: yupResolver(createPatientSchema),
+    resolver: yupResolver(createDoctorsSchema),
   });
 
   const handleOpenDialog = () => {
@@ -602,6 +602,54 @@ export default function DoctorSignup() {
           </Grid>
 
           {/* Second Row start */}
+          
+          <Grid
+            container
+            item
+            xs={12}
+            md={12}
+            sm={12}
+            lg={12}
+            xl={12}
+            mt={3}
+            justifyContent={"space-between"}
+          >
+            <Grid container item xs={12} md={5} sm={12} lg={5} xl={5}>
+              <CustomTextField
+                error={Boolean(errors.email)}
+                errorCondition={
+                  errors.email && (
+                    <Typography className={styles.errorMsg}>
+                      {errors.email.message}
+                    </Typography>
+                  )
+                }
+                control={control}
+                name="email"
+                fullWidth={true}
+                className={styles.fieldContainer}
+                placeholder="Email"
+              />
+            </Grid>
+            <Grid container item xs={12} md={5} sm={12} lg={5} xl={5}>
+              <CustomTextField
+                error={Boolean(errors.age)}
+                errorCondition={
+                  errors.age && (
+                    <Typography className={styles.errorMsg}>
+                      {errors.age.message}
+                    </Typography>
+                  )
+                }
+                control={control}
+                name="age"
+                fullWidth={true}
+                className={styles.fieldContainer}
+                placeholder="Age"
+              />
+            </Grid>
+          </Grid>
+          {/* Third Row start */}
           <Grid
             container
             item
@@ -649,54 +697,6 @@ export default function DoctorSignup() {
             </Grid>
           </Grid>
 
-          {/* Third Row start */}
-          <Grid
-            container
-            item
-            xs={12}
-            md={12}
-            sm={12}
-            lg={12}
-            xl={12}
-            mt={3}
-            justifyContent={"space-between"}
-          >
-            <Grid container item xs={12} md={5} sm={12} lg={5} xl={5}>
-              <CustomTextField
-                error={Boolean(errors.email)}
-                errorCondition={
-                  errors.email && (
-                    <Typography className={styles.errorMsg}>
-                      {errors.email.message}
-                    </Typography>
-                  )
-                }
-                control={control}
-                name="email"
-                fullWidth={true}
-                className={styles.fieldContainer}
-                placeholder="Email"
-              />
-            </Grid>
-            <Grid container item xs={12} md={5} sm={12} lg={5} xl={5}>
-              <CustomTextField
-                error={Boolean(errors.age)}
-                errorCondition={
-                  errors.age && (
-                    <Typography className={styles.errorMsg}>
-                      {errors.age.message}
-                    </Typography>
-                  )
-                }
-                control={control}
-                name="age"
-                fullWidth={true}
-                className={styles.fieldContainer}
-                placeholder="Age"
-              />
-            </Grid>
-          </Grid>
-
           {/* Fourth Row start */}
           <Grid
             container
@@ -723,6 +723,70 @@ export default function DoctorSignup() {
                 name="nationality"
                 selectData={perInfoData.nationality}
                 placeHolder="Select nationality"
+                selectFieldCss={styles.selectField}
+              />
+            </Grid>
+            <Grid container item xs={12} md={5} sm={12} lg={5} xl={5}>
+              {/* <CustomSelect
+                error={Boolean(errors.gender)}
+                errorCondition={
+                  errors.gender && (
+                    <Typography className={styles.errorMsg}>
+                      {errors.gender.message}
+                    </Typography>
+                  )
+                }
+                control={control}
+                name="gender"
+                selectData={perInfoData.gender}
+                placeHolder="Select Gender"
+                selectFieldCss={styles.selectField}
+                // fullWidth={true}
+                // sx={{width:"100%"}}
+              /> */}
+              <CustomTextField
+                error={Boolean(errors.city)}
+                errorCondition={
+                  errors.city && (
+                    <Typography className={styles.errorMsg}>
+                      {errors.city.message}
+                    </Typography>
+                  )
+                }
+                control={control}
+                name="city"
+                fullWidth={true}
+                className={styles.fieldContainer}
+                placeholder="City"
+              />
+            </Grid>
+          </Grid>
+          {/* Fifth Row start */}
+          <Grid
+            container
+            item
+            xs={12}
+            md={12}
+            sm={12}
+            lg={12}
+            xl={12}
+            mt={3}
+            justifyContent={"space-between"}
+          >
+            <Grid container item xs={12} md={5} sm={12} lg={5} xl={5}>
+              <CustomSelect
+                error={Boolean(errors.timeZone)}
+                errorCondition={
+                  errors.timeZone && (
+                    <Typography className={styles.errorMsg}>
+                      {errors.timeZone.message}
+                    </Typography>
+                  )
+                }
+                control={control}
+                name="timeZone"
+                selectData={perInfoData.timeZone}
+                placeHolder="Select timeZone"
                 selectFieldCss={styles.selectField}
               />
             </Grid>

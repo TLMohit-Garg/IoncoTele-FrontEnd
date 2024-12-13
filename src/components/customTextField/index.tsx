@@ -14,6 +14,8 @@ export default function CustomTextField({
   placeholder,
   startAdornment,
   onChange,
+  disabled, // Allow disabling the field
+  value , // Allow a predefined value
 }: any) {
   return (
     <Grid component={form} onSubmit={onSubmit}>
@@ -33,11 +35,13 @@ export default function CustomTextField({
               field.onChange(e);
               onChange && onChange(e);
             }}
+            disabled={disabled}
             InputProps={{
               className: className,
               startAdornment: startAdornment,
             }}
             placeholder={placeholder}
+            value={value} 
           />
         )}
       />

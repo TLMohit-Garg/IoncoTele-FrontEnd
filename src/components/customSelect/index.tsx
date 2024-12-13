@@ -53,8 +53,9 @@ const CustomSelect = ({
                 <MenuItem value="" className={styles.menuItem}>
                   <span className={styles.placeholder}>{placeHolder}</span>
                 </MenuItem>
-                {selectData.map((item: any) => {
-                  return (
+
+                {Array.isArray(selectData) ? (
+                  selectData.map((item: any) => (
                     <MenuItem
                       key={item.id}
                       value={item.type}
@@ -62,8 +63,10 @@ const CustomSelect = ({
                     >
                       <span className={className}>{item.name}</span>
                     </MenuItem>
-                  );
-                })}
+                  ))
+                ) : (
+                  <MenuItem disabled>No data available</MenuItem>
+                )}
               </Select>
             )}
           />

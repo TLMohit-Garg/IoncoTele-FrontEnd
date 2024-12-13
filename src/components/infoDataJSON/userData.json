@@ -27,8 +27,8 @@
   "nationality": [
     {
       "id": 0,
-      "name": "Indian",
-      "type": "INDIAN",
+      "name": "India",
+      "type": "INDIA",
       "status": ""
     },
     {
@@ -61,5 +61,35 @@
       "type": "OTHER",
       "status": ""
     }
-  ]
+  ],
+  "timeZone": [
+    {
+        "id": 0,
+        "name": "Indian Standard Time (IST +05:30)",
+        "type": "Indian Standard Time (IST +05:30)",
+        "offset": "+05:30",
+        "status": ""
+    },
+    {
+        "id": 1,
+        "name": "Eastern Standard Time (EST -05:00)",
+        "type": "Eastern Standard Time (EST -05:00)",
+        "offset": "-05:00",
+        "status": ""
+    },
+    {
+        "id": 2,
+        "name": "Greenwich Mean Time (GMT +00:00)",
+        "type": "Greenwich Mean Time (GMT +00:00)",
+        "offset": "+00:00",
+        "status": ""
+    },
+    {
+        "id": 3,
+        "name": "Central European Time (CET +01:00)",
+        "type": "Central European Time (CET +01:00)",
+        "offset": "+01:00",
+        "status": ""
+    }
+]
 }
