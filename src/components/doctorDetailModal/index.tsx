@@ -653,36 +653,30 @@ const patientId = useSelector(selectPatientUserId);
                           </Grid>
                           <Grid className={styles.fullName}>
                             <Typography className={styles.fullNameTypo}>
-                              Date & Time
+                              Phone number
                             </Typography>
                           </Grid>
                           <Grid
                             container
                             item
-                            className={styles.nationalityContainer}
+                            className={styles.timezoneContainer}
                             xs={12}
                             sm={12}
                             md={12}
                             lg={12}
                             xl={12}
                           >
-                          {/* {doctor && doctor.userId ? ( */}
-                            <CustomDatePicker
-                              error={Boolean(errors.prefferDate)}
-                              errorCondition={
-                                errors.prefferDate && (
-                                  <Typography className={styles.errorMsg}>
-                                    {errors.prefferDate.message}
-                                  </Typography>
-                                )
-                              }
+                            <PhoneInput
+                              name="phone"
                               control={control}
-                              name="prefferDate"
-                              showTimePicker={true}
-                              className={styles.datefieldContainer}
-                              doctorId={userId}
+                              error={Boolean(errors?.phone)}
+                              containerClass={styles.containerPhn}
+                              inputClass={`${styles.inputPhn} ${
+                                Boolean(errors?.phone) ? styles.errorBorder : ""
+                              }`}
+                              placeholder="+91-8050656794"
+                              helperText={errors?.phone?.message}
                             />
-                          {/* ):(<p>Loading doctor details...</p>)} */}
                           </Grid>
                           <Grid className={styles.fullName}>
                             <Typography className={styles.fullNameTypo}>
@@ -717,6 +711,40 @@ const patientId = useSelector(selectPatientUserId);
                               className={styles.customSelect}
                             />
                           </Grid>
+                          <Grid className={styles.fullName}>
+                            <Typography className={styles.fullNameTypo}>
+                              Date & Time
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            className={styles.nationalityContainer}
+                            xs={12}
+                            sm={12}
+                            md={12}
+                            lg={12}
+                            xl={12}
+                          >
+                          {/* {doctor && doctor.userId ? ( */}
+                            <CustomDatePicker
+                              error={Boolean(errors.prefferDate)}
+                              errorCondition={
+                                errors.prefferDate && (
+                                  <Typography className={styles.errorMsg}>
+                                    {errors.prefferDate.message}
+                                  </Typography>
+                                )
+                              }
+                              control={control}
+                              name="prefferDate"
+                              showTimePicker={true}
+                              className={styles.datefieldContainer}
+                              doctorId={userId}
+                            />
+                          {/* ):(<p>Loading doctor details...</p>)} */}
+                          </Grid>
+                          
                           <Grid className={styles.fullName}>
                             <Typography className={styles.fullNameTypo}>
                               Time Zone of Doctor
@@ -769,34 +797,6 @@ const patientId = useSelector(selectPatientUserId);
                               className={styles.customSelect}
                             /> */}
                           </Grid>
-                          <Grid className={styles.fullName}>
-                            <Typography className={styles.fullNameTypo}>
-                              Phone number
-                            </Typography>
-                          </Grid>
-                          <Grid
-                            container
-                            item
-                            className={styles.timezoneContainer}
-                            xs={12}
-                            sm={12}
-                            md={12}
-                            lg={12}
-                            xl={12}
-                          >
-                            <PhoneInput
-                              name="phone"
-                              control={control}
-                              error={Boolean(errors?.phone)}
-                              containerClass={styles.containerPhn}
-                              inputClass={`${styles.inputPhn} ${
-                                Boolean(errors?.phone) ? styles.errorBorder : ""
-                              }`}
-                              placeholder="+91-8050656794"
-                              helperText={errors?.phone?.message}
-                            />
-                          </Grid>
-
                           <Grid className={styles.fullName}>
                             <Typography className={styles.fullNameTypo}>
                               Upload file(Doctor Prescription's etc...)
