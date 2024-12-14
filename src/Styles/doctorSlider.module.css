@@ -182,6 +182,17 @@
   border: 1px solid none;
 }
 
+.modalContent .timeZonefieldContainer {
+  color: red;
+  border: 1px solid none;
+  width: 300px;
+  height: 50px;
+}
+
+.modalContent .timeZonefieldContainer:hover {
+  color: red;
+  border: 1px solid none;
+}
 .modalContent .fullNameContainer {
   padding: 12px;
   margin-top: 22px;
@@ -199,6 +210,7 @@
   margin-bottom: -20px;
   margin-left: 12px;
   padding-top: 12px;
+  color: #10a0bd;
 }
 
 .modalContent .emailContainer {

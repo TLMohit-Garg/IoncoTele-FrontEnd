@@ -34,6 +34,7 @@ import {
 } from "../../store/authPatientSlice";
 import { Stepper, Step, StepLabel, Button } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
+import moneyicon from "../../assets/note2.png";
 
 
 const steps = ["Step 1", "Step 2"];
@@ -444,14 +445,14 @@ const patientId = useSelector(selectPatientUserId);
                       lg={3}
                       xl={3}
                     >
-                      {/* <Typography className={styles.consultationCharges}> */}
-                      <MonetizationOnIcon
+                      {/* <MonetizationOnIcon
                         sx={{
                           fontSize: "58px",
                           margin: "5px, 9px, 5px, 12px",
                           color: "#10a0bd",
                         }}
-                      />
+                      /> */}
+                      <img src={moneyicon} style={{width:"100%", height:"40%"}}/>
                     </Grid>
                     <Grid
                       container
@@ -465,9 +466,11 @@ const patientId = useSelector(selectPatientUserId);
                       lg={9}
                       xl={9}
                       className={styles.consultationText}
+                      sx={{ display: "flex", gap: "4px" }}
                     >
-                      {doctorDetails?.charges || "Charges not available"}
-                      Per Consultation
+                     <span>{doctorDetails?.charges || "Charges not available"}</span>
+                    <span>{doctorDetails?.preferredCurrency || "Charges not available"}</span>
+                    Per Consultation
                     </Grid>
                   </Grid>
                   <Grid
@@ -772,7 +775,7 @@ const patientId = useSelector(selectPatientUserId);
                               control={control}
                               name="timezone"
                               fullWidth={true}
-                              className={styles.fieldContainer}
+                              className={styles.timeZonefieldContainer}
                               placeholder="Selected timezone"
                               value={doctorTimeZone}
                               disabled = {true}
