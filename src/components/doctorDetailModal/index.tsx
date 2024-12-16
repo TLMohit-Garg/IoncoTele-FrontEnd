@@ -34,7 +34,7 @@ import {
 } from "../../store/authPatientSlice";
 import { Stepper, Step, StepLabel, Button } from "@mui/material";
 import { loadStripe } from "@stripe/stripe-js";
-import moneyicon from "../../assets/note2.png";
+import moneyicon from "../../assets/NOTE.png";
 
 
 const steps = ["Step 1", "Step 2"];

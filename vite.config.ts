@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "http://teleconsultation.ioncosolutions.com:3000",
+      "/api": "https://teleconsultation.ioncosolutions.com",
       // "/api": "http://localhost:3000",
       // "/api": "process.env.VITE_API_URL",
     },

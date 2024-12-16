@@ -80,6 +80,8 @@ export default function CustomCard({
                 Charges
                 <span style={{ fontWeight: "bold", marginLeft: "5px" }}>
                   {hourlyCharges}
+                </span>
+                <span style={{ fontWeight: "bold", marginLeft: "5px" }}>
                   {preferredCurrency}
                 </span>
               </span>
