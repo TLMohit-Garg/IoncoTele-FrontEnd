@@ -1,0 +1,53 @@
+.profileContainer {
+    width: 100%;
+    padding: 20px;
+  }
+  
+  .headerSection {
+    position: relative;
+    height: 300px;
+    color: white;
+    text-align: left;
+    padding: 20px;
+  }
+  
+  .profileName {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .profileTitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  
+  .contactInfo {
+    padding: 20px;
+  }
+  
+  .buttonsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .chatButton {
+    width: 100%;
+  }
+  
+  .signupButton {
+    width: 100%;
+  }
+  
+  .ratingsSection {
+    padding: 20px;
+  }
+  
+  .multimediaSection {
+    padding: 20px;
+  }
+  
+  .loanCalculatorSection {
+    padding: 20px;
+  }
+  

@@ -20,6 +20,10 @@ import {
   selectDoctorUserData,
 } from "../../store/authDoctorSlice";
 import DoctorAvailability from "../setAvailability";
+import { Box, CircularProgress, IconButton, Rating } from "@mui/material";
+import EmailIcon from '@mui/icons-material/Email';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 function DoctorProfile() {
   const userId = useSelector(selectDoctorUserId);
@@ -226,411 +230,408 @@ function DoctorProfile() {
 
   return (
     <>
-      <Grid
-        container
-        item
-        xl={12}
-        lg={12}
-        md={12}
-        sm={12}
-        xs={12}
-        className={styles.parentGrid}
-        justifyContent={"space-between"}
+      <Box
+        sx={{
+          borderRadius: '4px',
+          backgroundColor: '#F5F5F5',
+          padding: '16px',
+          margin: '16px',
+        }}
       >
-        <Grid
-          container
-          item
-          xl={5}
-          lg={5}
-          md={5}
-          sm={5}
-          xs={5}
-          className={styles.profileimageGrid}
-        >
-          {profileData && (
-            <>
-              <img
-                src={profileData.imageUrl}
-                alt="Doctor Profile"
-                style={{ width: "450px", height: "auto", marginTop: "10px" }}
-              />
-            </>
-          )}
-        </Grid>
-        <Grid
-          container
-          item
-          xl={6}
-          lg={6}
-          md={6}
-          sm={6}
-          xs={6}
-          className={styles.profileinfo}
-          mt={1}
-          sx={{ marginBottom: "25px", height: "auto" }}
-        >
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            userData && (
-              <>
-                <Grid
-                  container
-                  item
-                  xl={12}
-                  lg={12}
-                  md={12}
-                  sm={12}
-                  xs={12}
-                  className={styles.profileName}
-                >
-                  <Typography className={styles.userName}>
-                    Dr.{userData.firstName}
-                  </Typography>
-                </Grid>
+        <Grid container spacing={2}>
+          {/* First Grid - 4 out of 12 */}
+          <Grid item xs={12} sm={4} lg={4}>
+            <Box sx={{ height: 'auto', width: "fit-content", borderRadius: '4px' }}>
+              {profileData && (
+                <>
+                  <img
+                    src={profileData.imageUrl}
+                    alt="Doctor Profile"
+                    style={{ width: "400px", height: "auto", borderRadius: '4px' }}
+                  />
+                </>
+              )}
+            </Box>
+          </Grid>
 
-                <Grid item xl={10} lg={10} md={10} sm={10} xs={10} mt={5}>
-                  <Typography className={styles.contact}>
-                    Contact Information
-                  </Typography>
-                  <Grid container item xl={10} lg={10} md={10} sm={10} xs={10}>
-                    <Divider
-                      textAlign="left"
-                      variant="middle"
-                      flexItem
-                      sx={{ width: "100%", height: "1px" }}
-                    />
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                    mt={2}
-                  >
-                    <Typography className={styles.email}>Email ID:</Typography>
-                    <Typography className={styles.emailValue}>
-                      {userData.email}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                  >
-                    <Typography className={styles.email}>Phone no:</Typography>
-                    <Typography className={styles.emailValue}>
-                      {userData.phone}
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xl={10} lg={10} md={10} sm={10} xs={10} mt={2}>
-                  <Typography className={styles.contact}>
-                    Basic Information
-                  </Typography>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    pt={1}
-                  >
-                    <Divider
-                      textAlign="left"
-                      variant="middle"
-                      flexItem
-                      sx={{ width: "100%", height: "1px" }}
-                    />
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                    mt={2}
-                  >
-                    <Typography className={styles.email}>Gender:</Typography>
-                    <Typography className={styles.emailValue}>
-                      {userData.gender}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                    mt={2}
-                  >
-                    <Typography className={styles.email}>
-                      Nationality:
-                    </Typography>
-                    <Typography className={styles.emailValue}>
-                      {userData.nationality}
-                    </Typography>
-                  </Grid>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    justifyContent={"space-between"}
-                  >
-                    <Typography className={styles.email}>Age:</Typography>
-                    <Typography className={styles.emailValue}>
-                      {userData.age}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </>
-            )
-          )}
+          {/* Second Grid - 7 out of 12 */}
+          <Grid item xs={12} sm={8} lg={8}>
+            <Box sx={{ backgroundColor: '#ffffff', height: 'auto', minHeight: "380px", borderRadius: '4px' }}>
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                userData && (
+                  <>
+                    <Grid container justifyContent={"space-around"} className={styles.parentGrid}>
+                      <Grid
+                        container
+                        item
+                        xl={12}
+                        lg={11}
+                        md={11}
+                        sm={12}
+                        xs={12}
+                        className={styles.profileName}
+                        mt={2}
+                      >
+                        <Typography className={styles.userName}>
+                          Dr.{userData.firstName}
+                        </Typography>
+                      </Grid>
+                      <Grid item xl={6} lg={5} md={5} sm={10} xs={10} mt={3} pt={5} sx={{ height: "200px" }} className={styles.profileName}>
+                        <Typography className={styles.userName}>
+                          Basic Information
+                        </Typography>
+                        <Grid
+                          container
+                          item
+                          xl={10}
+                          lg={10}
+                          md={10}
+                          sm={10}
+                          xs={10}
+                          pt={1}
+                        >
+                          <Divider
+                            textAlign="left"
+                            variant="middle"
+                            flexItem
+                            sx={{ width: "100%", height: "1px" }}
+                          />
+                        </Grid>
+                        <Grid
+                          container
+                          item
+                          xl={10}
+                          lg={10}
+                          md={10}
+                          sm={10}
+                          xs={10}
+                          justifyContent={"space-between"}
+                          mt={2}
+                        >
+                          <Typography className={styles.email}>Gender:</Typography>
+                          <Typography className={styles.emailValue}>
+                            {userData.gender}
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          container
+                          item
+                          xl={10}
+                          lg={10}
+                          md={10}
+                          sm={10}
+                          xs={10}
+                          justifyContent={"space-between"}
+                          mt={2}
+                        >
 
-          {/* {loading ? (
-            <div>Loading...</div> 
-          ):(
-            profileData && (
-              <div>
-          <h2>Doctor Profile</h2>
-          <p>Title: {profileData.title}</p>
-          <p>Speciality: {profileData.speciality}</p>
-          <p>Description: {profileData.description}</p>
-          <p>Experience: {profileData.workExperience} years</p>
-          <p>Qualification: {profileData.qualification}</p>
-          <p>Charges: ${profileData.charges}</p>
-          {/* <img src={profileData.imageUrl} alt="Doctor Profile" width="200" /> */}
-          {/* </div> */}
-          {/* ) */}
-          {/* )}  */}
+                        </Grid>
+                        <Grid
+                          container
+                          item
+                          xl={10}
+                          lg={10}
+                          md={10}
+                          sm={10}
+                          xs={10}
+                          justifyContent={"space-between"}
+                        >
+                          <Typography className={styles.email}>Age:</Typography>
+                          <Typography className={styles.emailValue}>
+                            {userData.age}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                      <Grid item xl={6} lg={5} md={5} sm={10} xs={10} mt={8} pt={4} sx={{ height: "200px" }} className={styles.profileName}>
 
-          {isEditingProfile ? (
-            <>
-              <TextField
-                label="Title"
-                name="title"
-                value={formDataProfile.title}
-                onChange={profilehandleInputChange}
-                // onChange={(e:any) => setFormDataProfile({...formDataProfile, title: e.target.value})}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Speciality"
-                name="speciality"
-                value={formDataProfile.speciality}
-                onChange={profilehandleInputChange}
-                // onChange={(e) => setFormDataProfile({ ...formDataProfile, speciality: e.target.value })}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Description"
-                name="description"
-                value={formDataProfile.description}
-                onChange={profilehandleInputChange}
-                // onChange={(e) => setFormDataProfile({ ...formDataProfile, description: e.target.value })}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Work Experience"
-                name="workExperience"
-                value={formDataProfile.workExperience}
-                onChange={profilehandleInputChange}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Qualification"
-                name="qualification"
-                value={formDataProfile.qualification}
-                onChange={profilehandleInputChange}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Charges"
-                name="charges"
-                value={formDataProfile.charges}
-                onChange={profilehandleInputChange}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Country"
-                name="country"
-                value={formDataProfile.country}
-                onChange={profilehandleInputChange}
-                fullWidth
-                margin="normal"
-              />
-              <TextField
-                label="Preferred Country"
-                name="preferredCurrency"
-                value={formDataProfile.preferredCurrency}
-                onChange={profilehandleInputChange}
-                fullWidth
-                margin="normal"
-              />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={profilehandleImageChange} // Function to handle the image upload
-                style={{ marginTop: "16px" }}
-              />
-              <Button variant="contained" onClick={handleSaveClick}>
-                Save
-              </Button>
-            </>
-          ) : (
-            profileData && (
-              <>
-                <Grid
-                  container
-                  item
-                  xl={10}
-                  lg={10}
-                  md={10}
-                  sm={10}
-                  xs={10}
-                  justifyContent={"space-between"}
-                >
-                  <Typography className={styles.email}>Title:</Typography>
-                  <Typography className={styles.emailValue}>
-                    {profileData.title}
-                  </Typography>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xl={10}
-                  lg={10}
-                  md={10}
-                  sm={10}
-                  xs={10}
-                  justifyContent={"space-between"}
-                >
-                  <Typography className={styles.email}>Speciality:</Typography>
-                  <Typography className={styles.emailValue}>
-                    {profileData.speciality}
-                  </Typography>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xl={10}
-                  lg={10}
-                  md={10}
-                  sm={10}
-                  xs={10}
-                  justifyContent={"space-between"}
-                >
-                  <Typography className={styles.email}>Description:</Typography>
-                  <Typography className={styles.emailValue}>
-                    {profileData.description}
-                  </Typography>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xl={10}
-                  lg={10}
-                  md={10}
-                  sm={10}
-                  xs={10}
-                  justifyContent={"space-between"}
-                >
-                  <Typography className={styles.email}>Qualification:</Typography>
-                  <Typography className={styles.emailValue}>
-                    {profileData.qualification}
-                  </Typography>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xl={10}
-                  lg={10}
-                  md={10}
-                  sm={10}
-                  xs={10}
-                  justifyContent={"space-between"}
-                >
-                  <Typography className={styles.email}>Work Experience:</Typography>
-                  <Typography className={styles.emailValue}>
-                    {profileData.workExperience}
-                  </Typography>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xl={10}
-                  lg={10}
-                  md={10}
-                  sm={10}
-                  xs={10}
-                  justifyContent={"space-between"}
-                >
-                  <Typography className={styles.email}>Country:</Typography>
-                  <Typography className={styles.emailValue}>
-                    {profileData.country}
-                  </Typography>
-                </Grid>
-                
-                <Grid
-                  container
-                  item
-                  xl={10}
-                  lg={10}
-                  md={10}
-                  sm={10}
-                  xs={10}
-                  justifyContent={"space-between"}
-                >
-                  <Typography className={styles.email}>Charges:</Typography>
-                  <Typography className={styles.emailValue}>
-                    {profileData.charges}
-                  </Typography>
-                </Grid>
-                <Grid
-                  container
-                  item
-                  xl={10}
-                  lg={10}
-                  md={10}
-                  sm={10}
-                  xs={10}
-                  justifyContent={"space-between"}
-                >
-                  <Typography className={styles.email}>Preffered Currency:</Typography>
-                  <Typography className={styles.emailValue}>
-                    {profileData.preferredCurrency}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  <Typography variant="body1">
-                    {/* <img
+                        <Grid
+                          container
+                          item
+                          xl={10}
+                          lg={10}
+                          md={10}
+                          sm={10}
+                          xs={10}
+                          justifyContent={"space-between"}
+                          mt={2}
+                        >
+                          <Typography className={styles.email}><EmailIcon /></Typography>
+                          <Typography className={styles.emailValue}>
+                            {userData.email}
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          container
+                          item
+                          xl={10}
+                          lg={10}
+                          md={10}
+                          sm={10}
+                          xs={10}
+                          justifyContent={"space-between"}
+                        >
+                          <Typography className={styles.email}><LocalPhoneIcon /></Typography>
+                          <Typography className={styles.emailValue}>
+                            {userData.phone}
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          container
+                          item
+                          xl={10}
+                          lg={10}
+                          md={10}
+                          sm={10}
+                          xs={10}
+                          justifyContent={"space-between"}
+                        >
+                          <Typography className={styles.email}><LocationOnIcon /></Typography>
+                          <Typography className={styles.emailValue}>
+                            {userData.nationality}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+
+                    </Grid>
+                  </>
+                )
+              )}
+            </Box>
+          </Grid>
+
+          {/* Third Grid - 4 out of 12 */}
+          <Grid item xs={12} sm={6} lg={6}>
+            <Box sx={{ backgroundColor: '#ffffff', height: 'auto', borderRadius: '4px' }}>
+              <DoctorAvailability />
+            </Box>
+          </Grid>
+
+          {/* Fourth Grid - 4 out of 12 */}
+          <Grid item xs={12} sm={6} lg={6} className={styles.profileName} >
+            <Box sx={{ backgroundColor: '#ffffff', height: 'auto', borderRadius: '4px', padding: "25px" }}>
+              {isEditingProfile ? (
+                <>
+                  <Button variant="contained" onClick={handleSaveClick}>
+                    Save
+                  </Button>
+                  <TextField
+                    label="Title"
+                    name="title"
+                    value={formDataProfile.title}
+                    onChange={profilehandleInputChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                  <TextField
+                    label="Speciality"
+                    name="speciality"
+                    value={formDataProfile.speciality}
+                    onChange={profilehandleInputChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                  <TextField
+                    label="Description"
+                    name="description"
+                    value={formDataProfile.description}
+                    onChange={profilehandleInputChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                  <TextField
+                    label="Work Experience"
+                    name="workExperience"
+                    value={formDataProfile.workExperience}
+                    onChange={profilehandleInputChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                  <TextField
+                    label="Qualification"
+                    name="qualification"
+                    value={formDataProfile.qualification}
+                    onChange={profilehandleInputChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                  <TextField
+                    label="Charges"
+                    name="charges"
+                    value={formDataProfile.charges}
+                    onChange={profilehandleInputChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                  <TextField
+                    label="Country"
+                    name="country"
+                    value={formDataProfile.country}
+                    onChange={profilehandleInputChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                  <TextField
+                    label="Preferred Country"
+                    name="preferredCurrency"
+                    value={formDataProfile.preferredCurrency}
+                    onChange={profilehandleInputChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={profilehandleImageChange} // Function to handle the image upload
+                    style={{ marginTop: "16px" }}
+                  />
+
+                </>
+              ) : (
+                profileData && (
+                  <>
+                    <Grid container item justifyContent={"flex-end"}
+                      className={styles.parentGrid}
+                      mb={4}
+                    >
+                      <IconLabelButtons
+                        name={"Edit"}
+                        // variant={"contained"}
+                        className={styles.IconLabelButtons}
+                        endIcon={<EditIcon />}
+                        onClick={profilehandleEditClick}
+                      />
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xl={10}
+                      lg={12}
+                      md={12}
+                      sm={6}
+                      xs={6}
+                      justifyContent={"space-between"}
+                      className={styles.parentGrid}
+                    >
+                      <Grid item
+                        xl={3}
+                        lg={3}
+                        md={3}
+                        sm={3}
+                        xs={3}>
+                        <Typography className={styles.email}>Description:</Typography>
+                      </Grid>
+                      <Grid item
+                        xl={7}
+                        lg={7}
+                        md={7}
+                        sm={7}
+                        xs={7}><Typography className={styles.emailValue}>
+                          {profileData.description}
+                        </Typography></Grid>
+
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xl={12}
+                      lg={12}
+                      md={12}
+                      sm={6}
+                      xs={6}
+                      justifyContent={"space-between"}
+                      className={styles.parentGrid}
+                    >
+                      <Typography className={styles.email}>Speciality:</Typography>
+                      <Typography className={styles.emailValue}>
+                        {profileData.speciality}
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xl={12}
+                      lg={12}
+                      md={12}
+                      sm={6}
+                      xs={6}
+                      justifyContent={"space-between"}
+                      className={styles.parentGrid}
+                    >
+                      <Typography className={styles.email}>Qualification:</Typography>
+                      <Typography className={styles.emailValue}>
+                        {profileData.qualification}
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xl={12}
+                      lg={12}
+                      md={12}
+                      sm={6}
+                      xs={6}
+                      justifyContent={"space-between"}
+                      className={styles.parentGrid}
+                    >
+                      <Typography className={styles.email}>Work Experience:</Typography>
+                      <Typography className={styles.emailValue}>
+                        {profileData.workExperience}
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xl={12}
+                      lg={12}
+                      md={12}
+                      sm={6}
+                      xs={6}
+                      justifyContent={"space-between"}
+                      className={styles.parentGrid}
+                    >
+                      <Typography className={styles.email}>Country:</Typography>
+                      <Typography className={styles.emailValue}>
+                        {profileData.country}
+                      </Typography>
+                    </Grid>
+
+                    <Grid
+                      container
+                      item
+                      xl={12}
+                      lg={12}
+                      md={12}
+                      sm={6}
+                      xs={6}
+                      justifyContent={"space-between"}
+                      className={styles.parentGrid}
+                    >
+                      <Typography className={styles.email}>Charges:</Typography>
+                      <Typography className={styles.emailValue}>
+                        {profileData.charges}
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      container
+                      item
+                      xl={12}
+                      lg={12}
+                      md={12}
+                      sm={6}
+                      xs={6}
+                      justifyContent={"space-between"}
+                      className={styles.parentGrid}
+                    >
+                      <Typography className={styles.email}>Preffered Currency:</Typography>
+                      <Typography className={styles.emailValue}>
+                        {profileData.preferredCurrency}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography variant="body1">
+                        {/* <img
                       src={profileData.imageUrl}
                       alt="Doctor Profile"
                       style={{
@@ -639,86 +640,48 @@ function DoctorProfile() {
                         marginTop: "10px",
                       }}
                     /> */}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12}>
-                  {/* <Button
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                      {/* <Button
                     variant="contained"
                     startIcon={<EditIcon />}
                     onClick={profilehandleEditClick}
                   >
                     Edit
                   </Button> */}
-                  <IconLabelButtons
-                          name={"Edit"}
-                          variant={"contained"}
-                          className={styles.IconLabelButtons}
-                          endIcon={<EditIcon />}
-                          onClick={profilehandleEditClick}
-                          />
-                </Grid>
-              </>
-            )
-          )}
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            bankingDetail && (
-              <>
-                <Grid
-                  item
-                  xl={10}
-                  lg={10}
-                  md={10}
-                  sm={10}
-                  xs={10}
-                  mt={2}
-                  mb={5}
-                >
-                  <Typography className={styles.contact}>
-                    Banking Details
-                  </Typography>
-                  <Grid
-                    container
-                    item
-                    xl={10}
-                    lg={10}
-                    md={10}
-                    sm={10}
-                    xs={10}
-                    pt={1}
-                  >
-                    <Divider
-                      textAlign="left"
-                      variant="middle"
-                      flexItem
-                      sx={{ width: "100%", height: "1px" }}
-                    />
-                  </Grid>
-                  {isEditing ? (
-                    <>
-                      <TextField
-                        label="Account Holder Name"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        fullWidth
-                      />
-                      <TextField
-                        label="Account Name"
-                        name="accountName"
-                        value={formData.accountName}
-                        onChange={handleInputChange}
-                        fullWidth
-                      />
-                      {/* Add other TextFields here for editable fields */}
 
-                      <Button variant="contained" onClick={handleSaveClick}>
-                        Save
-                      </Button>
-                    </>
-                  ) : (
-                    <>
+                    </Grid>
+                  </>
+                )
+              )}
+            </Box>
+          </Grid>
+
+          {/* Fifth Grid - 4 out of 12 */}
+          <Grid item xs={12} sm={12} lg={12} className={styles.profileName}>
+            <Box sx={{ backgroundColor: '#ffffff', height: '150px', borderRadius: '4px' }}>
+              <Typography>
+              Banking Details
+                </Typography>
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                bankingDetail && (
+                  <>
+                    <Grid
+                      item
+                      xl={10}
+                      lg={10}
+                      md={10}
+                      sm={10}
+                      xs={10}
+                      mt={2}
+                      mb={5}
+                    >
+                      <Typography className={styles.contact}>
+                        Banking Details
+                      </Typography>
                       <Grid
                         container
                         item
@@ -727,129 +690,171 @@ function DoctorProfile() {
                         md={10}
                         sm={10}
                         xs={10}
-                        justifyContent={"space-between"}
-                        mt={2}
+                        pt={1}
                       >
-                        <Typography className={styles.email}>
-                          Account Holder Name:
-                        </Typography>
-                        <Typography className={styles.emailValue}>
-                          {bankingDetail.fullName}
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        xl={10}
-                        lg={10}
-                        md={10}
-                        sm={10}
-                        xs={10}
-                        justifyContent={"space-between"}
-                        mt={2}
-                      >
-                        <Typography className={styles.email}>
-                          Bank Name:
-                        </Typography>
-                        <Typography className={styles.emailValue}>
-                          {bankingDetail.bankName}
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        xl={10}
-                        lg={10}
-                        md={10}
-                        sm={10}
-                        xs={10}
-                        justifyContent={"space-between"}
-                      >
-                        <Typography className={styles.email}>
-                          Bank Address:
-                        </Typography>
-                        <Typography className={styles.emailValue}>
-                          {bankingDetail.bankAddress}
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        xl={10}
-                        lg={10}
-                        md={10}
-                        sm={10}
-                        xs={10}
-                        justifyContent={"space-between"}
-                      >
-                        <Typography className={styles.email}>
-                          Bank Account Number:
-                        </Typography>
-                        <Typography className={styles.emailValue}>
-                          {bankingDetail.bankAccountNumber}
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        xl={10}
-                        lg={10}
-                        md={10}
-                        sm={10}
-                        xs={10}
-                        justifyContent={"space-between"}
-                      >
-                        <Typography className={styles.email}>
-                          Branch Code:[IFSC/Routing Code]
-                        </Typography>
-                        <Typography className={styles.emailValue}>
-                          {bankingDetail.branchCodeIFSC}
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        xl={10}
-                        lg={10}
-                        md={10}
-                        sm={10}
-                        xs={10}
-                        justifyContent={"space-between"}
-                      >
-                        <Typography className={styles.email}>
-                          Bank Account Number/IBAN:
-                        </Typography>
-                        <Typography className={styles.emailValue}>
-                          {bankingDetail.bankAccountNumberIBAN}
-                        </Typography>
-                      </Grid>
-                      <Grid
-                        container
-                        item
-                        xl={10}
-                        lg={10}
-                        md={10}
-                        sm={10}
-                        xs={10}
-                      >
-                        <IconLabelButtons
-                          name={"Edit"}
-                          variant={"contained"}
-                          className={styles.IconLabelButtons}
-                          endIcon={<EditIcon />}
-                          onClick={handleEditClick}
-                        // onClick={() => editBankingDetail({ accountName: "Updated Account Name" })} // Example of passing new data
+                        <Divider
+                          textAlign="left"
+                          variant="middle"
+                          flexItem
+                          sx={{ width: "100%", height: "1px" }}
                         />
                       </Grid>
-                    </>
-                  )}
-                </Grid>
-              </>
-            )
-          )}
+                      {isEditing ? (
+                        <>
+                          <TextField
+                            label="Account Holder Name"
+                            name="fullName"
+                            value={formData.fullName}
+                            onChange={handleInputChange}
+                            fullWidth
+                          />
+                          <TextField
+                            label="Account Name"
+                            name="accountName"
+                            value={formData.accountName}
+                            onChange={handleInputChange}
+                            fullWidth
+                          />
+                          {/* Add other TextFields here for editable fields */}
+
+                          <Button variant="contained" onClick={handleSaveClick}>
+                            Save
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <Grid
+                            container
+                            item
+                            xl={10}
+                            lg={10}
+                            md={10}
+                            sm={10}
+                            xs={10}
+                            justifyContent={"space-between"}
+                            mt={2}
+                          >
+                            <Typography className={styles.email}>
+                              Account Holder Name:
+                            </Typography>
+                            <Typography className={styles.emailValue}>
+                              {bankingDetail.fullName}
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            xl={10}
+                            lg={10}
+                            md={10}
+                            sm={10}
+                            xs={10}
+                            justifyContent={"space-between"}
+                            mt={2}
+                          >
+                            <Typography className={styles.email}>
+                              Bank Name:
+                            </Typography>
+                            <Typography className={styles.emailValue}>
+                              {bankingDetail.bankName}
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            xl={10}
+                            lg={10}
+                            md={10}
+                            sm={10}
+                            xs={10}
+                            justifyContent={"space-between"}
+                          >
+                            <Typography className={styles.email}>
+                              Bank Address:
+                            </Typography>
+                            <Typography className={styles.emailValue}>
+                              {bankingDetail.bankAddress}
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            xl={10}
+                            lg={10}
+                            md={10}
+                            sm={10}
+                            xs={10}
+                            justifyContent={"space-between"}
+                          >
+                            <Typography className={styles.email}>
+                              Bank Account Number:
+                            </Typography>
+                            <Typography className={styles.emailValue}>
+                              {bankingDetail.bankAccountNumber}
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            xl={10}
+                            lg={10}
+                            md={10}
+                            sm={10}
+                            xs={10}
+                            justifyContent={"space-between"}
+                          >
+                            <Typography className={styles.email}>
+                              Branch Code:[IFSC/Routing Code]
+                            </Typography>
+                            <Typography className={styles.emailValue}>
+                              {bankingDetail.branchCodeIFSC}
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            xl={10}
+                            lg={10}
+                            md={10}
+                            sm={10}
+                            xs={10}
+                            justifyContent={"space-between"}
+                          >
+                            <Typography className={styles.email}>
+                              Bank Account Number/IBAN:
+                            </Typography>
+                            <Typography className={styles.emailValue}>
+                              {bankingDetail.bankAccountNumberIBAN}
+                            </Typography>
+                          </Grid>
+                          <Grid
+                            container
+                            item
+                            xl={10}
+                            lg={10}
+                            md={10}
+                            sm={10}
+                            xs={10}
+                          >
+                            <IconLabelButtons
+                              name={"Edit"}
+                              variant={"contained"}
+                              className={styles.IconLabelButtons}
+                              endIcon={<EditIcon />}
+                              onClick={handleEditClick}
+                            // onClick={() => editBankingDetail({ accountName: "Updated Account Name" })} // Example of passing new data
+                            />
+                          </Grid>
+                        </>
+                      )}
+                    </Grid>
+                  </>
+                )
+              )}
+            </Box>
+          </Grid>
         </Grid>
-        <DoctorAvailability />
-      </Grid>
+      </Box>
     </>
   );
 }

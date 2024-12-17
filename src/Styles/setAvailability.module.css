@@ -1,0 +1,27 @@
+.parentGrid .typo{
+    font-size: 24px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #093b5b;
+  padding: 10px 0px 3px 25px;
+}
+.inputDatepicker{
+    padding: 10px 0px 3px 30px;
+    width: 100%;
+}
+.IconLabelButtons{
+    background-color: #10a0bd;
+  font-size: 18px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: medium;
+  padding: 2px 45px 2px 45px;
+  color: white;
+}
+.IconLabelButtons:hover{
+    background-color: #10a0bd;
+  font-size: 18px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: medium;
+  padding: 2px 45px 2px 45px;
+  color: white;
+}

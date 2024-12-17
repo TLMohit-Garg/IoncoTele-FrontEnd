@@ -7,6 +7,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { selectDoctorUserId } from "../../store/authDoctorSlice";
+import { Button, Grid, TextField, Typography } from "@mui/material";
+import styles from "/src/Styles/setAvailability.module.css";
+import IconLabelButtons from "../CustomButton/Button";
+
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -25,7 +29,7 @@ const DoctorAvailability = () => {
 
   // To get the local Time Zone 
   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const doctorId = useSelector(selectDoctorUserId); 
+  const doctorId = useSelector(selectDoctorUserId);
 
   const addAvailability = async () => {
     if (selectedDate && startTime && endTime) {
@@ -45,9 +49,9 @@ const DoctorAvailability = () => {
         // Post request to save availability
         const response = await axios.post("/api/availability", newSlot);
 
-        setAvailability((prev:any) => [...prev, newSlot]);
+        setAvailability((prev: any) => [...prev, newSlot]);
         setSuccessMessage("Availability added successfully!");
-      } catch (err:any) {
+      } catch (err: any) {
         setError(
           err.response?.data?.message || "Failed to add availability. Please try again."
         );
@@ -58,47 +62,67 @@ const DoctorAvailability = () => {
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div>
-        <h2>Set Your Availability</h2>
-        <DatePicker
-          label="Select Date"
-          value={selectedDate}
-          onChange={(newValue) => setSelectedDate(newValue)}
-        />
-        <TimePicker
-          label="Start Time"
-          value={startTime}
-          onChange={(newValue) => setStartTime(newValue)}
-        />
-        <TimePicker
-          label="End Time"
-          value={endTime}
-          onChange={(newValue) => setEndTime(newValue)}
-        />
-        <button onClick={addAvailability} disabled={loading}>
+    <>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Grid className={styles.parentGrid}>
+          <Typography className={styles.typo}>Set Your Availability</Typography>
+          <Grid container item mt={3} lg={10} md={10} sm={10} justifyContent={"left"} className={styles.inputDatepicker}>
+            <DatePicker
+              label="Select Date"
+              value={selectedDate}
+              onChange={(newValue) => setSelectedDate(newValue)}
+              slotProps={{ textField: { fullWidth: true } }}
+            />
+          </Grid>
+          <Grid container item mt={3} lg={10} md={10} sm={10} justifyContent={"left"} className={styles.inputDatepicker}>
+            <TimePicker
+              label="Start Time"
+              value={startTime}
+              onChange={(newValue) => setStartTime(newValue)}
+              slotProps={{ textField: { fullWidth: true } }}
+            />
+          </Grid>
+          <Grid container item mt={3} lg={10} md={10} sm={10} justifyContent={"left"} className={styles.inputDatepicker}>
+            <TimePicker
+              label="End Time"
+              value={endTime}
+              onChange={(newValue) => setEndTime(newValue)}
+              slotProps={{ textField: { fullWidth: true } }}
+            />
+          </Grid>
+          <Grid container item mt={3} lg={10} md={10} sm={10} justifyContent={"left"} className={styles.inputDatepicker}>
+            {/* <button onClick={addAvailability} disabled={loading}>
           {loading ? "Saving..." : "Add Availability"}
-        </button>
+        </button> */}
+            <IconLabelButtons
+              name={"Add Availability"}
+              variant={"contained"}
+              className={styles.IconLabelButtons}
+              onClick={addAvailability}
+            />
+          </Grid>
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {successMessage && <p style={{ color: "green", paddingLeft: "5px" }}>{successMessage}</p>}
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-
-        <div>
-          <h3>Your Availability</h3>
-          {availability.map((slot:any, index) => (
-            <div key={index}>
-              <p>
-                Date: {slot.date}
-                <br />
-                Time: {slot.startTime} - {slot.endTime}
-                <br />
-                Timezone: {slot.timezone}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </LocalizationProvider>
+          <Grid container item mt={5} spacing={2}>
+            <Grid item xs={12}>
+              <Typography className={styles.typo}>Your Availability</Typography>
+            </Grid>
+            {availability.map((slot: any, index) => (
+              <Grid key={index} item lg={6} md={6} sm={6} xs={12}>
+                <Typography>
+                  Date: {slot.date}
+                  <br />
+                  Time: {slot.startTime} - {slot.endTime}
+                  <br />
+                  Timezone: {slot.timezone}
+                </Typography>
+              </Grid>
+            ))}
+          </Grid>
+        </Grid>
+      </LocalizationProvider>
+    </>
   );
 };
 
