@@ -207,7 +207,17 @@ export default function Home() {
           all without needing to visit a clinic. */}
         </Grid>
       </Grid>
-
+            <Grid container
+          item
+          xl={12}
+          lg={12}
+          md={12}
+          sm={12}
+          xs={12}
+          justifyContent={"center"}
+          className={styles.SearchText}>
+        Explore Doctors Worldwide
+           </Grid>
       <Grid
         className={styles.searchBar}
         container
@@ -605,7 +615,7 @@ export default function Home() {
         <Feedback />
       </Grid>
       <Grid>
-        <WorldMap />
+        {/* <WorldMap /> */}
       </Grid>
     </>
   );
