@@ -5,8 +5,8 @@ import Box from '@mui/material/Box';
 import axios from 'axios';
 
 // Props for the component
-type DoctorNationalitySelectProps = {
-  setSelectedNationality: (nationality: string | null) => void;
+type DoctorCitySelectProps = {
+  setSelectedCity: (city: string | null) => void;
 };
 
 // API response type
@@ -14,54 +14,52 @@ type DoctorProfile = {
   _id: string;
   userId: {
     _id: string;
-    nationality: string;
+    city: string;
   };
 };
 
-// Type for unique nationality list
-type NationalityOption = {
+// Type for unique city list
+type CityOption = {
   id: string;
-  nationality: string;
+  city: string;
 };
 
-const CountrySelect: React.FC<DoctorNationalitySelectProps> = ({ setSelectedNationality }) => {
-  const [nationalities, setNationalities] = useState<NationalityOption[]>([]);
+const CitySelect: React.FC<DoctorCitySelectProps> = ({ setSelectedCity }) => {
+  const [cities, setCities] = useState<CityOption[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   // Fetch data from the API
   useEffect(() => {
-    const fetchNationalities = async () => {
+    const fetchCities = async () => {
       try {
         const response = await axios.get<{ message: string; doctors: DoctorProfile[] }>(
           '/api/doctorProfile/'
         );
         console.log('API Response:', response);
 
-        // Extract unique nationalities
-        const uniqueNationalities = Array.from(
-          new Set(
-            response.data.doctors.map((profile, index) => profile.userId?.nationality).filter(Boolean)
-          )
-        ).map((nationality, index) => ({
-          id: `${nationality.toLowerCase()}-${index}`, // Lowercased for uniqueness
-          nationality,
+        // Extract unique cities
+        const uniqueCities = Array.from(
+          new Set(response.data.doctors.map((profile) => profile.userId?.city).filter(Boolean))
+        ).map((city) => ({
+          id: city.toLowerCase(), // Lowercased for uniqueness
+          city,
         }));
 
-        setNationalities(uniqueNationalities);
+        setCities(uniqueCities);
       } catch (err) {
-        console.error('Error fetching nationalities:', err);
-        setError('Failed to fetch nationality data');
+        console.error('Error fetching cities:', err);
+        setError('Failed to fetch city data');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchNationalities();
+    fetchCities();
   }, []);
 
-  const handleSelect = (event: React.SyntheticEvent, selectedNationality: NationalityOption | null) => {
-    setSelectedNationality(selectedNationality ? selectedNationality.nationality : null);
+  const handleSelect = (event: React.SyntheticEvent, selectedCity: CityOption | null) => {
+    setSelectedCity(selectedCity ? selectedCity.city : null);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -70,9 +68,9 @@ const CountrySelect: React.FC<DoctorNationalitySelectProps> = ({ setSelectedNati
 
   return (
     <Autocomplete
-      id="nationality-select"
-      options={nationalities}
-      getOptionLabel={(option) => option.nationality}
+      id="city-select"
+      options={cities}
+      getOptionLabel={(option) => option.city}
       onChange={handleSelect}
       fullWidth 
       renderOption={(props, option) => (
@@ -82,13 +80,13 @@ const CountrySelect: React.FC<DoctorNationalitySelectProps> = ({ setSelectedNati
           key={option.id}
           sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
         >
-          {option.nationality}
+          {option.city}
         </Box>
       )}
       renderInput={(params) => (
         <TextField
           {...params}
-          placeholder="Country/Locality"
+          placeholder="City"
           sx={{ background: 'white', borderRadius: '4px' }}
           inputProps={{
             ...params.inputProps,
@@ -100,4 +98,4 @@ const CountrySelect: React.FC<DoctorNationalitySelectProps> = ({ setSelectedNati
   );
 };
 
-export default CountrySelect;
+export default CitySelect;

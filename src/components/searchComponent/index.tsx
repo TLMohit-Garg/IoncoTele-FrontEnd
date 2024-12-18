@@ -72,7 +72,8 @@ const SearchDoctor: React.FC<SearchDoctorProps> = ({
   return (
     <Autocomplete
       id="doctor-select-demo"
-      sx={{ width: 550 }}
+      // sx={{ width: 550 }}
+      fullWidth
       options={doctors as DoctorType[]}
       autoHighlight
       getOptionLabel={(option: DoctorType) =>
