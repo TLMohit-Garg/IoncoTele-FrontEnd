@@ -210,7 +210,7 @@ function Header() {
     <>
       <Grid
         container
-        spacing={4}
+        spacing={2}
         className={styles.parentGrid}
         item
         justifyContent={"space-between"}

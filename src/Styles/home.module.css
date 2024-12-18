@@ -1,4 +1,4 @@
- .completeBannerSectionGroup .teliConsultationWith{
+ .teliConsultationWith{
   position: absolute;
   top: 10%; 
   left: 1%;
@@ -30,6 +30,13 @@
   letter-spacing: 0.08em;
   line-height: 1.5;
   display: inline-block;
+}
+.SearchText{
+  color: #10a0bd;
+  font-size: 45px;
+  font-weight: bold;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
 }
 /* .completeBannerSectionGroup .teliConsultationWith .headerText {
   font-size: 40px;

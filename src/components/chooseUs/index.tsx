@@ -1,6 +1,9 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
-import logodoc from "../../assets/logoDoc.png";
+import logodoc from "../../assets/doctorsIcon.png";
+import rangeheartIcon from "../../assets/rangeHeartIcon.png";
+import timeIcon from "../../assets/24Icon.png";
+import qualityService from "../../assets/quality-service.png";
 import docConsultation2 from "../../assets/docWithPatient.png";
 import docOnscreen2 from "../../assets/docOnscreen2.png";
 import docOnScreen from "../../assets/docOnScreen.png";
@@ -84,7 +87,7 @@ function Chooseus() {
               className={styles.chooseus}
               mt={8}
             >
-              <img src={logodoc} className={styles.logo} />
+              <img src={rangeheartIcon} className={styles.logo} />
               <Grid item xl={12} sm={12} md={12} lg={12} xs={12}>
                 <Typography className={styles.chooseustext} mt={3}>
                   Range of Specialities
@@ -106,7 +109,7 @@ function Chooseus() {
               className={styles.chooseus}
               mt={8}
             >
-              <img src={logodoc} className={styles.logo} />
+              <img src={timeIcon} className={styles.logo} />
               <Grid item xl={12} sm={12} md={12} lg={12} xs={12}>
                 <Typography className={styles.chooseustext} mt={3}>
                   24/7 Availability
@@ -128,7 +131,7 @@ function Chooseus() {
               className={styles.chooseus}
               mt={8}
             >
-              <img src={logodoc} className={styles.logo} />
+              <img src={qualityService} className={styles.logo} />
               <Grid item xl={12} sm={12} md={12} lg={12} xs={12}>
                 <Typography className={styles.chooseustext} mt={3}>
                   Quality Service
