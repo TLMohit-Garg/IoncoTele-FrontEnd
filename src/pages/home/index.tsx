@@ -3,7 +3,7 @@ import { Button, Grid, Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import LinearWithValueLabel from "../../components/progressBar";
 // import individualDoctor from "../../assets/doc11.png";
-import docConsult from "../../assets/docDesktop.png";
+import docConsult from "../../assets/cut-image (1).png";
 import Chooseus from "../../components/chooseUs";
 import OnlineSection from "../../components/onlineChat";
 import Feedback from "../../components/feedback";
@@ -14,12 +14,14 @@ import CountrySelect from "../../components/countrySelect";
 import SearchDoctor from "../../components/searchComponent";
 import { useNavigate } from "react-router-dom";
 // import doctorsData from "../../pages/doctors/data.json";
-import countriesData from "../../components/countrySelect/data.json";
+// import countriesData from "../../components/countrySelect/data.json";
 import styles from "../../Styles/home.module.css";
 import DoctorSpecialitySelect from "../../components/doctorSpecialitySelect";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
-import {DoctorType} from "../../customDataTypes/datatypes";
+import { DoctorType } from "../../customDataTypes/datatypes";
+import CitySelect from "../../components/citySelect";
+import bannerImage from "../../assets/banner---Copy.png";
 
 
 export default function Home() {
@@ -30,7 +32,10 @@ export default function Home() {
   const [selectedCountry, setSelectedCountry] = React.useState<string | null>(
     null
   );
-  const[doctors, setDoctors] = React.useState<DoctorType[]>([]);
+  const [selectedCity, setSelectedCity] = React.useState<string | null>(
+    null
+  );
+  const [doctors, setDoctors] = React.useState<DoctorType[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string | null>(null);
 
@@ -41,12 +46,12 @@ export default function Home() {
         const response = await axios.get("/api/doctorProfile");
         console.log("API Response after select :", response.data.doctors);
         // Ensure the API returns an array of doctors
-      if (Array.isArray(response.data.doctors)) {
-        setDoctors(response.data.doctors);
-      } else {
-        setDoctors([]);
-        console.error("Unexpected API response format.");
-      }
+        if (Array.isArray(response.data.doctors)) {
+          setDoctors(response.data.doctors);
+        } else {
+          setDoctors([]);
+          console.error("Unexpected API response format.");
+        }
       } catch (err) {
         setError("Failed to fetch doctors data. Please try again later.");
       } finally {
@@ -56,26 +61,27 @@ export default function Home() {
 
     fetchDoctors();
   }, []);
-  
+
   const handleSpecialityChange = (event: any) => {
     const speciality = event.target.value;
     console.log("Selected speciality before update:", selectedSpeciality);
     setSelectedSpeciality(speciality);
     console.log("Selected speciality after update:", speciality);
   };
-  
+
   const handleCountryChange = (event: any) => {
     const country = event.target.value;
     console.log("Selected country before update:", selectedCountry);
     setSelectedCountry(country);
     console.log("Selected country after update:", country);
   };
-  
+
   const handleSearch = () => {
     console.log("Search triggered!");
-     console.log("Selected speciality:", selectedSpeciality);
-     console.log("Selected country:", selectedCountry);
-    if (selectedSpeciality && selectedCountry && Array.isArray(doctors)) {
+    console.log("Selected speciality:", selectedSpeciality);
+    console.log("Selected country:", selectedCountry);
+    console.log("Selected city:", selectedCity);
+    if (selectedSpeciality && selectedCountry && selectedCity && Array.isArray(doctors)) {
       console.log("Doctors data before filtering:", doctors);
 
       // Filter doctors based on speciality and country
@@ -85,7 +91,7 @@ export default function Home() {
           doctor.country.toLowerCase().trim() === selectedCountry.toLowerCase().trim()
       );
       console.log("Filtered doctors:", filteredDoctors);
-  
+
       if (filteredDoctors.length === 1) {
         console.log("Navigating to a single doctor profile:", filteredDoctors[0]);
 
@@ -104,7 +110,7 @@ export default function Home() {
       console.log("Either speciality or country is not selected, or doctors data is invalid.");
     }
   };
-  
+
   // const handleSearch = () => {
   //   if (selectedSpeciality && selectedCountry) {
   //     const filteredDoctors = doctors.filter(
@@ -138,12 +144,19 @@ export default function Home() {
         md={12}
         sm={12}
         xs={12}
-        mt={12}
         mb={12}
-        justifyContent={"center"}
+        sx={{
+          position: "relative",
+          backgroundImage: `url(${bannerImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "100vh", // Full height
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center",
+        }}
       >
         <Grid
-          className={styles.teliConsultationWith}
           container
           item
           xl={12}
@@ -151,41 +164,50 @@ export default function Home() {
           md={12}
           sm={12}
           xs={12}
-          justifyContent={"center"}
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 1,
+            backgroundColor: "rgba(0, 0, 0, 0.5)", // Dark overlay
+          }}
+        />
+
+        <Grid
+          className={styles.teliConsultationWith}
+          container
+          item
+          xl={8}
+          lg={8}
+          md={8}
+          sm={10}
+          xs={11}
         >
-          <Grid
-            container
-            item
-            xl={8}
-            lg={8}
-            md={8}
-            sm={8}
-            xs={8}
-            justifyContent={"center"}
-          >
-            Tele Consultation With Our Doctor’s Anywhere, Anytime by Video Call
-          </Grid>
+          Tele Consultation With Our Doctor’s Anywhere, Anytime by Video Call
         </Grid>
+
         <Grid
           className={styles.bannerParatext}
           container
           item
-          xl={7}
-          lg={7}
-          md={7}
-          sm={7}
-          xs={7}
-          mt={3}
-          justifyContent={"end"}
+          xl={6}
+          lg={6}
+          md={8}
+          sm={10}
+          xs={11}
         >
           Get expert medical advice from the comfort of your home with our video
-          consultation service. Connect with our experienced doctors in real
-          time, wherever you are, for a range of medical needs—from general
-          {/* health concerns to specialist consultations. Our seamless video
-          platform allowing you to receive guidance, discuss symptoms, and get
-          personalized recommendations, all without needing to visit a clinic. */}
+          consultation service. Connect with our experienced doctors in real time,
+          wherever you are, for a range of medical needs—from general health concerns
+          to specialist consultations. 
+          {/* Our seamless video platform allows you to
+          receive guidance, discuss symptoms, and get personalized recommendations,
+          all without needing to visit a clinic. */}
         </Grid>
       </Grid>
+
       <Grid
         className={styles.searchBar}
         container
@@ -218,9 +240,9 @@ export default function Home() {
         <Grid
           container
           item
-          xl={4}
-          lg={4}
-          md={4}
+          xl={2}
+          lg={2}
+          md={2}
           sm={12}
           xs={12}
           justifyContent={"center"}
@@ -233,41 +255,75 @@ export default function Home() {
         <Grid
           container
           item
-          xl={4}
-          lg={4}
-          md={4}
+          xl={2}
+          lg={2}
+          md={2}
           sm={12}
           xs={12}
           justifyContent={"left"}
           className={styles.countrysearchBar}
         >
           <CountrySelect
-            countries={countriesData}
-            setSelectedCountry={setSelectedCountry}
+            setSelectedNationality={setSelectedCountry}
           />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              console.log("Search button clicked");
-              handleSearch();
-            }}
-            disabled={!selectedSpeciality || !selectedCountry}
-            sx={{
-              marginLeft: "5px",
-              bgcolor:
-                !selectedSpeciality || !selectedCountry
-                  ? "primary.light"
-                  : "primary.main",
-              color: "white",
-              "&.Mui-disabled": {
-                bgcolor: "grey.300", // Lighter grey color for disabled state
-                color: "grey.500", // Adjust text color for visibility
-              },
-            }}
+        </Grid>
+        <Grid
+          container
+          item
+          xl={3}
+          lg={3}
+          md={3}
+          sm={12}
+          xs={12}
+          justifyContent={"flex-start"}
+          alignItems={"center"}
+          className={styles.citysearchBar}
+        >
+          <Grid item xl={6}
+            lg={6}
+            md={6}
+            sm={12}
+            xs={12}>
+            <CitySelect setSelectedCity={setSelectedCity} />
+          </Grid>
+          <Grid container item xl={6}
+            lg={6}
+            md={6}
+            sm={12}
+            xs={12}
+            justifyContent={"center"}
           >
-            <SearchIcon />
-          </Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                console.log("Search button clicked");
+                handleSearch();
+              }}
+              disabled={!selectedSpeciality || !selectedCountry || !selectedCity}
+              sx={{
+                marginLeft: "5px",
+                height: "55px",
+                bgcolor:
+                  !selectedSpeciality || !selectedCountry || !selectedCity
+                    ? "grey.300"
+                    : "#10a0bd",
+                color: "white",
+                "&:hover": {
+                  bgcolor: "#10a0bd",
+                },
+                "&:focus": {
+                  bgcolor: "#10a0bd",
+                },
+                "&.Mui-disabled": {
+                  bgcolor: "grey.300",
+                  color: "grey.500",
+                },
+              }}
+            >
+              <SearchIcon />
+            </Button>
+          </Grid>
+
         </Grid>
       </Grid>
 
