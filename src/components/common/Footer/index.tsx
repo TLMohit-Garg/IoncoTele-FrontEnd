@@ -81,7 +81,7 @@ export default function Footer() {
                 level="body-lg"
                 sx={{
                   color: "white",
-                  fontSize: "24px",
+                  fontSize: "20px",
                   fontWeight: "semiBold",
                 }}
               >
