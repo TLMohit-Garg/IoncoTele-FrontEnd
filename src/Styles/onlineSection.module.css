@@ -23,14 +23,15 @@
   color: white;
 }
 
-.parentGrid.button2 {
-  background-color: white;
-  color: #10a0bd;
+.buttonSecond {
+  background-color: #aad2da !important;
+  color: #52758b !important;
+  height: 50px;
 }
 
-.parentGrid .button2:hover {
-  background-color: #e2f7fc;
-  color: #10a0bd;
+.buttonSecond:hover {
+  background-color: #e2f7fc !important;
+  color: #10a0bd !important;
 }
 
 .parentGrid .childGrid {

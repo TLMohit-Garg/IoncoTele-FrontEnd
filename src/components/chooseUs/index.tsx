@@ -42,7 +42,8 @@ function Chooseus() {
             className={styles.chooseusHeading}
             mt={5}
           >
-            We Offer A Complete Range of Online Doctor Consultation
+            Ionco is your comprehensive care partner
+            in your cancer treatment journey
           </Grid>
           <Grid
             container
@@ -95,7 +96,7 @@ function Chooseus() {
               </Grid>
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
-                  Access a wide array of medical specialties, ensuring all your
+                  Access a wide array of cancer specialties, ensuring all your
                   health needs are met
                 </Typography>
               </Grid>

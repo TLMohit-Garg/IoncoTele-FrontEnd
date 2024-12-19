@@ -4,7 +4,7 @@
   left: 1%;
   z-index: 2;
   font-stretch: expanded;
-  text-align: center;
+  text-align: left;
   text-align-last: center;
   color: white;
   font-size: 48px;
@@ -17,7 +17,7 @@
 .bannerParatext {
   position: absolute;
   bottom: 45%; /* Default value for large screens */
-  left: 8%;
+  left: 3%;
   z-index: 2;
   margin-top: 1rem; /* mt: 3 in Material-UI translates roughly to 1rem */
   text-align: center;
@@ -37,6 +37,7 @@
   font-weight: bold;
   font-family: 'Poppins', sans-serif;
   line-height: 1.5;
+  margin-bottom: 10px;
 }
 /* .completeBannerSectionGroup .teliConsultationWith .headerText {
   font-size: 40px;
@@ -253,26 +254,52 @@
 }
 
 /* Responsive styles */
-@media (max-width: 1024px) { /* Medium screens (sm) */
+@media (max-width: 2560px) { /* Medium screens (sm) */
   .bannerParatext {
-    bottom: 12%;
+    bottom: 62%;
     font-size: 14px;
     width: 80%;
   }
 }
-@media (max-width: 960px) { /* Medium screens (sm) */
+@media (max-width: 1440px) { 
   .bannerParatext {
-    bottom: 15%;
+    bottom: 52%;
     font-size: 14px;
     width: 80%;
+    text-align: left;
+    text-align-last: center;
   }
 }
-
+@media (max-width: 1024px) { 
+  .bannerParatext {
+    bottom: 48%;
+    font-size: 12px;
+    width: 50%;
+    text-align: left;
+  }
+}
+@media (max-width: 960px) { 
+  .bannerParatext {
+    bottom: 39%;
+    font-size: 11px;
+    width: 50%;
+    text-align: left;
+  }
+}
+@media (max-width: 768px) { /* Small screens (xs) */
+  .bannerParatext {
+    top: 35%;
+    font-size: 10px;
+    text-align: left;
+    width: 50%;
+  }
+}
 @media (max-width: 600px) { /* Small screens (xs) */
   .bannerParatext {
-    bottom: 25%;
-    font-size: 12px;
-    width: 90%;
+    bottom: 35%;
+    font-size: 10px;
+    width: 50%;
+    text-align: left;
   }
 }
 
