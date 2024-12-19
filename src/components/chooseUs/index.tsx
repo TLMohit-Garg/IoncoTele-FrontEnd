@@ -31,7 +31,7 @@ function Chooseus() {
             xs={12}
             className={styles.chooseus}
           >
-            why choose Us
+            Why Choose Us
           </Grid>
           <Grid
             xl={8}

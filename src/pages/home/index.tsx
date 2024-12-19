@@ -21,7 +21,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import { DoctorType } from "../../customDataTypes/datatypes";
 import CitySelect from "../../components/citySelect";
-import bannerImage from "../../assets/banner---Copy.png";
+import bannerImage from "../../assets/bannerXXCopy.png";
+import GridCarousel from "../../components/worldMap";
 
 
 export default function Home() {
@@ -171,7 +172,9 @@ export default function Home() {
             right: 0,
             bottom: 0,
             zIndex: 1,
-            backgroundColor: "rgba(0, 0, 0, 0.5)", // Dark overlay
+            // backgroundColor: "rgba(30, 20, 20, 0.5)", // Dark overlay
+            backgroundColor: "rgba(9, 59, 91, 0.5)"
+            
           }}
         />
 
@@ -185,7 +188,8 @@ export default function Home() {
           sm={10}
           xs={11}
         >
-          Tele Consultation With Our Doctor’s Anywhere, Anytime by Video Call
+          We will help you Fight Cancer through  Tele Consultation
+          {/* Tele Consultation With Our Doctor’s Anywhere, Anytime by Video Call */}
         </Grid>
 
         <Grid
@@ -199,9 +203,9 @@ export default function Home() {
           xs={11}
         >
           Get expert medical advice from the comfort of your home with our video
-          consultation service. Connect with our experienced doctors in real time,
-          wherever you are, for a range of medical needs—from general health concerns
-          to specialist consultations. 
+          consultation service. Connect with our experienced Ioncologist in real time,
+          {/* wherever you are, for a range of medical needs—from general health concerns
+          to specialist consultations.  */}
           {/* Our seamless video platform allows you to
           receive guidance, discuss symptoms, and get personalized recommendations,
           all without needing to visit a clinic. */}
@@ -216,7 +220,7 @@ export default function Home() {
           xs={12}
           justifyContent={"center"}
           className={styles.SearchText}>
-        Explore Doctors Worldwide
+           Explore Ioncologist Worldwide
            </Grid>
       <Grid
         className={styles.searchBar}
@@ -355,11 +359,11 @@ export default function Home() {
           className={styles.completeBannerSectionGroup}
           container
           item
-          xl={7}
-          lg={7}
-          md={7}
-          sm={7}
-          xs={7}
+          xl={6}
+          lg={6}
+          md={6}
+          sm={6}
+          xs={6}
           mt={6}
           pt={6}
           mb={12}
@@ -396,7 +400,7 @@ export default function Home() {
             xs={12}
             mt={6}
           >
-            We Provide Best Online Doctor Consultation For You
+            We Provide Best Online Cancer Consultation For You
           </Grid>
           {/* <Grid
             className={styles.paraGrid}
@@ -456,7 +460,7 @@ export default function Home() {
                   a clinic
                 </Typography>
               </Grid>
-              <Grid
+              {/* <Grid
                 container
                 item
                 xl={12}
@@ -473,11 +477,11 @@ export default function Home() {
                 <Typography className={styles.totalConsultPercentage}>
                   62%
                 </Typography>
-              </Grid>
-              <Grid item xl={12} lg={12} md={12} sm={12} xs={12} mt={2} pl={1}>
+              </Grid> */}
+              {/* <Grid item xl={12} lg={12} md={12} sm={12} xs={12} mt={2} pl={1}>
                 <LinearWithValueLabel />
-              </Grid>
-              <Grid
+              </Grid> */}
+              {/* <Grid
                 container
                 item
                 xl={12}
@@ -514,7 +518,7 @@ export default function Home() {
                     Radiation Oncology
                   </Typography>
                 </Grid>
-              </Grid>
+              </Grid> */}
             </Grid>
             <Grid container item xl={5} lg={5} md={5} sm={5} xs={5}>
               <Grid
@@ -550,7 +554,7 @@ export default function Home() {
                   platform easily
                 </Typography>
               </Grid>
-              <Grid
+              {/* <Grid
                 container
                 item
                 xl={12}
@@ -570,37 +574,7 @@ export default function Home() {
               </Grid>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12} mt={2} pl={1}>
                 <LinearWithValueLabel />
-              </Grid>
-              <Grid
-                container
-                item
-                xl={12}
-                lg={12}
-                md={12}
-                sm={12}
-                xs={12}
-                mt={2}
-              >
-                <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
-                  <img
-                    src={
-                      "https://teleconsultation.ioncosolutions.com/assets/Dr-(Col)-Ashok-Kumar.jpg"
-                    }
-                    alt={"docimage"}
-                    className={styles.docImage}
-                  />
-                </Grid>
-                <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
-                  <Typography className={styles.drName}>
-                    {/* Dr. Marlie Varga */}
-                    Dr. (Lt Col) Ashok Kumar
-                  </Typography>
-                  <Typography className={styles.founderName}>
-                    {/* Founder Ionco Sol. */}
-                    Radiation Oncology
-                  </Typography>
-                </Grid>
-              </Grid>
+              </Grid> */}
             </Grid>
           </Grid>
         </Grid>
@@ -615,7 +589,7 @@ export default function Home() {
         <Feedback />
       </Grid>
       <Grid>
-        {/* <WorldMap /> */}
+        <GridCarousel />
       </Grid>
     </>
   );
