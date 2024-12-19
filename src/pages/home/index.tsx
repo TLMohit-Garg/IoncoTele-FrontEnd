@@ -145,7 +145,7 @@ export default function Home() {
         md={12}
         sm={12}
         xs={12}
-        mb={12}
+        mb={3}
         sx={{
           position: "relative",
           backgroundImage: `url(${bannerImage})`,
@@ -187,9 +187,12 @@ export default function Home() {
           md={8}
           sm={10}
           xs={11}
+          pl={2}
         >
-          We will help you Fight Cancer through  Tele Consultation
+          {/* We will help you Fight Cancer through  Tele Consultation */}
           {/* Tele Consultation With Our Doctor’s Anywhere, Anytime by Video Call */}
+          We will help you Fight <span style={{ color: '#10a0bd', fontWeight: 'bold', marginLeft:"7px", marginRight:"7px" }}>
+          Cancer</span> through <span style={{ color: '#10a0bd', fontWeight: 'bold' }}>Tele Consultation</span>
         </Grid>
 
         <Grid
@@ -203,7 +206,7 @@ export default function Home() {
           xs={11}
         >
           Get expert medical advice from the comfort of your home with our video
-          consultation service. Connect with our experienced Ioncologist in real time,
+          consultation service. Connect with our experienced oncologist's in real time,
           {/* wherever you are, for a range of medical needs—from general health concerns
           to specialist consultations.  */}
           {/* Our seamless video platform allows you to
@@ -219,8 +222,10 @@ export default function Home() {
           sm={12}
           xs={12}
           justifyContent={"center"}
-          className={styles.SearchText}>
-           Explore Ioncologist Worldwide
+          className={styles.SearchText}
+          mb={4}
+          >
+           Explore Oncologist's Worldwide
            </Grid>
       <Grid
         className={styles.searchBar}
@@ -402,7 +407,7 @@ export default function Home() {
           >
             We Provide Best Online Cancer Consultation For You
           </Grid>
-          {/* <Grid
+          <Grid
             className={styles.paraGrid}
             container
             item
@@ -411,10 +416,11 @@ export default function Home() {
             md={10}
             sm={10}
             xs={10}
+            mt={12}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua
-          </Grid> */}
+            {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua */}
+          </Grid>
           <Grid
             className={styles.cardsGrid}
             container
@@ -460,7 +466,7 @@ export default function Home() {
                   a clinic
                 </Typography>
               </Grid>
-              {/* <Grid
+              <Grid
                 container
                 item
                 xl={12}
@@ -472,16 +478,16 @@ export default function Home() {
                 mt={3}
               >
                 <Typography className={styles.totalConsult}>
-                  Total Consultation’s
+                  {/* Total Consultation’s */}
                 </Typography>
                 <Typography className={styles.totalConsultPercentage}>
-                  62%
+                  {/* 62% */}
                 </Typography>
-              </Grid> */}
-              {/* <Grid item xl={12} lg={12} md={12} sm={12} xs={12} mt={2} pl={1}>
-                <LinearWithValueLabel />
-              </Grid> */}
-              {/* <Grid
+              </Grid>
+              <Grid item xl={12} lg={12} md={12} sm={12} xs={12} mt={2} pl={1}>
+                {/* <LinearWithValueLabel /> */}
+              </Grid>
+              <Grid
                 container
                 item
                 xl={12}
@@ -502,23 +508,23 @@ export default function Home() {
                   justifyContent={"center"}
                   pl={2}
                 >
-                  <img
+                  {/* <img
                     src={
                       "https://teleconsultation.ioncosolutions.com/assets/Dr-Munish-Gairola.jpg"
                     }
                     alt={"docimage"}
                     className={styles.docImage}
-                  />
+                  /> */}
                 </Grid>
                 <Grid item xl={6} lg={6} md={6} sm={6} xs={6}>
                   <Typography className={styles.drName}>
-                    Dr. Munish Gairola
+                    {/* Dr. Munish Gairola */}
                   </Typography>
                   <Typography className={styles.founderName}>
-                    Radiation Oncology
+                    {/* Radiation Oncology */}
                   </Typography>
                 </Grid>
-              </Grid> */}
+              </Grid>
             </Grid>
             <Grid container item xl={5} lg={5} md={5} sm={5} xs={5}>
               <Grid
@@ -554,7 +560,7 @@ export default function Home() {
                   platform easily
                 </Typography>
               </Grid>
-              {/* <Grid
+              <Grid
                 container
                 item
                 xl={12}
@@ -566,15 +572,15 @@ export default function Home() {
                 mt={3}
               >
                 <Typography className={styles.totalConsult}>
-                  Total Consultation’s
+                  {/* Total Consultation’s */}
                 </Typography>
                 <Typography className={styles.totalConsultPercentage}>
-                  54%
+                  {/* 54% */}
                 </Typography>
               </Grid>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12} mt={2} pl={1}>
-                <LinearWithValueLabel />
-              </Grid> */}
+                {/* <LinearWithValueLabel /> */}
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

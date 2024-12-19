@@ -57,7 +57,7 @@ function Feedback() {
           justifyContent={"center"}
         >
           <Typography className={styles.paraFeedback}>
-          Read the positive testimonials from our patients who have experienced excellent consultation and outstanding results with Ioco Tele Consultation.
+          Read the positive testimonials from our patients who have experienced excellent consultation and outstanding results with Ionco Tele Consultation.
           </Typography>
         </Grid>
       </Grid>

@@ -45,10 +45,10 @@ function OnlineSection() {
             ml={5}
           >
             <Typography className={styles.consultationText} mt={3}>
-              Start An Tele-Consultation With Our Doctor's
+            Connect with our expert oncologists team
             </Typography>
             <Typography className={styles.consultationPara} mt={1}>
-            Our telemedicine service is designed to be convenient, accessible, 
+            Our teleconsultation service is designed to be convenient, accessible, 
             and effective, enabling you to take control of your health from anywhere. 
             {/* Whether you’re seeking quick advice, a second opinion, or a follow-up consultation, 
             our doctors are here to support you every step of the way. */}
@@ -97,7 +97,7 @@ function OnlineSection() {
             >
               <IconLabelButtons
                 name="More information"
-                className={styles.button2}
+                className={styles.buttonSecond}
                 buttonWidth="250px"
                 endIcon={<ArrowForwardIcon />}
               />
