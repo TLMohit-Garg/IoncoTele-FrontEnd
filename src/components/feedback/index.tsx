@@ -56,7 +56,7 @@ function Feedback() {
           md={7}
           justifyContent={"center"}
         >
-          <Typography className={styles.paraFeedback}>
+          <Typography className={styles.paraFeedback} sx={{textAlignLast:"center"}}>
           Read the positive testimonials from our patients who have experienced excellent consultation and outstanding results with Ionco Tele Consultation.
           </Typography>
         </Grid>

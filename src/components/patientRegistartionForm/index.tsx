@@ -514,7 +514,7 @@ export default function DoctorSignup() {
         xl={5}
         className={styles.consultationImgGrid}
       >
-        <img src={consultationImage} className={styles.consultationImg} />
+        <img src={"https://res.cloudinary.com/dheqzi81c/image/upload/v1734778479/meidum-shot-woman-videocall_cokric.jpg"} className={styles.consultationImg} />
       </Grid>
       <Grid
         container

@@ -21,7 +21,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import { DoctorType } from "../../customDataTypes/datatypes";
 import CitySelect from "../../components/citySelect";
-import bannerImage from "../../assets/bannerXXCopy.png";
+import bannerImage from "../../assets/final-Ioncobanner.png";
 import GridCarousel from "../../components/worldMap";
 
 
@@ -40,6 +40,7 @@ export default function Home() {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string | null>(null);
 
+  const bannerImage = "https://res.cloudinary.com/dheqzi81c/image/upload/v1734778418/bannerIonco_xe4e6q.png";
   React.useEffect(() => {
     const fetchDoctors = async () => {
       try {
@@ -172,8 +173,7 @@ export default function Home() {
             right: 0,
             bottom: 0,
             zIndex: 1,
-            // backgroundColor: "rgba(30, 20, 20, 0.5)", // Dark overlay
-            backgroundColor: "rgba(9, 59, 91, 0.5)"
+            // backgroundColor: "rgba(9, 59, 91, 0.5)"
             
           }}
         />
@@ -376,7 +376,7 @@ export default function Home() {
           alignItems={"center"}
         >
           <img
-            src={docConsult}
+            src={"https://res.cloudinary.com/dheqzi81c/image/upload/v1734778337/cut-image_1_dhkuvl.png"}
             alt={"consultation"}
             className={styles.consultImageFirst}
           />

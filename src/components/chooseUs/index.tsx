@@ -4,9 +4,9 @@ import logodoc from "../../assets/doctorsIcon.png";
 import rangeheartIcon from "../../assets/rangeHeartIcon.png";
 import timeIcon from "../../assets/24Icon.png";
 import qualityService from "../../assets/quality-service.png";
-import docConsultation2 from "../../assets/docWithPatient.png";
-import docOnscreen2 from "../../assets/docOnscreen2.png";
-import docOnScreen from "../../assets/docOnScreen.png";
+// import docConsultation2 from "../../assets/docWithPatient.png";
+// import docOnscreen2 from "../../assets/docOnscreen2.png";
+// import docOnScreen from "../../assets/docOnScreen.png";
 import styles from "../../Styles/chooseUs.module.css";
 
 function Chooseus() {
@@ -173,7 +173,7 @@ function Chooseus() {
             sx={{ alignSelf: "flex-start" }}
           >
             <img
-              src={docConsultation2}
+              src={"https://res.cloudinary.com/dheqzi81c/image/upload/v1734779184/docWithPatient_bwsg1u.avif"}
               alt={"consulation image 2"}
               className={styles.image}
             />
@@ -190,7 +190,7 @@ function Chooseus() {
             sx={{ alignSelf: "flex-end" }}
           >
             <img
-              src={docOnscreen2}
+              src={"https://res.cloudinary.com/dheqzi81c/image/upload/v1734779100/docOnscreen2_q2uhnk.avif"}
               alt={"consulation image 2"}
               className={styles.image}
             />
@@ -207,7 +207,7 @@ function Chooseus() {
             sx={{ alignSelf: "flex-start" }}
           >
             <img
-              src={docOnScreen}
+              src={"https://res.cloudinary.com/dheqzi81c/image/upload/v1734779085/docOnScreen_yr8acv.avif"}
               alt={"consulation image 2"}
               className={styles.image}
             />

@@ -275,7 +275,7 @@ function DoctorProfile() {
                         mt={2}
                       >
                         <Typography className={styles.userName}>
-                          Dr.{userData.firstName}
+                          <span style={{marginRight:"5px"}}>Dr.</span>{userData.firstName}
                         </Typography>
                       </Grid>
                       <Grid item xl={6} lg={5} md={5} sm={10} xs={10} mt={3} pt={5} sx={{ height: "200px" }} className={styles.profileName}>

@@ -80,7 +80,7 @@ function GridLayout() {
       { 
           id: 1, 
           title: 'Software Engineer', 
-          img: imagebohemian, 
+          img: 'https://res.cloudinary.com/dheqzi81c/image/upload/v1734779008/bohemian-man-with-his-arms-crossed_1368-3542_qpflqy.avif', 
           name: 'John Doe', 
           profession: 'Patient', 
           content: 'Teleconsultation experience was seamless and professional, making it easy to connect with a knowledgeable oncologist from the comfort of my home' 
@@ -88,7 +88,7 @@ function GridLayout() {
       { 
           id: 2, 
           title: 'Graphic Designer', 
-          img: imageyoung, 
+          img: 'https://res.cloudinary.com/dheqzi81c/image/upload/v1734778690/young-bearded-man-with-striped-shirt_273609-5677_afu9ik.avif', 
           name: 'Jane Smith', 
           profession: 'Patient', 
           content: 'Grateful for the convenience of teleconsultation, as it allowed me to receive expert advice from an oncologist without the need for travel' 
@@ -96,7 +96,7 @@ function GridLayout() {
       { 
           id: 3, 
           title: 'Project Manager', 
-          img: imageadult, 
+          img: 'https://res.cloudinary.com/dheqzi81c/image/upload/v1734778574/handsome-happy-bearded-man_74855-2827_tk7uuv.avif', 
           name: 'Michael Johnson', 
           profession: 'Patient', 
           content: 'The online consultation was very efficient, and the oncologist took the time to answer all my questions in detail, making me feel confident in my treatment plan.' 
@@ -104,7 +104,7 @@ function GridLayout() {
       { 
           id: 4, 
           title: 'Data Scientist', 
-          img: imagehandsome, 
+          img: 'https://res.cloudinary.com/dheqzi81c/image/upload/v1734778586/handsome-smiling-man-wearing-green-shirt-standing-against-blue-background_662251-587_nre6l3.avif', 
           name: 'Emily Davis', 
           profession: ' Patient', 
           content: 'Teleconsultation has made it so much easier for me to stay in touch with my doctor, especially during these times. ' 
@@ -112,7 +112,7 @@ function GridLayout() {
       { 
           id: 5, 
           title: 'UX/UI Designer', 
-          img: imageguy, 
+          img: 'https://res.cloudinary.com/dheqzi81c/image/upload/v1734778564/guy-shows-thumbs-up_140725-7874_oh6a0q.avif', 
           name: 'David Lee', 
           profession: ' Patient', 
           content: 'I was impressed by the smoothness of the telemedicine platform and the professionalism of the oncologist,' 
@@ -120,7 +120,7 @@ function GridLayout() {
       { 
           id: 6, 
           title: 'Marketing Specialist', 
-          img: image, 
+          img: 'https://res.cloudinary.com/dheqzi81c/image/upload/v1734779846/portrait-confident-serious-young-man_114579-79034_ruiyod.avif', 
           name: 'Sophia Williams', 
           profession: 'Patient ', 
           content: 'Having access to a top-tier oncologist remotely has been a game changer for me. The convenience and quality of the consultation exceeded my expectations' 

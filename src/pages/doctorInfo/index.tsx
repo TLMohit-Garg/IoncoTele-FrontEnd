@@ -231,7 +231,7 @@ const DoctorInfo: React.FC = () => {
             // level="title-lg"
             sx={{ color: "#10a0bd", fontWeight: "bold", fontSize: "42px" }}
           >
-            DR. {doctor.title}
+            Dr. {doctor.title}
           </Typography>
 
           {/* Doctor's Name */}
