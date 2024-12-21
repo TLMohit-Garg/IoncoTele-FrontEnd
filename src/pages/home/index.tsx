@@ -40,7 +40,7 @@ export default function Home() {
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string | null>(null);
 
-  const bannerImage = "https://res.cloudinary.com/dheqzi81c/image/upload/v1734778418/bannerIonco_xe4e6q.png";
+  const bannerImage = "https://res.cloudinary.com/dheqzi81c/image/upload/v1734783138/Ionco-banner_pkthfg.png";
   React.useEffect(() => {
     const fetchDoctors = async () => {
       try {

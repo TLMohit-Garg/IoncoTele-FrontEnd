@@ -43,7 +43,7 @@ function Chooseus() {
             mt={5}
           >
             Ionco is your comprehensive care partner
-            in your cancer treatment journey
+            in your cancer treatment journey.
           </Grid>
           <Grid
             container
@@ -75,7 +75,7 @@ function Chooseus() {
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
                   Consult with highly trained and experienced doctors dedicated
-                  to providing the best care possible
+                  to providing the best possible care.
                 </Typography>
               </Grid>
             </Grid>
@@ -97,7 +97,7 @@ function Chooseus() {
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
                   Access a wide array of cancer specialties, ensuring all your
-                  health needs are met
+                  health needs are met.
                 </Typography>
               </Grid>
             </Grid>
@@ -119,7 +119,7 @@ function Chooseus() {
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
                   Get the support you need, anytime, anywhere, with our
-                  round-the-clock healthcare services
+                  round-the-clock healthcare services.
                 </Typography>
               </Grid>
             </Grid>
@@ -141,7 +141,7 @@ function Chooseus() {
               <Grid item xl={6} sm={6} md={6} lg={6} xs={6}>
                 <Typography className={styles.chooseusPara}>
                   Experience top-notch healthcare services delivered with care,
-                  precision, and professionalism
+                  precision, and professionalism.
                 </Typography>
               </Grid>
             </Grid>
