@@ -405,7 +405,7 @@
 // doctor(s)/medicalmpractitioner(s) in the field of oncology, and past results do not guarantee
 // future success.
 // "
-//                 text="For more details regarding privacy policy, term & condition 
+//                 text="For more details regarding privacy policy, term & condition
 // and refund policy Please visit our Footer section"
 //                 onConfirm={handleConfirm}
 //                 onCancel={handleCloseDialog}
@@ -442,7 +442,7 @@
 // };
 
 // export default DoctorSignup;
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, IconButton, InputAdornment } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createDoctorsSchema } from "../../utils/validation";
@@ -461,11 +461,17 @@ import CustomCheckBox from "../customCheckbox";
 import React from "react";
 import ConfirmationPopup from "../confirmationPopup";
 import { useNavigate } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function DoctorSignup() {
   const navigate = useNavigate();
   const [checkedbox, setCheckedbox] = React.useState<boolean>(false);
   const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const {
     control,
@@ -500,7 +506,18 @@ export default function DoctorSignup() {
       if (response.status === 201) {
         console.log(response.data, "Signup successfully");
         Toast("success", "Signup successful!");
-        reset(); // Reset the form fields
+        reset({
+          email: "",
+          password: "",
+          confirmPassword: "",
+          firstName: "",
+          lastName: "",
+          age: "",
+          nationality: "",
+          gender: "",
+          phone: "",
+          city: "",
+        });
       } else {
         Toast("error", "Signup failed!");
       }
@@ -536,7 +553,12 @@ export default function DoctorSignup() {
         xl={5}
         className={styles.consultationImgGrid}
       >
-        <img src={"https://res.cloudinary.com/dheqzi81c/image/upload/v1734778636/portrait-smiling-young-doctors-standing_dmj173.jpg"} className={styles.consultationImg} />
+        <img
+          src={
+            "https://res.cloudinary.com/dheqzi81c/image/upload/v1734778636/portrait-smiling-young-doctors-standing_dmj173.jpg"
+          }
+          className={styles.consultationImg}
+        />
       </Grid>
       <Grid
         container
@@ -602,7 +624,7 @@ export default function DoctorSignup() {
           </Grid>
 
           {/* Second Row start */}
-          
+
           <Grid
             container
             item
@@ -679,7 +701,7 @@ export default function DoctorSignup() {
               />
             </Grid>
             <Grid container item xs={12} md={5} sm={12} lg={5} xl={5}>
-              <CustomTextField
+              {/* <CustomTextField
                 error={Boolean(errors.confirmPassword)}
                 errorCondition={
                   errors.confirmPassword && (
@@ -693,6 +715,31 @@ export default function DoctorSignup() {
                 fullWidth={true}
                 className={styles.fieldContainer}
                 placeholder="Confirm Password"
+              /> */}
+              <CustomTextField
+                error={Boolean(errors.confirmPassword)}
+                errorCondition={
+                  errors.confirmPassword && (
+                    <Typography className={styles.errorMsg}>
+                      {errors.confirmPassword.message}
+                    </Typography>
+                  )
+                }
+                control={control}
+                name="confirmPassword"
+                type={showPassword ? "text" : "password"}
+                fullWidth={true}
+                className={styles.fieldContainer}
+                placeholder="Confirm Password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={togglePasswordVisibility} edge="end">
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
           </Grid>

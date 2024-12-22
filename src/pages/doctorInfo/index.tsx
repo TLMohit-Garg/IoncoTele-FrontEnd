@@ -125,7 +125,19 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Box, Accordion, AccordionSummary, AccordionDetails, Typography, CircularProgress, Grid, Divider, IconButton, Button, Rating } from "@mui/material";
+import {
+  Box,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  CircularProgress,
+  Grid,
+  Divider,
+  IconButton,
+  Button,
+  Rating,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
@@ -141,8 +153,8 @@ const DoctorInfo: React.FC = () => {
   const [doctor, setDoctor] = React.useState<any>(null);
   const [loading, setLoading] = React.useState<boolean>(true);
   const [error, setError] = React.useState<string | null>(null);
-   const [profileData, setProfileData] =
-      React.useState<doctorProfileDataTypes>();
+  const [profileData, setProfileData] =
+    React.useState<doctorProfileDataTypes>();
 
   React.useEffect(() => {
     const fetchDoctorData = async () => {
@@ -170,7 +182,14 @@ const DoctorInfo: React.FC = () => {
 
   if (loading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
         <CircularProgress />
       </Box>
     );
@@ -206,11 +225,22 @@ const DoctorInfo: React.FC = () => {
           margin: "auto",
           marginBottom: "20px",
           padding: 2,
-          '&:hover': { boxShadow: "md", borderColor: "neutral.outlinedHoverBorder" },
+          "&:hover": {
+            boxShadow: "md",
+            borderColor: "neutral.outlinedHoverBorder",
+          },
         }}
       >
         {/* Image Section */}
-        <AspectRatio ratio="8/9" sx={{ width: { xs: "100%", sm: 250 }, borderRadius: 2, minHeight: { xs: 200, sm: 200 }, maxHeight: "550px" }}>
+        <AspectRatio
+          ratio="8/9"
+          sx={{
+            width: { xs: "100%", sm: 250 },
+            borderRadius: 2,
+            minHeight: { xs: 200, sm: 200 },
+            maxHeight: "550px",
+          }}
+        >
           <img
             src={doctor.imageUrl}
             alt={doctor.title || "Doctor"}
@@ -219,7 +249,7 @@ const DoctorInfo: React.FC = () => {
               objectFit: "cover",
               borderRadius: "8px",
               border: "1px solid light",
-              paddingBottom: "4px"
+              paddingBottom: "4px",
             }}
           />
         </AspectRatio>
@@ -237,7 +267,12 @@ const DoctorInfo: React.FC = () => {
           {/* Doctor's Name */}
           <Typography
             // level="title-lg"
-            sx={{ color: "#8e92a4", fontWeight: "lighter", fontSize: "18px", marginLeft:"5px" }}
+            sx={{
+              color: "#8e92a4",
+              fontWeight: "lighter",
+              fontSize: "18px",
+              marginLeft: "5px",
+            }}
           >
             {doctor.qualification}
           </Typography>
@@ -245,47 +280,70 @@ const DoctorInfo: React.FC = () => {
           {/* Consultation Charges */}
           <Box
             sx={{
-              display: "flex",       // Align items in a row
-              gap: 2,                // Add space between Chips
+              display: "flex", // Align items in a row
+              gap: 2, // Add space between Chips
               marginTop: "15px",
-              flexWrap: "wrap",      // Wrap items if needed on small screens
-            }}>
+              flexWrap: "wrap", // Wrap items if needed on small screens
+            }}
+          >
             <Chip
               variant="outlined"
               color="primary"
               size="sm"
-              sx={{ marginY: 1, fontSize: "0.9rem", fontWeight: "bold", marginTop: "15px", color:"#8e92a4",cursor:"pointer" }}
-              startDecorator={<MonetizationOnIcon sx={{color:"#10a0bd"}}/>}
+              sx={{
+                marginY: 1,
+                fontSize: "0.9rem",
+                fontWeight: "bold",
+                marginTop: "15px",
+                color: "#8e92a4",
+                cursor: "pointer",
+              }}
+              startDecorator={<MonetizationOnIcon sx={{ color: "#10a0bd" }} />}
             >
-              Consultation Charges: {doctor.charges}{doctor.preferredCurrency}
+              Consultation Charges: {doctor.charges}
+              {doctor.preferredCurrency}
             </Chip>
             <Chip
               variant="outlined"
               color="primary"
               size="sm"
-              sx={{ marginY: 1, fontSize: "0.9rem", fontWeight: "bold", marginTop: "15px", color:"#8e92a4",cursor:"pointer" }}
-              startDecorator={<WorkIcon sx={{color:"#10a0bd"}}/>}
+              sx={{
+                marginY: 1,
+                fontSize: "0.9rem",
+                fontWeight: "bold",
+                marginTop: "15px",
+                color: "#8e92a4",
+                cursor: "pointer",
+              }}
+              startDecorator={<WorkIcon sx={{ color: "#10a0bd" }} />}
             >
               Work Experience: {doctor.workExperience} Years
             </Chip>
           </Box>
 
           {/* About Section - Accordion */}
-          <Accordion sx={{ boxShadow: "none" }}>
+          <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography variant="body1" fontWeight="bold" sx={{ color: "#8e92a4", fontSize: "18px" }}>
-                Explore More
+              <Typography
+                variant="body1"
+                fontWeight="bold"
+                sx={{ color: "#8e92a4", fontSize: "18px" }}
+              >
+                Doctor Profile
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography variant="body2" color="text.secondary" sx={{fontWeight:"lighter", textAlign:"justify"}}>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ fontWeight: "lighter", textAlign: "justify" }}
+              >
                 {doctor.exploredescription}
               </Typography>
             </AccordionDetails>
           </Accordion>
         </CardContent>
       </Card>
-     
     </>
   );
 };

@@ -15,33 +15,34 @@ export default function CustomTextField({
   startAdornment,
   onChange,
   disabled, // Allow disabling the field
-  value , // Allow a predefined value
+  type,
+  InputProps,
 }: any) {
   return (
     <Grid component={form} onSubmit={onSubmit}>
       <Controller
         name={name}
         control={control}
-        defaultValue=""
         render={({ field }) => (
           <TextField
             label=""
             variant="outlined"
             fullWidth={fullWidth}
-            {...field}
+            {...field} // React Hook Form automatically manages value and onChange
             error={error}
             size="small"
+            type={type || "text"}
             onChange={(e) => {
-              field.onChange(e);
-              onChange && onChange(e);
+              field.onChange(e); // Ensure React Hook Form captures changes
+              onChange && onChange(e); // Custom onChange handler if provided
             }}
             disabled={disabled}
             InputProps={{
+              ...InputProps,
               className: className,
               startAdornment: startAdornment,
             }}
             placeholder={placeholder}
-            value={value} 
           />
         )}
       />
@@ -49,4 +50,3 @@ export default function CustomTextField({
     </Grid>
   );
 }
-

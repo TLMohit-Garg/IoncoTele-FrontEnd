@@ -420,7 +420,13 @@
 //   );
 // }
 
-import { Grid, Typography } from "@mui/material";
+import {
+  Grid,
+  Typography,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createPatientSchema } from "../../utils/validation";
@@ -439,11 +445,17 @@ import CustomCheckBox from "../customCheckbox";
 import React from "react";
 import ConfirmationPopup from "../confirmationPopup";
 import { useNavigate } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-export default function DoctorSignup() {
+export default function PatientSignup() {
   const navigate = useNavigate();
   const [checkedbox, setCheckedbox] = React.useState<boolean>(false);
   const [dialogOpen, setDialogOpen] = React.useState<boolean>(false);
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const {
     control,
@@ -478,7 +490,18 @@ export default function DoctorSignup() {
       if (response.status === 201) {
         console.log(response.data, "Signup successfully");
         Toast("success", "Signup successful!");
-        reset(); // Reset the form fields
+        reset({
+          email: "",
+          password: "",
+          confirmPassword: "",
+          firstName: "",
+          lastName: "",
+          age: "",
+          nationality: "",
+          gender: "",
+          phone: "",
+          city: "",
+        });
       } else {
         Toast("error", "Signup failed!");
       }
@@ -514,7 +537,12 @@ export default function DoctorSignup() {
         xl={5}
         className={styles.consultationImgGrid}
       >
-        <img src={"https://res.cloudinary.com/dheqzi81c/image/upload/v1734778479/meidum-shot-woman-videocall_cokric.jpg"} className={styles.consultationImg} />
+        <img
+          src={
+            "https://res.cloudinary.com/dheqzi81c/image/upload/v1734778479/meidum-shot-woman-videocall_cokric.jpg"
+          }
+          className={styles.consultationImg}
+        />
       </Grid>
       <Grid
         container
@@ -668,10 +696,40 @@ export default function DoctorSignup() {
                 }
                 control={control}
                 name="confirmPassword"
+                type={showPassword ? "text" : "password"}
                 fullWidth={true}
                 className={styles.fieldContainer}
                 placeholder="Confirm Password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={togglePasswordVisibility} edge="end">
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
+              {/* <TextField
+                error={Boolean(errors.confirmPassword)}
+                helperText={
+                  errors.confirmPassword ? errors.confirmPassword.message : ""
+                }
+                {...control.register("confirmPassword")}
+                fullWidth
+                variant="outlined"
+                type={showPassword ? "text" : "password"}
+                placeholder="Confirm Password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={togglePasswordVisibility} edge="end">
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                className={styles.fieldContainer} */}
             </Grid>
           </Grid>
 
@@ -811,7 +869,7 @@ export default function DoctorSignup() {
                 inputClass={`${styles.inputPhn} ${
                   Boolean(errors?.phone) ? styles.errorBorder : ""
                 }`}
-                placeholder="+91-8050656794"
+                placeholder="+91-9876543210"
                 helperText={errors?.phone?.message}
               />
             </Grid>

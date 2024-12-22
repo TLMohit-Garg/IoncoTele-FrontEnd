@@ -1,5 +1,12 @@
 import React from "react";
-import { Popover, Grid, TextField, Button, Divider } from "@mui/material";
+import {
+  Popover,
+  Grid,
+  TextField,
+  IconButton,
+  Button,
+  Divider,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import { PatientPopoverProps } from "../../customDataTypes/datatypes";
 import axios from "axios";
@@ -11,14 +18,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { signinSchema } from "../../utils/validation";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/authPatientSlice";
-import { setUserId } from '../../store/userSlice';
+import { setUserId } from "../../store/userSlice";
 import styles from "../../Styles/header.module.css";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const PatientPopover: React.FC<PatientPopoverProps> = ({
   open,
   anchorEl,
   handleClose,
-  onSignIn
+  onSignIn,
 }: PatientPopoverProps) => {
   const {
     control,
@@ -30,58 +38,63 @@ const PatientPopover: React.FC<PatientPopoverProps> = ({
   });
 
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = React.useState(false); // State for password visibility
 
-   // Function to decode the JWT token manually
-const decodeJWT = (token: string) => {
-  try {
-    const base64Url = token.split(".")[1]; // Get the payload part of the token
-    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-    const jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split("")
-        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-        .join("")
-    );
-    return JSON.parse(jsonPayload); // Parse the payload as a JSON object
-  } catch (error) {
-    console.error("Invalid token format:", error);
-    return null;
-  }
-};
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword); // Toggle password visibility
+  };
+
+  // Function to decode the JWT token manually
+  const decodeJWT = (token: string) => {
+    try {
+      const base64Url = token.split(".")[1]; // Get the payload part of the token
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+          .join("")
+      );
+      return JSON.parse(jsonPayload); // Parse the payload as a JSON object
+    } catch (error) {
+      console.error("Invalid token format:", error);
+      return null;
+    }
+  };
 
   const handleSignIn = async (data: any) => {
     console.log(JSON.stringify(data));
 
     try {
       const response = await axios.post("/api/patientSignin", data);
-      console.log('Response received:', response)
+      console.log("Response received:", response);
       if (response.status === 200 && response.data.token) {
         const token = response.data.token;
         console.log("Sign in successfully", token);
-  
+
         // Decode the JWT token manually to extract the userId
         const decodedToken = decodeJWT(token);
-        console.log('Decoded Token:', decodedToken);
+        console.log("Decoded Token:", decodedToken);
 
         if (decodedToken && decodedToken.userId) {
           const userId = decodedToken.userId;
           const email = data.email;
           console.log("Decoded userId:", userId);
-  
+
           // Store the token in Redux and localStorage
-          // dispatch(login({ token })); 
+          // dispatch(login({ token }));
           // dispatch(login({ token: response.data.token, email: response.data.email }));
-          dispatch(login({ token, email, userId  }));
+          dispatch(login({ token, email, userId }));
           dispatch(setUserId(userId)); // Storing userId in Redux
-  
+
           localStorage.setItem("patientToken", token);
           localStorage.setItem("patientuserId", userId); // Store userId in localStorage
           localStorage.setItem("patientEmail", email);
-  
-          reset(); 
+
+          reset({ email: "", password: "" });
           Toast("success", "SignIn successfully");
           onSignIn();
-          handleClose(); 
+          handleClose();
         } else {
           console.error("Error decoding userId from token.");
           Toast("error", "Sign-in failed!");
@@ -160,8 +173,21 @@ const decodeJWT = (token: string) => {
                       root: styles.inputLabelProp,
                     },
                   }}
+                  type={showPassword ? "text" : "password"}
                   error={!!errors.password} // Show error state if validation fails
                   helperText={errors.password?.message} // Show error message
+                  InputProps={{
+                    endAdornment: (
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}{" "}
+                        {/* Eye icon toggle */}
+                      </IconButton>
+                    ),
+                  }}
                 />
               )}
             />
@@ -170,13 +196,13 @@ const decodeJWT = (token: string) => {
             Have you forgotten your password?
           </Grid>
           <Grid container justifyContent={"center"} className={styles.loginBtn}>
-            <Button variant="outlined" size="large" type="submit" fullWidth >
+            <Button variant="outlined" size="large" type="submit" fullWidth>
               Login
             </Button>
           </Grid>
           <Grid container justifyContent={"center"}>
             <Link to="/patientSignup" onClick={handleClose}>
-              <Button variant="text" >Join Now</Button>
+              <Button variant="text">Join Now</Button>
             </Link>
           </Grid>
         </Grid>

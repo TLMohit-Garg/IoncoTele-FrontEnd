@@ -15,17 +15,21 @@ import avatarImage from "../../../assets/avatar.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { MenuItem, Menu } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import {selectIsDoctorAuthenticated,selectDoctorToken, logout as doctorLogout,
+import {
+  selectIsDoctorAuthenticated,
+  selectDoctorToken,
+  logout as doctorLogout,
 } from "../../../store/authDoctorSlice";
 import {
-  selectIsPatientAuthenticated,selectPatientToken,
+  selectIsPatientAuthenticated,
+  selectPatientToken,
   logout as patientLogout,
 } from "../../../store/authPatientSlice";
 import { useNavigate } from "react-router-dom";
@@ -109,6 +113,7 @@ function Header() {
     }
     console.log("Token after logout:", localStorage.getItem("patientToken"));
     menuhandleClose();
+    navigate("/home");
   };
 
   const handleProfile = () => {
@@ -160,30 +165,31 @@ function Header() {
     }
     if (isDoctorAuthenticated) {
       setIsDoctorSignedIn(true);
-      console.log('Doctor is authenticated');
+      console.log("Doctor is authenticated");
     }
-   
   }, [isDoctorAuthenticated, doctorToken]);
 
-  React.useEffect(()=> {
-     // Check if patient token exists in localStorage and is valid
-     const patientToken = localStorage.getItem("patientToken");
-     if (patientToken) {
+  React.useEffect(() => {
+    // Check if patient token exists in localStorage and is valid
+    const patientToken = localStorage.getItem("patientToken");
+    if (patientToken) {
       // alert("Patient Token exists in local storage!");
-       const isValid = checkTokenValidity(patientToken);
-       setIsPatientSignedIn(isValid);
-     }
-     if (isPatientAuthenticated) {
-       setIsPatientSignedIn(true);
-     }
-  },[isPatientAuthenticated, patientToken]);
+      const isValid = checkTokenValidity(patientToken);
+      setIsPatientSignedIn(isValid);
+    }
+    if (isPatientAuthenticated) {
+      setIsPatientSignedIn(true);
+    }
+  }, [isPatientAuthenticated, patientToken]);
 
   // Fetch profile image based on login type
   React.useEffect(() => {
     const fetchProfileImage = async () => {
       try {
         let apiUrl = "";
-        const userId = localStorage.getItem("doctoruserId") || localStorage.getItem("patientuserId");
+        const userId =
+          localStorage.getItem("doctoruserId") ||
+          localStorage.getItem("patientuserId");
 
         if (!userId) return; // If no userId is found, stop execution
 
@@ -195,7 +201,10 @@ function Header() {
 
         if (apiUrl) {
           const response = await axios.get(apiUrl);
-          const imageUrl = response.data?.doctor?.imageUrl || response.data?.patient?.imageUrl || null;
+          const imageUrl =
+            response.data?.doctor?.imageUrl ||
+            response.data?.patient?.imageUrl ||
+            null;
           setProfileImage(imageUrl); // Update profile image URL
         }
       } catch (error) {
@@ -276,7 +285,7 @@ function Header() {
                 variant="outlined"
                 aria-describedby={idLogin}
               />
-            )} 
+            )}
           </Grid>
           <Grid
             container
@@ -299,7 +308,7 @@ function Header() {
                 endIcon={<ArrowDropDownIcon />}
                 aria-describedby={id}
               />
-             )} 
+            )}
           </Grid>
         </Grid>
         <Grid
@@ -374,9 +383,7 @@ function Header() {
               justifyContent="center"
               alignItems="center"
               className={styles.phoneTextSection}
-            >
-              
-            </Grid>
+            ></Grid>
           )}
         </Grid>
         <Divider className={styles.divider} />
