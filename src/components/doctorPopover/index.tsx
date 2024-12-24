@@ -20,6 +20,7 @@ import { login } from "../../store/authDoctorSlice";
 import { setUserId } from "../../store/userSlice";
 import styles from "../../Styles/header.module.css";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 const DoctorPopover: React.FC<DoctorPopoverProps> = ({
@@ -38,6 +39,8 @@ const DoctorPopover: React.FC<DoctorPopoverProps> = ({
     resolver: yupResolver(doctorSigninSchema),
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => {
@@ -90,7 +93,9 @@ const DoctorPopover: React.FC<DoctorPopoverProps> = ({
           localStorage.setItem("doctorEmail", email);
 
           reset({ email: "", password: "" });
-          Toast("success", "SignIn successfully");
+          // Toast("success", "SignIn successfully");
+          navigate("/profile");
+          // Toast("success", "Kindly Update your Profile");
           onSignIn();
           handleClose();
         } else {

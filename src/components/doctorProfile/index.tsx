@@ -21,9 +21,9 @@ import {
 } from "../../store/authDoctorSlice";
 import DoctorAvailability from "../setAvailability";
 import { Box, CircularProgress, IconButton, Rating } from "@mui/material";
-import EmailIcon from '@mui/icons-material/Email';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import EmailIcon from "@mui/icons-material/Email";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 function DoctorProfile() {
   const userId = useSelector(selectDoctorUserId);
@@ -43,6 +43,8 @@ function DoctorProfile() {
       title: profileData?.title || "",
       speciality: profileData?.speciality || "",
       description: profileData?.description || "",
+      qualification: profileData?.qualification || "",
+      workExperience: profileData?.workExperience || "",
       charges: profileData?.charges || "",
       country: profileData?.country || "",
       imageUrl: profileData?.imageUrl || "",
@@ -93,6 +95,8 @@ function DoctorProfile() {
         title: profileData.title,
         speciality: profileData.speciality,
         description: profileData.description,
+        qualification: profileData.qualification,
+        workExperience: profileData.workExperience,
         charges: profileData.charges,
         country: profileData.country,
         imageUrl: profileData.imageUrl,
@@ -119,16 +123,32 @@ function DoctorProfile() {
     }
   };
 
-
   const profilehandleEditClick = () => {
     setIsEditingProfile(true);
   };
 
   const handleSaveClick = async () => {
     try {
-      const { title, speciality, description, charges, country, preferredCurrency } =
-        formDataProfile;
-      const payload = { title, speciality, description, charges, country, preferredCurrency };
+      const {
+        title,
+        speciality,
+        description,
+        charges,
+        country,
+        preferredCurrency,
+        qualification,
+        workExperience,
+      } = formDataProfile;
+      const payload = {
+        title,
+        speciality,
+        description,
+        charges,
+        country,
+        preferredCurrency,
+        qualification,
+        workExperience,
+      };
 
       const response = await axios.put(
         `/api/doctorProfile/${userId}`,
@@ -232,22 +252,28 @@ function DoctorProfile() {
     <>
       <Box
         sx={{
-          borderRadius: '4px',
-          backgroundColor: '#F5F5F5',
-          padding: '16px',
-          margin: '16px',
+          borderRadius: "4px",
+          backgroundColor: "#F5F5F5",
+          padding: "16px",
+          margin: "16px",
         }}
       >
         <Grid container spacing={2}>
           {/* First Grid - 4 out of 12 */}
           <Grid item xs={12} sm={4} lg={4}>
-            <Box sx={{ height: 'auto', width: "fit-content", borderRadius: '4px' }}>
+            <Box
+              sx={{ height: "auto", width: "fit-content", borderRadius: "4px" }}
+            >
               {profileData && (
                 <>
                   <img
                     src={profileData.imageUrl}
                     alt="Doctor Profile"
-                    style={{ width: "400px", height: "auto", borderRadius: '4px' }}
+                    style={{
+                      width: "400px",
+                      height: "auto",
+                      borderRadius: "4px",
+                    }}
                   />
                 </>
               )}
@@ -256,13 +282,24 @@ function DoctorProfile() {
 
           {/* Second Grid - 7 out of 12 */}
           <Grid item xs={12} sm={8} lg={8}>
-            <Box sx={{ backgroundColor: '#ffffff', height: 'auto', minHeight: "380px", borderRadius: '4px' }}>
+            <Box
+              sx={{
+                backgroundColor: "#ffffff",
+                height: "auto",
+                minHeight: "380px",
+                borderRadius: "4px",
+              }}
+            >
               {loading ? (
                 <div>Loading...</div>
               ) : (
                 userData && (
                   <>
-                    <Grid container justifyContent={"space-around"} className={styles.parentGrid}>
+                    <Grid
+                      container
+                      justifyContent={"space-around"}
+                      className={styles.parentGrid}
+                    >
                       <Grid
                         container
                         item
@@ -275,10 +312,22 @@ function DoctorProfile() {
                         mt={2}
                       >
                         <Typography className={styles.userName}>
-                          <span style={{marginRight:"5px"}}>Dr.</span>{userData.firstName}
+                          <span style={{ marginRight: "5px" }}>Dr.</span>
+                          {userData.firstName}
                         </Typography>
                       </Grid>
-                      <Grid item xl={6} lg={5} md={5} sm={10} xs={10} mt={3} pt={5} sx={{ height: "200px" }} className={styles.profileName}>
+                      <Grid
+                        item
+                        xl={6}
+                        lg={5}
+                        md={5}
+                        sm={10}
+                        xs={10}
+                        mt={3}
+                        pt={5}
+                        sx={{ height: "200px" }}
+                        className={styles.profileName}
+                      >
                         <Typography className={styles.userName}>
                           Basic Information
                         </Typography>
@@ -310,7 +359,9 @@ function DoctorProfile() {
                           justifyContent={"space-between"}
                           mt={2}
                         >
-                          <Typography className={styles.email}>Gender:</Typography>
+                          <Typography className={styles.email}>
+                            Gender:
+                          </Typography>
                           <Typography className={styles.emailValue}>
                             {userData.gender}
                           </Typography>
@@ -325,9 +376,7 @@ function DoctorProfile() {
                           xs={10}
                           justifyContent={"space-between"}
                           mt={2}
-                        >
-
-                        </Grid>
+                        ></Grid>
                         <Grid
                           container
                           item
@@ -344,8 +393,18 @@ function DoctorProfile() {
                           </Typography>
                         </Grid>
                       </Grid>
-                      <Grid item xl={6} lg={5} md={5} sm={10} xs={10} mt={8} pt={4} sx={{ height: "200px" }} className={styles.profileName}>
-
+                      <Grid
+                        item
+                        xl={6}
+                        lg={5}
+                        md={5}
+                        sm={10}
+                        xs={10}
+                        mt={8}
+                        pt={4}
+                        sx={{ height: "200px" }}
+                        className={styles.profileName}
+                      >
                         <Grid
                           container
                           item
@@ -357,7 +416,9 @@ function DoctorProfile() {
                           justifyContent={"space-between"}
                           mt={2}
                         >
-                          <Typography className={styles.email}><EmailIcon /></Typography>
+                          <Typography className={styles.email}>
+                            <EmailIcon />
+                          </Typography>
                           <Typography className={styles.emailValue}>
                             {userData.email}
                           </Typography>
@@ -372,7 +433,9 @@ function DoctorProfile() {
                           xs={10}
                           justifyContent={"space-between"}
                         >
-                          <Typography className={styles.email}><LocalPhoneIcon /></Typography>
+                          <Typography className={styles.email}>
+                            <LocalPhoneIcon />
+                          </Typography>
                           <Typography className={styles.emailValue}>
                             {userData.phone}
                           </Typography>
@@ -387,13 +450,14 @@ function DoctorProfile() {
                           xs={10}
                           justifyContent={"space-between"}
                         >
-                          <Typography className={styles.email}><LocationOnIcon /></Typography>
+                          <Typography className={styles.email}>
+                            <LocationOnIcon />
+                          </Typography>
                           <Typography className={styles.emailValue}>
                             {userData.nationality}
                           </Typography>
                         </Grid>
                       </Grid>
-
                     </Grid>
                   </>
                 )
@@ -403,14 +467,27 @@ function DoctorProfile() {
 
           {/* Third Grid - 4 out of 12 */}
           <Grid item xs={12} sm={6} lg={6}>
-            <Box sx={{ backgroundColor: '#ffffff', height: 'auto', borderRadius: '4px' }}>
+            <Box
+              sx={{
+                backgroundColor: "#ffffff",
+                height: "auto",
+                borderRadius: "4px",
+              }}
+            >
               <DoctorAvailability />
             </Box>
           </Grid>
 
           {/* Fourth Grid - 4 out of 12 */}
-          <Grid item xs={12} sm={6} lg={6} className={styles.profileName} >
-            <Box sx={{ backgroundColor: '#ffffff', height: 'auto', borderRadius: '4px', padding: "25px" }}>
+          <Grid item xs={12} sm={6} lg={6} className={styles.profileName}>
+            <Box
+              sx={{
+                backgroundColor: "#ffffff",
+                height: "auto",
+                borderRadius: "4px",
+                padding: "25px",
+              }}
+            >
               {isEditingProfile ? (
                 <>
                   <Button variant="contained" onClick={handleSaveClick}>
@@ -486,12 +563,14 @@ function DoctorProfile() {
                     onChange={profilehandleImageChange} // Function to handle the image upload
                     style={{ marginTop: "16px" }}
                   />
-
                 </>
               ) : (
                 profileData && (
                   <>
-                    <Grid container item justifyContent={"flex-end"}
+                    <Grid
+                      container
+                      item
+                      justifyContent={"flex-end"}
                       className={styles.parentGrid}
                       mb={4}
                     >
@@ -514,23 +593,16 @@ function DoctorProfile() {
                       justifyContent={"space-between"}
                       className={styles.parentGrid}
                     >
-                      <Grid item
-                        xl={3}
-                        lg={3}
-                        md={3}
-                        sm={3}
-                        xs={3}>
-                        <Typography className={styles.email}>Description:</Typography>
+                      <Grid item xl={3} lg={3} md={3} sm={3} xs={3}>
+                        <Typography className={styles.email}>
+                          Description:
+                        </Typography>
                       </Grid>
-                      <Grid item
-                        xl={7}
-                        lg={7}
-                        md={7}
-                        sm={7}
-                        xs={7}><Typography className={styles.emailValue}>
+                      <Grid item xl={7} lg={7} md={7} sm={7} xs={7}>
+                        <Typography className={styles.emailValue}>
                           {profileData.description}
-                        </Typography></Grid>
-
+                        </Typography>
+                      </Grid>
                     </Grid>
                     <Grid
                       container
@@ -543,7 +615,9 @@ function DoctorProfile() {
                       justifyContent={"space-between"}
                       className={styles.parentGrid}
                     >
-                      <Typography className={styles.email}>Speciality:</Typography>
+                      <Typography className={styles.email}>
+                        Speciality:
+                      </Typography>
                       <Typography className={styles.emailValue}>
                         {profileData.speciality}
                       </Typography>
@@ -559,7 +633,9 @@ function DoctorProfile() {
                       justifyContent={"space-between"}
                       className={styles.parentGrid}
                     >
-                      <Typography className={styles.email}>Qualification:</Typography>
+                      <Typography className={styles.email}>
+                        Qualification:
+                      </Typography>
                       <Typography className={styles.emailValue}>
                         {profileData.qualification}
                       </Typography>
@@ -575,7 +651,9 @@ function DoctorProfile() {
                       justifyContent={"space-between"}
                       className={styles.parentGrid}
                     >
-                      <Typography className={styles.email}>Work Experience:</Typography>
+                      <Typography className={styles.email}>
+                        Work Experience:
+                      </Typography>
                       <Typography className={styles.emailValue}>
                         {profileData.workExperience}
                       </Typography>
@@ -624,7 +702,9 @@ function DoctorProfile() {
                       justifyContent={"space-between"}
                       className={styles.parentGrid}
                     >
-                      <Typography className={styles.email}>Preffered Currency:</Typography>
+                      <Typography className={styles.email}>
+                        Preffered Currency:
+                      </Typography>
                       <Typography className={styles.emailValue}>
                         {profileData.preferredCurrency}
                       </Typography>
@@ -650,7 +730,6 @@ function DoctorProfile() {
                   >
                     Edit
                   </Button> */}
-
                     </Grid>
                   </>
                 )
@@ -660,10 +739,14 @@ function DoctorProfile() {
 
           {/* Fifth Grid - 4 out of 12 */}
           <Grid item xs={12} sm={12} lg={12} className={styles.profileName}>
-            <Box sx={{ backgroundColor: '#ffffff', height: '150px', borderRadius: '4px' }}>
-              <Typography>
-              Banking Details
-                </Typography>
+            <Box
+              sx={{
+                backgroundColor: "#ffffff",
+                height: "150px",
+                borderRadius: "4px",
+              }}
+            >
+              <Typography>Banking Details</Typography>
               {loading ? (
                 <div>Loading...</div>
               ) : (
@@ -842,7 +925,7 @@ function DoctorProfile() {
                               className={styles.IconLabelButtons}
                               endIcon={<EditIcon />}
                               onClick={handleEditClick}
-                            // onClick={() => editBankingDetail({ accountName: "Updated Account Name" })} // Example of passing new data
+                              // onClick={() => editBankingDetail({ accountName: "Updated Account Name" })} // Example of passing new data
                             />
                           </Grid>
                         </>
