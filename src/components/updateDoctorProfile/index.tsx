@@ -189,6 +189,17 @@ function UpdateProfile() {
               flexWrap: "wrap",
             }}
           >
+            <Typography
+              sx={{
+                fontWeight: "normal",
+                color: "white",
+                paddingLeft: "10px",
+                fontFamily: "Inter, sans-serif",
+                fontSize: "24px",
+              }}
+            >
+              Kindly Update your profile to verify
+            </Typography>
             <Box
               component="form"
               onSubmit={handleSubmit}

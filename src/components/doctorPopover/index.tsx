@@ -94,7 +94,7 @@ const DoctorPopover: React.FC<DoctorPopoverProps> = ({
 
           reset({ email: "", password: "" });
           // Toast("success", "SignIn successfully");
-          navigate("/profile");
+          navigate("/updateProfile");
           // Toast("success", "Kindly Update your Profile");
           onSignIn();
           handleClose();
